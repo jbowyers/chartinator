@@ -1,0 +1,942 @@
+﻿<!DOCTYPE html>
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chartinator</title>
+
+    <!-- Unessential CSS and JS - Just here to make this sample page prettier -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link href="css/styles.css" rel="stylesheet">
+
+
+    <!-- Load modernizr or html5shiv -->
+    <script src="//cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script>window.modernizr || document.write('<script src="lib/modernizr/modernizr-custom.js"><\/script>')</script>
+    <!--<script src="lib/html5shiv/html5shiv.js"></script>-->
+
+    <!-- Load jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="lib/jquery-legacy/jquery.js"><\/script>')</script>
+
+    <!-- Chartinator  -->
+    <script src="js/chartinator.js" ></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            /**
+             * A jQuery plugin that loads data from HTML tables and draws charts using Google Charts.
+             * th elements in HTML table must have one of the following 'data-type' attributes:
+             * 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'  or custom values:  'tooltip'
+             * The caption element's text is used as a title for the chart by default.
+             *
+             * Apply the jQuery Chartinator plugin to the chart canvas(es)
+             * or select the table(s) and Chartinator will insert a new chart canvas(es) after the table
+             * See examples below
+             */
+
+
+            // Bar Chart Example
+            var chart1 = $('#barChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The jQuery selector of the HTML table element to extract the data from - String
+                // Default: false
+                // If unspecified, the element this plugin is applied to must be the HTML table
+                tableSel: '.barChart',
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'BarChart',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 20,
+
+                // Tooltip concatenation order - Array
+                // Defines the order of column index numbers and text strings to concatenate for a custom tooltip.
+                // Default: [] - no tooltip columns
+                tooltipConcat: [0],
+
+                // Google Bar Chart Options
+                barChart: {
+                    chartArea: {
+                        left: "20%",
+                        top: 40,
+                        width: "100%",
+                        height: "80%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Default: body font size
+                    fontSize: 14,
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Bar Chart Sample',
+                    titleTextStyle: {
+
+                        // The chart title font size in pixels - Number
+                        // Default: h3 font size
+                        fontSize: 20
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'bottom'
+                    },
+
+                    // Array of colours
+                    colors: ['#3691ff'],
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 600,
+
+                    // Stack values within a bar or column chart - Boolean
+                    // Default: false.
+                    isStacked: false,
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
+                },
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
+            });
+
+            //  Pie Chart Example
+            var chart2 = $('#pieChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'PieChart',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 10,
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                tooltipConcat: [0],
+
+                // Google Pie Chart Options
+                pieChart: {
+                    chartArea: {
+                        left: "0%",
+                        top: 40,
+                        width: "100%",
+                        height: "100%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Default: body font size
+                    fontSize: 16,
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Pie Chart Sample',
+                    titleTextStyle: {
+
+                        // The chart title font size in pixels - Number
+                        // Default: h3 font size
+                        fontSize: 20
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'right'
+                    },
+
+                    // Array of colours
+                    colors: ['#94ac27', '#3691ff', '#a82180'],
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 400,
+
+                    // Make chart 3D - Boolean
+                    // Default: false.
+                    is3D: true,
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
+                }
+            });
+
+            //  Geo Chart Example
+            var chart3 = $('#geoChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The jQuery selector of the HTML table element to extract the data from - String
+                // Default: false
+                // If unspecified, the element this plugin is applied to must be the HTML table
+                tableSel: '.geoChart',
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'GeoChart',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 12,
+
+                // Tooltip concatenation order - Array
+                // Defines the order of column index numbers and text strings to concatenate for a custom tooltip.
+                // Default: [] - no tooltip columns
+                tooltipConcat: [0],
+
+                // Google Geo Chart Options
+                geoChart: {
+
+                    // Background color
+                    // Default: 'white'
+                    backgroundColor: '#fff',
+
+                    // Color of regions that have no data - String
+                    // Default: '#F5F5F5'
+                    datalessRegionColor: '#F5F5F5',
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 500,
+
+                    // Map region - String
+                    // Options: 'world', continent, region, country, states.
+                    // Default: 'world'
+                    region: 'world',
+
+                    // Resolution - String
+                    // Options: 'countries', 'provinces', 'metros'.
+                    // Default: 'countries'
+                    resolution: 'countries',
+
+                    // Legend options - Object or string
+                    // Options: Object or 'none'.
+                    // Default: null
+                    legend: 'none',
+
+                    colorAxis: {
+
+                        // Start and end colour gradient values - Array
+                        // Default: null
+                        colors: ['#e0e5c8', '#94ac27']
+                    },
+                    tooltip: {
+
+                        // Show tooltip with values on hover - String
+                        // Options: focus, none. Default: 'focus'
+                        trigger: 'focus'
+                    }
+                },
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
+            });
+
+            //  Column Chart Chart Example
+            var chart4 = $('#columnChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The jQuery selector of the HTML table element to extract the data from - String
+                // Default: false
+                // If unspecified, the element this plugin is applied to must be the HTML table
+                tableSel: '#columnChartData',
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'ColumnChart',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 20,
+
+                // Tooltip concatenation order - Array
+                // Defines the order of column index numbers and text strings to concatenate for a custom tooltip.
+                // Default: [] - no tooltip columns
+                tooltipConcat: [0],
+
+                // Google Column Chart Options
+                columnChart: {
+                    chartArea: {
+                        left: "10%",
+                        top: 40,
+                        width: "100%",
+                        height: "65%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Default: body font size
+                    fontSize: 12,
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Column Chart Sample',
+                    titleTextStyle: {
+
+                        // The chart title font size in pixels - Number
+                        // Default: h3 font size
+                        fontSize: 20
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'bottom'
+                    },
+
+                    // Array of colours
+                    colors: ['#a82180', '#dd61b8', '#ff99e1'],
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 400,
+
+                    // Stack values within a bar or column chart - Boolean
+                    // Default: false.
+                    isStacked: true,
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
+                }
+            });
+
+            //  Table Chart Example
+            var chart5 = $('#tableChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The jQuery selector of the HTML table element to extract the data from - String
+                // Default: false
+                // If unspecified, the element this plugin is applied to must be the HTML table
+                tableSel: '.tableChart',
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'Table',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 10,
+
+                // Tooltip concatenation order - Array
+                // Defines the order of column index numbers and text strings to concatenate for a custom tooltip.
+                // Default: [] - no tooltip columns
+                tooltipConcat: [],
+
+                // Google Table Chart Options
+                tableChart: {
+
+                    // Format a data column in a Table Chart
+                    formatter: {
+
+                        // Formatter type - String
+                        // Options: none, BarFormat
+                        // Default: 'none'
+                        type: 'BarFormat',
+
+                        // The index number of the column to format - Integer
+                        // Options: 0, 1, 2, etc.
+                        // Default: 1
+                        column: 1,
+
+                        // Base value number to compare the cell value against - Integer
+                        // Default: 0
+                        base: 0,
+
+                        // Negative bar color - String
+                        // Options: 'red', 'green', 'blue'.
+                        // Default: 'red'
+                        colorNegative: 'red',
+
+                        // Positive bar color - String
+                        // Options: 'red', 'green', 'blue'.
+                        // Default: 'red'
+                        colorPositive: 'blue',
+
+                        // Dark base line when negative values are present - Boolean
+                        // Default value is 'false'
+                        drawZeroLine: false,
+
+                        // Maximum  bar value - Number
+                        // Default: highest value in table
+                        max: null,
+
+                        // Minimum bar value - Number
+                        // Default; lowest value in the table
+                        min: 0,
+
+                        // Show number values - Boolean
+                        // Default: true
+                        showValue: false,
+
+                        // Width of each bar in pixels - Number
+                        // Default: 100
+                        width: 150
+                    },
+
+                    // Allow HTML in cells - Boolean
+                    // default: true
+                    allowHtml: true,
+
+                    // Alternate row styling - Boolean
+                    // Default: true
+                    alternatingRowStyle: true,
+
+                    // Width of container element in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of container element in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 500,
+
+                    // Enable paging - String
+                    // Options: 'enable', 'event', 'disable'.
+                    // Default: 'disable'
+                    page: 'disable',
+
+                    // Rows per page - Integer
+                    // Default 10
+                    pageSize: 10,
+
+                    // Enbale row numbers - Boolean
+                    // Default: false
+                    showRowNumber: false,
+
+                    // Enable sorting String
+                    // Options: 'enable', 'event', 'disable'.
+                    // Default: 'enable'
+                    sort: 'enable',
+
+                    // Sort Ascending - Boolean
+                    // Default: true
+                    sortAscending: false,
+
+                    // The index of a column to sort - Integer
+                    // Default: -1
+                    sortColumn: 1,
+
+                    // CSS class names - Default: no classes
+                    cssClassNames: {
+                        headerRow: 'headerRow',
+                        tableRow: 'tableRow',
+                        oddTableRow: 'oddTableRow',
+                        selectedTableRow: 'selectedTableRow',
+                        hoverTableRow: 'hoverTableRow',
+                        headerCell: 'headerCell',
+                        tableCell: 'tableCell',
+                        rowNumberCell: 'rowNumberCell'
+                    }
+                },
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
+            });
+
+            //  Calendar example
+            var chart6 = $('#myDates').chartinator({
+
+                // Custom Options ------------------------------------------------------
+
+                // The chart type - String
+                // Default: 'BarChart'
+                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                chartType: 'Calendar',
+
+                // Base Font size in pixels - Number
+                // Default: body font size
+                fontSize: 16,
+
+                // Google Calendar Chart Options
+                calendarChart: {
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 200,
+
+                    calendar: {
+
+                        // Cell size in pixels - Number
+                        // Default: 16
+                        cellSize: 14,
+
+                        monthLabel: {
+
+                            // The font size in pixels - Number
+                            // Default: body font size
+                            fontSize: 12,
+
+                            // Font-family name - String
+                            // Default: 'Arial'
+                            fontName: 'Roboto',
+
+                        },
+                        monthOutlineColor: {
+
+                            // Outline color - String
+                            // Default '#000'
+                            stroke: '#a82180'
+                        }
+                    },
+                    colorAxis: {
+
+                        // The colour gradient start and end values
+                        colors: ['ff9de2', '#a82180']
+                    }
+                }
+            });
+
+        });
+    </script>
+
+    <!-- Responsive Menu -->
+    <link href="lib/jquery-responsive-menu/responsive-menu.css" rel="stylesheet">
+    <script src="lib/jquery-responsive-menu/responsive-menu.js"></script>
+    <script>
+        jQuery(function ($) { var menu = $('.rm-nav').rMenu({ minWidth: '1060px' });});
+    </script>
+
+</head>
+
+<body>
+<header>
+    <div class="wrapper">
+        <div class="brand">
+            <p><a href="#" class="logo">Chartinator</a></p>
+        </div>
+
+        <!-- START Responsive Menu HTML -->
+        <div class="rm-container">
+            <a class="rm-toggle rm-button rm-nojs" href="#">Menu</a>
+
+            <nav class="rm-nav rm-nojs rm-lighten">
+                <ul>
+                    <li><a href="#barChart">Bar</a></li>
+                    <li><a href="#charts2">Pie</a></li>
+                    <li><a href="#columnChart">Column</a></li>
+                    <li><a href="#tableChartTitle">Table</a></li>
+                    <li><a href="#geoChartTitle">Geo</a></li>
+                    <li><a href="#charts4">Calendar</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div><!-- .rm-container -->
+        <!-- End Responsive Menu HTML -->
+    </div><!-- .wrapper -->
+</header>
+
+<section id="intro" class="content">
+        <div class="intro">
+            <h1>chartinator</h1>
+            <p class="tagline">Google Charts made easier</p>
+            <p>A jQuery plugin that transforms data from HTML tables into charts using Google Charts</p>
+        </div>
+</section>
+<section id="charts1" class="charts">
+    <div class="wrapper">
+        <section class="col">
+            <table id="myTable" class="barChart geoChart tableChart data-table">
+                <caption>Student Nationalities Table</caption>
+                <tr>
+                    <th scope="col" data-type="string">Country</th>
+                    <th scope="col" data-type="number">Number of Students</th>
+                </tr>
+                <tr>
+                    <td>Bulgaria</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>China</td>
+                    <td align="right">19</td>
+                </tr>
+                <tr>
+                    <td>Colombia</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>France</td>
+                    <td align="right">3</td>
+                </tr>
+                <tr>
+                    <td>Iran</td>
+                    <td align="right">6</td>
+                </tr>
+                <tr>
+                    <td>Italy</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Japan</td>
+                    <td align="right">18</td>
+                </tr>
+                <tr>
+                    <td>Kazakhstan</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Korea</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Mexico</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Poland</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Russia</td>
+                    <td align="right">12</td>
+                </tr>
+                <tr>
+                    <td>Rwanda</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Saudi Arabia</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Spain</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>Tanzania</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Thailand</td>
+                    <td align="right">4</td>
+                </tr>
+                <tr>
+                    <td>Turkey</td>
+                    <td align="right">2</td>
+                </tr>
+
+            </table>
+
+        </section><!-- .col -->
+        <div class="col">
+            <div id="barChart" class="chart"></div>
+        </div>
+    </div><!-- .wrapper -->
+</section>
+<section id="charts2" class="charts">
+    <div class="wrapper">
+        <div class="col">
+            <table id="pieChart" class="pieChart data-table">
+                <caption>Student Nationalities Section 1</caption>
+                <tr>
+                    <th scope="col" data-type="string">Country</th>
+                    <th scope="col" data-type="number">Number of Students</th>
+                </tr>
+                <tr>
+                    <td>China</td>
+                    <td align="right">19</td>
+                </tr>
+
+                <tr>
+                    <td>Japan</td>
+                    <td align="right">18</td>
+                </tr>
+
+                <tr>
+                    <td>Russia</td>
+                    <td align="right">12</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col">
+            <table id="columnChartData" class="data-table">
+                <caption>Student Nationalities by year</caption>
+                <tr>
+                    <th scope="col" data-type="string">Country</th>
+                    <th scope="col" data-type="number">2013</th>
+                    <th scope="col" data-type="number">2014</th>
+                    <th scope="col" data-type="number">2015</th>
+                </tr>
+                <tr>
+                    <td>Bulgaria</td>
+                    <td align="right">1</td>
+                    <td align="right">3</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>China</td>
+                    <td align="right">19</td>
+                    <td align="right">1</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>Colombia</td>
+                    <td align="right">5</td>
+                    <td align="right">1</td>
+                    <td align="right">4</td>
+                </tr>
+                <tr>
+                    <td>France</td>
+                    <td align="right">3</td>
+                    <td align="right">1</td>
+                    <td align="right">3</td>
+                </tr>
+                <tr>
+                    <td>Iran</td>
+                    <td align="right">6</td>
+                    <td align="right">1</td>
+                    <td align="right">4</td>
+                </tr>
+                <tr>
+                    <td>Italy</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Japan</td>
+                    <td align="right">18</td>
+                    <td align="right">5</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>Kazakhstan</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                    <td align="right">4</td>
+                </tr>
+                <tr>
+                    <td>Korea</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Mexico</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>Poland</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>Russia</td>
+                    <td align="right">12</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Rwanda</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Saudi Arabia</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td>Spain</td>
+                    <td align="right">2</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Tanzania</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Thailand</td>
+                    <td align="right">4</td>
+                    <td align="right">1</td>
+                    <td align="right">5</td>
+                </tr>
+                <tr>
+                    <td>Turkey</td>
+                    <td align="right">2</td>
+                    <td align="right">1</td>
+                    <td align="right">1</td>
+                </tr>
+
+            </table>
+            <div id="columnChart" class="columnChart chart"></div>
+        </div>
+    </div><!-- .wrapper -->
+</section>
+<section id="charts3" class="charts">
+    <div class="wrapper">
+        <div class="col">
+            <h3 id="tableChartTitle">Table Chart Sample</h3>
+            <div id="tableChart" class="chart"></div>
+        </div>
+        <div class="col">
+            <h3 id="geoChartTitle">Geo Chart Sample</h3>
+            <div id="geoChart" class="chart"></div>
+        </div>
+    </div><!-- .wrapper -->
+</section>
+<section id="charts4" class="charts">
+    <div class="wrapper">
+        <table id="myDates" class="data-table">
+            <caption>Dates Chart Sample</caption>
+            <tr>
+                <th scope="col" data-type="date">Dates</th>
+                <th scope="col" data-type="number">Values</th>
+            </tr>
+            <tr>
+                <td align="right">Jan 9, 2015</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td align="right">Jan 11, 2015</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td align="right">Feb 12, 2015</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td align="right">Apr 14, 2015</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td align="right">Apr 16, 2015</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td align="right">Apr 18, 2015</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td align="right">Apr 9, 2015</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td align="right">Jun 11, 2015</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td align="right">Jun 12, 2015</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td align="right">Jun 14, 2015</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td align="right">Jul 16, 2015</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td align="right">Jul 18, 2015</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td align="right">Aug 9, 2015</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td align="right">Aug 11, 2015</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td align="right">Aug 12, 2015</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td align="right">Oct 14, 2015</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td align="right">Dec 16, 2015</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td align="right">Dec 18, 2015</td>
+                <td>5</td>
+            </tr>
+        </table>
+    </div><!-- .wrapper -->
+</section><!-- .main -->
+<section class="main">
+    <div class="wrapper">
+        <div id="about" class="dev-output">
+            include "readme.html"
+        </div><!-- .dev-output -->
+    </div><!-- .wrapper -->
+</section><!-- .main -->
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "name": "chartinator",
+  "version": "0.1.1",
+  "authors": [
+    "jbowyers"
+  ],
+  "description": "A jQuery plugin for transforming HTML tables into charts using Google Charts",
+  "main": [
+    "dist/js/chartinator.js",
+    "dist/js/chartinator.min.js"
+  ],
+  "keywords": [
+    "jQuery",
+    "plugin",
+    "chart",
+    "visualization",
+    "Google",
+    "table"
+  ],
+  "license": "GPLv3",
+  "ignore": [
+    "**/.*",
+    "_notes",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "_references",
+    "demo",
+    "doc",
+    "src",
+    "templates",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "Gruntfile.js",
+    "LICENCE.txt",
+    "package.json"
+  ],
+  "dependencies": {
+    "jquery-legacy": "jquery#1.11"
+  },
+  "devDependencies": {
+    "html5shiv": "~3.7.2",
+    "jquery-responsive-menu": "~0.1.5"
+  },
+  "private": false
+}
