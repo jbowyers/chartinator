@@ -194,9 +194,9 @@ https://developers.google.com/chart/
     
     // The CSS literal used to hide the chart.
     hideChartCSS: { 'opacity': 0} 
-    
+
 #### Google Bar Chart Options ####
-    
+
                 // Google Bar Chart Options - Object Literal
     barChart: {
     
@@ -364,9 +364,9 @@ For more information about Google Pie Chart options visit
     
 For more information about Google Column Chart options visit 
 [Google Column Charts](https://developers.google.com/chart/interactive/docs/gallery/columnchart#Configuration_Options)
-    
-#### Google Geo Chart Options ####    
-    
+
+#### Google Geo Chart Options ####
+
                 // Google Geo Chart Options
     geoChart: { 
     
@@ -414,9 +414,9 @@ For more information about Google Column Chart options visit
 Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.  
 For more information about Google Geo Chart options visit 
 [Google Geo Charts](https://developers.google.com/chart/interactive/docs/gallery/geochart#Configuration_Options)
-    
-#### Google Calendar Chart Options #### 
- 
+
+#### Google Calendar Chart Options ####
+
                 // Google Calendar Chart Options
     calendarChart: { 
     
@@ -450,9 +450,9 @@ For more information about Google Geo Chart options visit
     
 For more information about Google Calendar Chart options visit 
 [Google Calendar Charts](https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options)
-    
-#### Google Table Chart Options ####  
-    
+
+#### Google Table Chart Options ####
+
                 // Google Table Chart Options
     tableChart: { 
     
