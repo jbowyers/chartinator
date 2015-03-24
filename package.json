@@ -1,8 +1,8 @@
 {
   "name": "chartinator",
   "title": "Chartinator jQuery plugin",
-  "version": "0.1.1",
-  "description": "A jQuery plugin for transforming HTML tables into charts using Google Charts",
+  "version": "0.2.0",
+  "description": "A jQuery plugin for transforming HTML tables and js arrays into charts using Google Charts",
   "main": "dist/chartinator.js",
   "homepage": "http://chartinator.com",
   "author": "jbowyers",

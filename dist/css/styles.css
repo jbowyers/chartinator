@@ -31,11 +31,16 @@ header:after {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+.brand, h1, h2 {
+     letter-spacing: .5px;
+}
 .brand, h1, h2, h3 {
-     font-family: 'Roboto Condensed', sans-serif;
-     font-weight: 400;
-     letter-spacing: 1px;
- }
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+}
+h1 {
+    font-size: 1.75em;
+}
 .intro h1 {
     margin: 1.5em auto 0;
     text-align: center;
@@ -175,7 +180,7 @@ td {
 .dev-output {
     background-color: rgba(255,255,255,.85);
     color: #000;
-    padding: 2em;
+    padding: 0 2em 2em;
     margin-bottom: 2em;
 }
 
