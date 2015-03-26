@@ -261,10 +261,6 @@ or to add to and replace data extracted from an HTML table including the column 
     // Default: false - Chart extracts data and replaces the HTML table(s) selected above
     tableSel: false,
 
-    // The font size in pixels - Number
-    // Default: The body font size
-    fontSize: 16,
-
     // The tooltip string - Defines a string for concatenating a custom tooltip.
     // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
     // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
@@ -287,6 +283,12 @@ or to add to and replace data extracted from an HTML table including the column 
 
     // The class to apply to the dynamically created chart container element
     chartClass: &#39;chtr-chart&#39;,
+
+    // The chart height aspect ratio custom option
+    // Used to refactor the chart height relative to the width in responsive designs
+    // this is overridden if the Google Charts height option has a value
+    // Default: false - not used
+    chartHeightRatio: false,
 
     // Show table along with chart - String
     // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;. Default: &#39;hide&#39;
@@ -313,11 +315,6 @@ or to add to and replace data extracted from an HTML table including the column 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height aspect ratio custom option - Not a Google Chart option
-        // Used to refactor the chart height relative to the width in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -331,8 +328,10 @@ or to add to and replace data extracted from an HTML table including the column 
         },
 
         // The font size in pixels - Number
-        // Default: body font size
-        fontSize: 16,
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
 
         // Font-family name - String
         // Default: &#39;Arial&#39;
@@ -344,9 +343,11 @@ or to add to and replace data extracted from an HTML table including the column 
 
         titleTextStyle: {
 
-            // The chart title font size in pixels - Number
-            // Default: h3 font size
-            fontSize: 20
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;,
         },
         legend: {
 
@@ -362,6 +363,7 @@ or to add to and replace data extracted from an HTML table including the column 
         // Stack values within a bar or column chart - Boolean
         // Default: false.
         isStacked: false,
+
         tooltip: {
 
             // Shows tooltip with values on hover - String
@@ -382,11 +384,6 @@ or to add to and replace data extracted from an HTML table including the column 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -399,19 +396,27 @@ or to add to and replace data extracted from an HTML table including the column 
             height: &quot;85%&quot;
         },
 
-        // The font size in pixels. Number, Default: body font size
-        fontSize: ,
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
 
-        // The font family name. String, Default: body font family
-        fontName: &#39;&#39;,
+        // The font family name. String
+        // Default: body font family
+        fontName: &#39;Arial&#39;,
 
-        // Chart Title. String, Default: The table caption text.
-        title: &#39;&#39;,
+        // Chart Title. String
+        // Default: The table caption text.
+        title: &#39;Chart Title&#39;,
 
         titleTextStyle: {
 
-            // The chart title font size in pixels. Number, Default: h3 font size
-            fontSize:  
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;, 
         },
 
         legend: {
@@ -446,11 +451,6 @@ or to add to and replace data extracted from an HTML table including the column 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -463,19 +463,27 @@ or to add to and replace data extracted from an HTML table including the column 
             height: &quot;85%&quot;
         },
 
-        // The font size in pixels. Number, Default: body font size
-        fontSize: ,
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
 
-        // The font family name. String, Default: body font family
-        fontName: &#39;&#39;,
+        // The font family name - String
+        // Default: body font family
+        fontName: &#39;Arial&#39;,
 
-        // Chart Title. String, Default: The table caption text.
-        title: &#39;&#39;,
+        // Chart Title - String
+        // Default: The table caption text.
+        title: &#39;Chart Title&#39;,
 
         titleTextStyle: {
 
-            // The chart title font size in pixels. Number, Default: h3 font size
-            fontSize:  
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;,  
         },
 
         legend: {
@@ -509,11 +517,6 @@ or to add to and replace data extracted from an HTML table including the column 
         // Width of chart in pixels - Number
         // Default: automatic (unspecified)
         width: null,
-
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
@@ -571,11 +574,6 @@ or to add to and replace data extracted from an HTML table including the column 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height aspect ratio custom option - Not a Google Chart option
-        // Used to refactor the chart height relative to the width in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.3,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -591,10 +589,24 @@ or to add to and replace data extracted from an HTML table including the column 
                 // String - Default: &#39;Times-Roman&#39;
                 fontName: &#39;Times-Roman&#39;, 
 
-                // The month label font size in pixels. number, Default: 16
-                fontSize: 16 
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: &#39;body&#39;
+                // Default: false - Use Google Charts defaults
+                fontSize: &#39;body&#39;,
             },
+            dayOfWeekLabel: {
 
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: &#39;body&#39;
+                // Default: false - Use Google Charts defaults
+                fontSize: 12,
+
+                // Font-family name - String
+                // Default: &#39;Arial&#39;
+                fontName: &#39;Arial&#39;
+            },
             monthOutlineColor: {
 
                 // The active month outline stroke colour. String, Default: #000
