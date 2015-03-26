@@ -292,10 +292,6 @@ The following are options that are specific to Chartinator and apply to all char
     // Default: false - Chart extracts data and replaces the HTML table(s) selected above
     tableSel: false,
 
-    // The font size in pixels - Number
-    // Default: The body font size
-    fontSize: 16,
-
     // The tooltip string - Defines a string for concatenating a custom tooltip.
     // Keywords: 'domain', 'data', 'label' - these will be replaced with current values
     // 'domain': the primary axis value, 'data': the data value, 'label': the column title
@@ -318,6 +314,12 @@ The following are options that are specific to Chartinator and apply to all char
 
     // The class to apply to the dynamically created chart container element
     chartClass: 'chtr-chart',
+    
+    // The chart height aspect ratio custom option
+    // Used to refactor the chart height relative to the width in responsive designs
+    // this is overridden if the Google Charts height option has a value
+    // Default: false - not used
+    chartHeightRatio: false,
     
     // Show table along with chart - String
     // Options: 'show', 'hide', 'remove'. Default: 'hide'
@@ -349,11 +351,6 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height aspect ratio custom option - Not a Google Chart option
-        // Used to refactor the chart height relative to the width in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -367,8 +364,10 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
         },
 
         // The font size in pixels - Number
-        // Default: body font size
-        fontSize: 16,
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: 'body'
+        // Default: false - Use Google Charts defaults
+        fontSize: 'body',
 
         // Font-family name - String
         // Default: 'Arial'
@@ -380,9 +379,11 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
         
         titleTextStyle: {
 
-            // The chart title font size in pixels - Number
-            // Default: h3 font size
-            fontSize: 20
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: 'body'
+            // Default: false - Use Google Charts defaults
+            fontSize: 'h3',
         },
         legend: {
 
@@ -398,6 +399,7 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
         // Stack values within a bar or column chart - Boolean
         // Default: false.
         isStacked: false,
+        
         tooltip: {
 
             // Shows tooltip with values on hover - String
@@ -424,11 +426,6 @@ The following are some of the Google Charts Pie Chart options, unless otherwise 
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -441,19 +438,27 @@ The following are some of the Google Charts Pie Chart options, unless otherwise 
             height: "85%"
         },
         
-        // The font size in pixels. Number, Default: body font size
-        fontSize: ,
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: 'body'
+        // Default: false - Use Google Charts defaults
+        fontSize: 'body',
         
-        // The font family name. String, Default: body font family
-        fontName: '',
+        // The font family name. String
+        // Default: body font family
+        fontName: 'Arial',
         
-        // Chart Title. String, Default: The table caption text.
-        title: '',
+        // Chart Title. String
+        // Default: The table caption text.
+        title: 'Chart Title',
         
         titleTextStyle: {
         
-            // The chart title font size in pixels. Number, Default: h3 font size
-            fontSize:  
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: 'body'
+            // Default: false - Use Google Charts defaults
+            fontSize: 'h3', 
         },
         
         legend: {
@@ -494,11 +499,6 @@ The following are some of the Google Charts Column Chart options, unless otherwi
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -511,19 +511,27 @@ The following are some of the Google Charts Column Chart options, unless otherwi
             height: "85%"
         },
         
-        // The font size in pixels. Number, Default: body font size
-        fontSize: ,
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: 'body'
+        // Default: false - Use Google Charts defaults
+        fontSize: 'body',
         
-        // The font family name. String, Default: body font family
-        fontName: '',
+        // The font family name - String
+        // Default: body font family
+        fontName: 'Arial',
         
-        // Chart Title. String, Default: The table caption text.
-        title: '',
+        // Chart Title - String
+        // Default: The table caption text.
+        title: 'Chart Title',
         
         titleTextStyle: {
         
-            // The chart title font size in pixels. Number, Default: h3 font size
-            fontSize:  
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: 'body'
+            // Default: false - Use Google Charts defaults
+            fontSize: 'h3',  
         },
 
         legend: {
@@ -563,11 +571,6 @@ The following are some of the Google Charts Geo Chart options, unless otherwise 
         // Width of chart in pixels - Number
         // Default: automatic (unspecified)
         width: null,
-
-        // The chart height scaling factor custom option - Not a Google Chart option
-        // Used to refactor the chart height in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.75,
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
@@ -632,11 +635,6 @@ The following are some of the Google Charts Calendar Chart options, unless other
         // Default: automatic (unspecified)
         width: null,
 
-        // The chart height aspect ratio custom option - Not a Google Chart option
-        // Used to refactor the chart height relative to the width in responsive designs
-        // this is overridden if the height option has a value
-        chartHeightRatio: 0.3,
-
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         // Overrides the chartHeightRatio
@@ -652,10 +650,24 @@ The following are some of the Google Charts Calendar Chart options, unless other
                 // String - Default: 'Times-Roman'
                 fontName: 'Times-Roman', 
                 
-                // The month label font size in pixels. number, Default: 16
-                fontSize: 16 
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: 'body',
             },
+            dayOfWeekLabel: {
             
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: 12,
+
+                // Font-family name - String
+                // Default: 'Arial'
+                fontName: 'Arial'
+            },
             monthOutlineColor: {
             
                 // The active month outline stroke colour. String, Default: #000

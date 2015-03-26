@@ -54,16 +54,19 @@
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'BarChart',
 
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 20,
-
                 // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
                 // Keywords: 'domain', 'data', 'label' - these will be replaced with current values
                 // 'domain': the primary axis value, 'data': the data value, 'label': the column title
                 // Default: false - use Google Charts tooltip defaults
                 // Not supported on pie, calendar charts
                 tooltipConcat: 'domain - label: data',
+
+                // The chart height aspect ratio custom option
+                // Used to refactor the chart height relative to the width in responsive designs
+                // this is overridden if the Google Charts height option has a value
+                // Suggested value: 0.75
+                // Default: false - not used
+                //chartHeightRatio: 0.75,
 
                 // Google Bar Chart Options
                 barChart: {
@@ -72,15 +75,10 @@
                     // Default: automatic (unspecified)
                     width: null,
 
-                    // The chart height aspect ratio custom option - Not a Google Chart option
-                    // Used to refactor the chart height relative to the width in responsive designs
-                    // this is overridden if the height option has a value
-                    chartHeightRatio: 0.75,
-
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
                     // Overrides the chartHeightRatio
-                    //height: 400,
+                    height: 400,
 
                     chartArea: {
                         left: "20%",
@@ -90,8 +88,10 @@
                     },
 
                     // The font size in pixels - Number
-                    // Default: body font size
-                    fontSize: 14,
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    //fontSize: 'body',
 
                     // Font-family name - String
                     // Default: 'Arial'
@@ -102,9 +102,11 @@
                     title: 'Bar Chart Sample',
                     titleTextStyle: {
 
-                        // The chart title font size in pixels - Number
-                        // Default: h3 font size
-                        fontSize: 20
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
                     },
                     legend: {
 
@@ -152,9 +154,12 @@
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'PieChart',
 
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 10,
+                // The chart height aspect ratio custom option
+                // Used to refactor the chart height relative to the width in responsive designs
+                // this is overridden if the Google Charts height option has a value
+                // Suggested value: 0.75
+                // Default: false - not used
+                chartHeightRatio: 0.75,
 
                 // Google Pie Chart Options
                 pieChart: {
@@ -162,11 +167,6 @@
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
                     width: null,
-
-                    // The chart height scaling factor custom option - Not a Google Chart option
-                    // Used to refactor the chart height in responsive designs
-                    // this is overridden if the height option has a value
-                    chartHeightRatio: 0.75,
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -181,8 +181,10 @@
                     },
 
                     // The font size in pixels - Number
-                    // Default: body font size
-                    fontSize: 16,
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    fontSize: 'body',
 
                     // Font-family name - String
                     // Default: 'Arial'
@@ -194,9 +196,11 @@
 
                     titleTextStyle: {
 
-                        // The chart title font size in pixels - Number
-                        // Default: h3 font size
-                        fontSize: 20
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
                     },
                     legend: {
 
@@ -276,9 +280,12 @@
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'GeoChart',
 
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 12,
+                // The chart height aspect ratio custom option
+                // Used to refactor the chart height relative to the width in responsive designs
+                // this is overridden if the Google Charts height option has a value
+                // Suggested value: 0.75
+                // Default: false - not used
+                chartHeightRatio: 0.75,
 
                 // Google Geo Chart Options
                 geoChart: {
@@ -286,11 +293,6 @@
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
                     width: null,
-
-                    // The chart height scaling factor custom option - Not a Google Chart option
-                    // Used to refactor the chart height in responsive designs
-                    // this is overridden if the height option has a value
-                    chartHeightRatio: 0.75,
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -372,9 +374,12 @@
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'ColumnChart',
 
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 20,
+                // The chart height aspect ratio custom option
+                // Used to refactor the chart height relative to the width in responsive designs
+                // this is overridden if the Google Charts height option has a value
+                // Suggested value: 0.75
+                // Default: false - not used
+                chartHeightRatio: 0.75,
 
                 // Google Column Chart Options
                 columnChart: {
@@ -382,11 +387,6 @@
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
                     width: null,
-
-                    // The chart height scaling factor custom option - Not a Google Chart option
-                    // Used to refactor the chart height in responsive designs
-                    // this is overridden if the height option has a value
-                    chartHeightRatio: 0.75,
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -401,8 +401,10 @@
                     },
 
                     // The font size in pixels - Number
-                    // Default: body font size
-                    fontSize: 12,
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    //fontSize: 'body',
 
                     // Font-family name - String
                     // Default: 'Arial'
@@ -414,9 +416,11 @@
 
                     titleTextStyle: {
 
-                        // The chart title font size in pixels - Number
-                        // Default: h3 font size
-                        fontSize: 20
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
                     },
                     legend: {
 
@@ -465,10 +469,6 @@
                 // Default: 'BarChart'
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'Table',
-
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 10,
 
                 // Google Table Chart Options
                 tableChart: {
@@ -591,9 +591,12 @@
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'Calendar',
 
-                // Base Font size in pixels - Number
-                // Default: body font size
-                fontSize: 16,
+                // The chart height aspect ratio custom option
+                // Used to refactor the chart height relative to the width in responsive designs
+                // this is overridden if the Google Charts height option has a value
+                // Suggested value: 0.25
+                // Default: false - not used
+                chartHeightRatio: 0.25,
 
                 // Google Calendar Chart Options
                 calendarChart: {
@@ -606,11 +609,6 @@
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
                     //width: null,
-
-                    // The chart height aspect ratio custom option - Not a Google Chart option
-                    // Used to refactor the chart height relative to the width in responsive designs
-                    // this is overridden if the height option has a value
-                    chartHeightRatio: 0.25,
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -627,13 +625,27 @@
                         monthLabel: {
 
                             // The font size in pixels - Number
-                            // Default: body font size
-                            fontSize: 12,
+                            // Or use css selectors as keywords to assign font sizes from the page
+                            // For example: 'body'
+                            // Default: false - Use Google Charts defaults
+                            //fontSize: 12,
 
                             // Font-family name - String
                             // Default: 'Arial'
                             fontName: 'Roboto'
 
+                        },
+                        dayOfWeekLabel: {
+
+                            // The font size in pixels - Number
+                            // Or use css selectors as keywords to assign font sizes from the page
+                            // For example: 'body'
+                            // Default: false - Use Google Charts defaults
+                            //fontSize: 12,
+
+                            // Font-family name - String
+                            // Default: 'Arial'
+                            fontName: 'Roboto'
                         },
                         monthOutlineColor: {
 

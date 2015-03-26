@@ -50,9 +50,13 @@
             return family;
         };
 
+        //  Get font size function
+        o.getFontSize = function (selector, dSize) {
+            var size = parseInt($(selector).css('fontSize'), 10) || dSize;
+            return size;
+        }
+
         //  Define fonts
-        o.bodyFontSize = parseInt($('body').css('fontSize'), 10);
-        o.h3FontSize = parseInt($('h3').css('fontSize'), 10);
         o.fontFamily = o.getFontFamily('body', 'Arial, Helvetica, sans-serif');
 
         //  Initialize option defaults ------------------------------------------------------------
@@ -88,8 +92,6 @@
             // Note: Only works when extracting data from HTML tables
             ignoreCol: [],
 
-            fontSize: o.bodyFontSize,
-
             // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
             // Keywords: 'domain', 'data', 'label' - these will be replaced with current values
             // 'domain': the primary axis value, 'data': the data value, 'label': the column title
@@ -113,72 +115,59 @@
             // The class to apply to the dynamically created chart container element
             chartClass: 'chtr-chart',
 
+            // The chart height aspect ratio custom option
+            // Used to refactor the chart height relative to the width in responsive designs
+            // this is overridden if the Google Charts height option has a value
+            // Default: false - not used
+            chartHeightRatio: false,
+
             // Google Bar Chart Options
             barChart: {
 
-                // The chart height aspect ratio custom option - Not a Google Chart option
-                // Used to refactor the chart height relative to the width in responsive designs
-                // this is overridden if the height option has a value
-                chartHeightRatio: 0.75,
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: false,
 
                 chartArea: { left: "20%", top: 40, width: "75%", height: "85%" },
-                fontSize: o.bodyFontSize,
                 fontName: o.fontFamily,
-                titleTextStyle: {
-                    fontSize: o.h3FontSize
-                },
                 legend: { position: 'bottom' }
             },
 
             // Google Pie Chart Options
             pieChart: {
 
-                // The chart height aspect ratio custom option - Not a Google Chart option
-                // Used to refactor the chart height relative to the width in responsive designs
-                // this is overridden if the height option has a value
-                chartHeightRatio: 0.75,
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: false,
 
                 chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
-                fontSize: o.bodyFontSize,
-                fontName: o.fontFamily,
-                titleTextStyle: {
-                    fontSize: o.h3FontSize
-                }
+                fontName: o.fontFamily
             },
 
             // Google Column Chart Options
             columnChart: {
 
-                // The chart height aspect ratio custom option - Not a Google Chart option
-                // Used to refactor the chart height relative to the width in responsive designs
-                // this is overridden if the height option has a value
-                chartHeightRatio: 0.75,
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: false,
 
-                fontSize: o.bodyFontSize,
                 fontName: o.fontFamily,
-                legend: { position: 'bottom' },
-                titleTextStyle: {
-                    fontSize: o.h3FontSize
-                }
+                legend: { position: 'bottom' }
             },
 
             // Google Geo Chart Options
             geoChart: {
 
-                // The chart height aspect ratio custom option - Not a Google Chart option
-                // Used to refactor the chart height relative to the width in responsive designs
-                // this is overridden if the height option has a value
-                chartHeightRatio: 0.75
-
             },
 
             // Google Calendar Chart Options
             calendarChart: {
-
-                // The chart height aspect ratio custom option - Not a Google Chart option
-                // Used to refactor the chart height relative to the width in responsive designs
-                // this is overridden if the height option has a value
-                chartHeightRatio: 0.3,
 
                 // The cell scaling factor custom option - Not a Google Chart option
                 // Used to refactor the cell size in responsive designs
@@ -187,12 +176,24 @@
 
                 calendar: {
                     monthLabel: {
-                        fontName: o.fontFamily,
-                        fontSize: o.bodyFontSize
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: false,
+
+                        fontName: o.fontFamily
                     },
                     dayOfWeekLabel: {
-                        fontName: o.fontFamily,
-                        fontSize: o.bodyFontSize * 0.8
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: false,
+
+                        fontName: o.fontFamily
                     }
                 }
             },
@@ -248,6 +249,15 @@
         // Set chartPackage - Options: corechart, calendar, geochart, table - The Google Chart Package to load.
         o.chartPackage = 'corechart';
 
+        // Init chart parent
+        o.chartParent = false;
+
+        // Init the window width
+        o.windowWidth = false;
+
+        // Init chart parent width
+        o.chartParentWidth = false;
+
         //  Initiate Chart ======================================================================
         o.init = function (el, options) {
 
@@ -283,31 +293,28 @@
                 }
             }
 
+            // Add chart class
+            $chartS.addClass(o.options.chartClass);
+
+            // Get chart parent element
+            o.chartParent = $chartS.parent();
+
             // Clone Google Chart options so we don't overwrite original values
             o.cOptions = $.extend(true, {}, o.options);
 
             // Apply the Google Chart options and set calculated values
             if (o.cOptions.chartType === 'BarChart') {
                 o.cOptions = o.cOptions.barChart;
-                o.cOptions.title = o.cOptions.title || caption;
-                o.cOptions.height = o.cOptions.height || $chartS.width() * o.cOptions.chartHeightRatio;
             } else if (o.cOptions.chartType === 'ColumnChart') {
                 o.cOptions = o.cOptions.columnChart;
-                o.cOptions.title = o.cOptions.title || caption;
-                o.cOptions.height = o.cOptions.height || $chartS.width() * o.cOptions.chartHeightRatio;
             } else if (o.cOptions.chartType === 'PieChart') {
                 o.cOptions = o.cOptions.pieChart;
-                o.cOptions.title = o.cOptions.title || caption;
-                o.cOptions.height = o.cOptions.height || $chartS.width() * o.cOptions.chartHeightRatio;
             } else if (o.cOptions.chartType === 'GeoChart') {
                 o.cOptions = o.cOptions.geoChart;
                 o.chartPackage = 'geochart';
-                o.cOptions.height = o.cOptions.height || $chartS.width() * o.cOptions.chartHeightRatio;
             } else if (o.cOptions.chartType === 'Calendar') {
                 o.cOptions = o.cOptions.calendarChart;
                 o.chartPackage = 'calendar';
-                o.cOptions.title = o.cOptions.title || caption;
-                o.cOptions.height = o.cOptions.height || $chartS.width() * o.cOptions.chartHeightRatio;
                 o.cOptions.calendar.cellSize = o.cOptions.calendar.cellSize || $chartS.width() * o.cOptions.cellScaleFactor;
             } else if (o.options.chartType === 'Table') {
                 o.cOptions = o.cOptions.tableChart;
@@ -318,6 +325,30 @@
                 o.showTableChart('show', 'remove');
                 console.log('Unrecognized chart type');
                 return;
+            }
+
+            // Set font sizes
+            if (o.cOptions.fontSize && isNaN(parseInt(o.cOptions.fontSize, 10))) {
+                o.cOptions.fontSize = o.getFontSize(o.cOptions.fontSize, 16);
+            }
+            if (o.cOptions.titleTextStyle && o.cOptions.titleTextStyle.fontSize && isNaN(parseInt(o.cOptions.titleTextStyle.fontSize, 10))) {
+                o.cOptions.titleTextStyle.fontSize = o.getFontSize(o.cOptions.titleTextStyle.fontSize, 16);
+            }
+            if (o.cOptions.calendar) {
+                if ( o.cOptions.calendar.monthLabel && o.cOptions.calendar.monthLabel.fontSize && isNaN( parseInt( o.cOptions.calendar.monthLabel.fontSize, 10 ) ) ) {
+                    o.cOptions.calendar.monthLabel.fontSize = o.getFontSize( o.cOptions.calendar.monthLabel.fontSize, 16 );
+                }
+                if (o.cOptions.calendar.dayOfWeekLabel && o.cOptions.calendar.dayOfWeekLabel.fontSize && isNaN(parseInt(o.cOptions.calendar.dayOfWeekLabel.fontSize, 10))) {
+                    o.cOptions.calendar.dayOfWeekLabel.fontSize = o.getFontSize(o.cOptions.calendar.dayOfWeekLabel.fontSize, 16);
+                }
+            }
+
+            // Set the chart title
+            o.cOptions.title = o.cOptions.title || caption;
+
+            // Set chart height ratio if valid
+            if (o.options.chartHeightRatio && !o.cOptions.height){
+                o.cOptions.height = $chartS.width() * o.options.chartHeightRatio;
             }
 
             // If data exists draw chart
@@ -332,36 +363,44 @@
                     // Reset on screen resize
                     'resize': function() {
 
-                        // Test if width has resized - as opposed to height
-                        if ($( window ).width() !== o.windowWidth) {
+                        // Adjust layout
+                        clearTimeout( o.timer );
+                        o.timer = setTimeout( function() {
 
-                            // Adjust layout
-                            clearTimeout( o.timer );
-                            o.timer = setTimeout( function() {
+                            // Test if width has resized - as opposed to height
+                            if ($( window ).width() !== o.windowWidth) {
 
-                                // Remove js styles
-                                $chartS.removeAttr('style');
-                                if ($tableS) {
-                                    $tableS.removeAttr('style');
+                                // Save the chart style
+                                var elStyle = $chartS.attr( 'style' );
+
+                                // Remove js styles from chart
+                                $chartS.removeAttr( 'style' );
+
+                                // Test if chart parent has changed width
+                                if ( o.chartParent.width() !== o.chartParentWidth ) {
+
+                                    // Recalculate calculated option values ---------------------
+
+                                    // Recalculate calendar cellSize
+                                    if ( o.cOptions.calendar && !o.options.calendarChart.calendar.cellSize ) {
+                                        o.cOptions.calendar.cellSize = $chartS.width() * 0.017;
+                                    }
+
+                                    // Recalculate height
+                                    if ( o.options.chartHeightRatio && !(o.options.barChart.height || o.options.pieChart.height || o.options.columnChart.height || o.options.geoChart.height || o.options.calendarChart.height) ) {
+                                        o.cOptions.height = $chartS.width() * o.options.chartHeightRatio;
+                                    }
+
+                                    // Redraw chart ---------------------------------------------
+                                    o.chart.draw( o.data, o.cOptions );
+
+                                } else { // parent has not changed width
+
+                                    // Re-apply the chart style
+                                    $chartS.attr( 'style', elStyle );
                                 }
-
-                                // Recalculate calculated option values ---------------------
-
-                                // Recalculate calendar cellSize
-                                if ( o.cOptions.calendar && !o.options.calendarChart.calendar.cellSize ) {
-                                    o.cOptions.calendar.cellSize = $chartS.width() * 0.017;
-                                }
-
-                                // Recalculate height
-                                if ( o.cOptions.chartHeightRatio && !(o.options.barChart.height || o.options.pieChart.height || o.options.columnChart.height || o.options.geoChart.height || o.options.calendarChart.height) ) {
-                                    o.cOptions.height = $chartS.width() * o.cOptions.chartHeightRatio;
-                                }
-
-                                // Redraw chart ---------------------------------------------
-                                o.chart.draw( o.data, o.cOptions );
-
-                            }, 500 );
-                        }
+                            }
+                        }, 500 );
                     }
                 });
             } else {
@@ -480,8 +519,11 @@
             }
 
             // Revise Chart Options -------------------------------------------------------------
-            if ( o.options.chartType === 'BarChart' ) {
-                o.cOptions.height = o.cOptions.height || o.options.fontSize * 2 * o.data.getNumberOfRows();
+            if ( o.options.chartType === 'BarChart' && !o.options.chartHeightRatio && !o.cOptions.height) { // Height not set
+
+                var fontSize = o.cOptions.fontSize || o.getFontSize('body', 16);
+                // Define height based on font size and number of rows
+                o.cOptions.height = fontSize * 2 * o.data.getNumberOfRows();
             }
 
             // Draw chart ----------------------------------------------------------------------
@@ -493,6 +535,12 @@
             google.visualization.events.addListener( o.chart, 'ready', function (e) {
                 // Show chart
                 o.showTableChart(o.options.showTable, 'show');
+
+                // Store the window width
+                o.windowWidth = $( window ).width();
+
+                // Store the chart parent width
+                o.chartParentWidth = o.chartParent.width();
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
                 // Show table remove chart
