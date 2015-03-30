@@ -25,7 +25,7 @@
     <script type="text/javascript">
         jQuery(function ($) {
             /**
-             * A jQuery plugin that loads data from HTML tables and data arrays and draws charts using Google Charts.
+             * A jQuery plugin that loads data from HTML tables, Google Sheets and data arrays and draws charts using Google Charts.
              * th elements in HTML table must have one of the following
              * 'data-type' attributes: 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'
              * or 'data-role' attributes:  'tooltip','annotation'
@@ -43,23 +43,41 @@
                 // Custom Options ------------------------------------------------------
                 // Note: This example extracts data from an HTML table
 
+                googleSheetKey: '1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI',
+
                 // The jQuery selector of the HTML table element to extract the data from - String
                 // Default: false
                 // If unspecified, the element this plugin is applied to must be the HTML table
                 // or js columns and rows arrays must be defined
-                tableSel: '.barChart',
+                //tableSel: '.barChart',
 
                 // The chart type - String
                 // Default: 'BarChart'
                 // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                 chartType: 'BarChart',
 
+                // Transpose data Boolean - swap columns and rows
+                // Default: false
+                transpose: false,
+
+                // Ignore row indexes array - An array of row index numbers to ignore
+                // Default: []
+                // Note: Only works when extracting data from HTML tables or Google Sheets
+                // The headings row is index 0
+                ignoreRow: [],
+
+                // Ignore column indexes array
+                // An array of column indexes to ignore in the HTML table or Google Sheet
+                // Default: []
+                // Note: Only works on data extracted from HTML tables or Google Sheets
+                ignoreCol: [],
+
                 // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
                 // Keywords: 'domain', 'data', 'label' - these will be replaced with current values
                 // 'domain': the primary axis value, 'data': the data value, 'label': the column title
                 // Default: false - use Google Charts tooltip defaults
                 // Not supported on pie, calendar charts
-                tooltipConcat: 'domain - label: data',
+                //tooltipConcat: 'domain - label: data',
 
                 // The chart height aspect ratio custom option
                 // Used to refactor the chart height relative to the width in responsive designs
@@ -246,7 +264,7 @@
                     {role: 'tooltip', type: 'string'}],
 
                 // Column indexes array - An array of column indexes defining where
-                // the data will be inserted into any existing data extracted from an HTML table
+                // the data will be inserted into any existing data extracted from an HTML table or Google Sheet
                 // Default: false - js data array columns replace any existing columns
                 // Note: when inserting more than one column be sure to increment index number
                 // to account for previously inserted indexes
@@ -255,7 +273,7 @@
                 // Rows - The rows data-array
                 // If colIndexes array has values the row data will be inserted into the columns
                 // defined in the colindexes array. Otherwise the row data will be appended
-                // to any existing row data extracted from an HTML table
+                // to any existing row data extracted from an HTML table or Google Sheet
                 rows: [
                     ['China - 2015'],
                     ['Colombia - 2015'],
@@ -272,7 +290,7 @@
 
                 // Ignore column indexes array - An array of column indexes to ignore
                 // Default: []
-                // Note: Only works when extracting data from HTML tables
+                // Note: Only works when extracting data from HTML tables or Google Sheets
                 ignoreCol: [2],
 
                 // The chart type - String
@@ -360,7 +378,7 @@
                 // Rows - The rows data-array
                 // If colIndexes array has values the row data will be inserted into the columns
                 // defined in the colindexes array. Otherwise the row data will be appended
-                // to any existing row data extracted from an HTML table
+                // to any existing row data extracted from an HTML table or Google Sheet
                 rows: [
                     ['China', 18, '2013 - 18', 11, '2014 - 11', 9, '2015 - 9'],
                     ['Japan', 12, '2013 - 12', 8, '2014 - 8', 9, '2015 - 9'],
@@ -462,7 +480,7 @@
 
                 // Ignore column indexes array - An array of column indexes to ignore
                 // Default: []
-                // Note: Only works when extracting data from HTML tables
+                // Note: Only works when extracting data from HTML tables or Google Sheets
                 ignoreCol: [2],
 
                 // The chart type - String
@@ -704,8 +722,8 @@
 <section id="intro" class="content">
         <div class="intro">
             <h1>chartinator</h1>
-            <p class="tagline">Google Charts made easier</p>
-            <p>A jQuery plugin that transforms data from HTML tables and js arrays into charts using Google Charts</p>
+            <p class="tagline">Google Charts made easier and accessible</p>
+            <p>A jQuery plugin that transforms data from HTML tables, Google Sheets and js arrays into charts using Google Charts</p>
         </div>
 </section>
 <section id="charts1" class="charts">
@@ -916,9 +934,9 @@
     <div class="wrapper">
         <div id="about" class="dev-output">
             <h1 id="about-chartinator">About Chartinator</h1>
-            <p><strong>Chartinator</strong> - Google Charts made easier.</p>
+            <p><strong>Chartinator</strong> - Google Charts made easier and accessible.</p>
             <ul>
-            <li><strong>Description</strong>: A jQuery plugin for transforming HTML tables and js arrays into charts using Google Charts</li>
+            <li><strong>Description</strong>: A jQuery plugin for transforming HTML tables, Google Sheets and js arrays into charts using Google Charts</li>
             <li><strong>Repository</strong>: <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
             <li><strong>Demo</strong>: <a href="http://chartinator.com">http://chartinator.com</a></li>
             <li><strong>Bower</strong>: chartinator</li>
@@ -931,7 +949,29 @@
             <h2 id="demo">Demo</h2>
             <p>Visit <a href="http://chartinator.com">http://chartinator.com</a> to view a demo</p>
             <h3 id="what-is-this-repository-for-">What is this repository for?</h3>
-            <p>Transforming HTML tables and js arrays into charts using Google Chart ( <a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a> ).</p>
+            <p>Transforming HTML tables, Google Sheets and js arrays into charts using Google Chart ( <a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a> ).</p>
+            <h3 id="what-are-the-current-features-">What are the current features?</h3>
+            <p>Chartinator currently supports the following:</p>
+            <ul>
+            <li>Creation of the following chart types using Google Charts<ul>
+            <li>Bar Chart</li>
+            <li>Pie Chart</li>
+            <li>Column Chart</li>
+            <li>Calendar</li>
+            <li>Geo Chart</li>
+            <li>Table Chart with data column formatter</li>
+            </ul>
+            </li>
+            <li>Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays</li>
+            <li>Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots</li>
+            <li>Showing and hiding of HTML tables accessibly</li>
+            <li>Manipulation of data extracted from HTML tables and Google Sheets using JavaScript arrays</li>
+            <li>Transposition of data - swapping of rows and columns</li>
+            <li>Resizing of charts on screen resize - Responsive Web Design</li>
+            <li>Chart aspect ratio control</li>
+            <li>Customization of chart tooltips and annotations</li>
+            <li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
+            </ul>
             <h3 id="how-do-i-get-set-up-">How do I get set up?</h3>
             <ul>
             <li><strong>Download</strong> - Download and extract the Chartinator zip files - <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
@@ -948,7 +988,7 @@
             To use the plugin you need to: </p>
             <ul>
             <li>Reference the chartinator.js file in your html</li>
-            <li>add/modify your HTML tables or js arrays </li>
+            <li>add/modify your HTML tables, Google Sheets or js arrays </li>
             <li>Use jQuery to modify options</li>
             </ul>
             <h3 id="using-data-from-html-tables">Using Data from HTML Tables</h3>
@@ -970,7 +1010,7 @@
             <p>The caption element&#39;s text will be used as a title for the chart by default</p>
             <p>You can also use data extracted from an HTML table and add and replace data with data contained in js data arrays. 
             For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
-            and columns.</p>
+            and columns and transpose data.</p>
             <h4 id="sample-html">Sample HTML</h4>
             <pre><code>
                 &lt;div id=&quot;chart_canvas&quot;&gt;&lt;/div&gt;
@@ -986,9 +1026,23 @@
                         &lt;td&gt;Data&lt;/td&gt;
                         &lt;td&gt;Tooltip text&lt;/td&gt;
                     &lt;/tr&gt; ...</code></pre>
+            <h3 id="using-data-from-google-sheets">Using Data from Google Sheets</h3>
+            <p>You can also use data from Google Sheets to define chart data. 
+            Data extracted from a Google Sheet can be added to and replaced with data contained in js data arrays. 
+            For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
+            and columns and transpose data.</p>
+            <p>To use a Google Sheet as a data source you need to do the following:</p>
+            <ul>
+            <li>Create the Google Sheet (visit: <a href="https://docs.google.com/spreadsheets">https://docs.google.com/spreadsheets</a>)</li>
+            <li>Make sure your sheet is the only sheet in the Google Sheets document</li>
+            <li>Make the sheet public - Choose &#39;Publish to the Web&#39; from the &#39;File&#39; menu</li>
+            <li>Get the key id from the link url - Should look something like: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;</li>
+            <li>Set the &#39;googleSheetKey&#39; option in the jQuery Chartinator options to be the key id</li>
+            </ul>
+            <p>Note: Data is extracted from a Google Sheet as comma separated values (csv) so don&#39;t use commas in data</p>
             <h3 id="using-data-from-javascript-arrays">Using Data from JavaScript Arrays</h3>
-            <p>You can also use data from JavaScript arrays to completely define the chart data 
-            or to add to and replace data extracted from an HTML table including the column headers.</p>
+            <p>You can also use data from JavaScript arrays you create to completely define the chart data 
+            or to add to and replace data extracted from an HTML table or Google Sheet, including the column headers.</p>
             <p>The JS data arrays must adhere to the following syntax:</p>
             <pre><code>
                 // Columns - The columns data-array
@@ -1021,45 +1075,57 @@
                             // Note: This example extracts data from an HTML table 
                             // and replaces a row with a tooltip and adds an annotation column
 
-                            // Columns - The columns data-array
-                            columns: [
-                                {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
+                            // The Google Sheet key
+                            // The id of the Google sheet taken from the public url of the Sheet
+                            // Default: false
+                            googleSheetKey: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;,
 
-                            // Column indexes array - An array of column indexes defining where data 
-                            // will be inserted into any existing data extracted from an HTML table
+                            // The data columns js array
+                            // An array of object literals that define each column
+                            // Default: false
+                            //columns: [{role: &#39;tooltip&#39;, type: &#39;string&#39;}],
+
+                            // Column indexes array - An array of column indexes defining where
+                            // the data will be inserted into any existing data extracted 
+                            // from an HTML table or Google Sheet
                             // Default: false - js data array columns replace any existing columns
-                            // Note: when inserting more than one column be sure to increment 
-                            // index number to account for previously inserted indexes
-                            colIndexes: [2],
+                            // Note: when inserting more than one column be sure to 
+                            // increment index number to account for previously inserted indexes
+                            //colIndexes: [2],
 
                             // Rows - The rows data-array
-                            // If colIndexes array has values the row data will be inserted into 
-                            // the columns defined in the colindexes array. Otherwise the row data 
-                            // will be appended to any existing row data extracted from an HTML table
-                            rows: [
-                                [&#39;China - 2015&#39;],
-                                [&#39;Colombia - 2015&#39;],
-                                [&#39;France - 2015&#39;]],
+                            // If colIndexes array has values the row data will be inserted 
+                            // into the columns defined in the colindexes array. Otherwise 
+                            // the row data will be appended to any existing row data extracted 
+                            // from an HTML table or Google Sheet
+                            // Default: false
+                            //rows: [[&#39;China - 2015&#39;],[&#39;Colombia - 2015&#39;],[&#39;France - 2015&#39;]],
+
+                            // The jQuery selector of the HTML table to extract the data from.
+                            // Default: false - Checks if the element this plugin 
+                            // is applied to is an HTML table
+                            //tableSel: &#39;.barChart&#39;,
+
+                            // Ignore row indexes array - An array of row index numbers to ignore
+                            // Default: []
+                            // Note: Only works on data extracted from HTML tables or Google Sheets
+                            // The headings row is index 0
+                            ignoreRow: [6,8],
 
                             // Ignore column indexes array - An array of column indexes to ignore
                             // Default: []
-                            // Note: Only works when extracting data from HTML tables
+                            // Note: Only works when extracting data from HTML tables or Google Sheets
                             ignoreCol: [2],
 
-                            // The jQuery selector of the HTML table element to extract data from
+                            // Transpose data Boolean - swap columns and rows
                             // Default: false
-                            // If unspecified, the element this plugin is applied to must be 
-                            // the HTML table or js columns and rows arrays must be defined
-                            tableSel: &#39;.barChart&#39;,
+                            // Note: Only works on data extracted from HTML tables or Google Sheets
+                            transpose: false,
 
                             // The chart type - String
                             // Default: &#39;BarChart&#39;
                             // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
                             chartType: &#39;BarChart&#39;,
-
-                            // Base Font size in pixels - Number
-                            // Default: body font size
-                            fontSize: 20,
 
                             // The annotation concatenation 
                             // Defines a string for concatenating a custom annotation.
@@ -1069,9 +1135,15 @@
                             // &#39;data&#39;: the data value, 
                             // &#39;label&#39;: the column title
                             // Default: false - use Google Charts annotation defaults
-                            // Note: Only works when extracting data from HTML tables.
+                            // Note: Only works when extracting data from HTML tables or Google Sheets.
                             // Not supported on pie, geo, calendar charts
                             annotationConcat: &#39;domain - label: data&#39;,
+
+                            // The chart height aspect ratio custom option
+                            // Used to refactor the chart height relative to the width in RWD
+                            // this is overridden if the Google Charts height option has a value
+                            // Default: false - not used
+                            chartHeightRatio: 0.75,
 
                             // Google Bar Chart Options
                             barChart: {
@@ -1079,13 +1151,6 @@
                                 // Width of chart in pixels - Number
                                 // Default: automatic (unspecified)
                                 width: null,
-
-                                // The chart height aspect ratio custom option
-                                // Note: This is not a Google Chart option
-                                // Used to refactor the chart height relative to the width in 
-                                // responsive designs
-                                // This is overridden if the height option has a value
-                                chartHeightRatio: 0.75,
 
                                 // Height of chart in pixels - Number
                                 // Default: automatic (unspecified)
@@ -1154,43 +1219,65 @@
                 // URL - The path to the Google AJAX API. Default: &#39;https://www.google.com/jsapi&#39;
                 urlJSAPI: &#39;https://www.google.com/jsapi&#39;,
 
+                // The Google Sheet key
+                // The id code of the Google sheet taken from the public url of your Google Sheet
+                // Default: false
+                googleSheetKey: false,
+
                 // The data columns js array
+                // An array of object literals that define each column
                 // Default: false
                 columns: false,
 
                 // Column indexes array - An array of column indexes defining where
-                // the data will be inserted into any existing data extracted from an HTML table
+                // the data will be inserted into any existing data extracted from an 
+                // HTML table or Google Sheet
                 // Default: false - js data array columns replace any existing columns
                 // Note: when inserting more than one column be sure to increment index number
                 // to account for previously inserted indexes
                 colIndexes: false,
 
-                // The data rows js arrays
+                // Rows - The rows data-array
+                // If colIndexes array has values the row data will be inserted into the columns
+                // defined in the colindexes array. Otherwise the row data will be appended
+                // to any existing row data extracted from an HTML table or Google Sheet
                 // Default: false
                 rows: false,
 
-                // Ignore column indexes array - An array of column indexes to ignore in the HTML table
-                // Default: []
-                // Note: Only works when extracting data from HTML tables
-                ignoreCol: [],
-
                 // The jQuery selector of the HTML table element to extract the data from.
-                // Default: false - Chart extracts data and replaces the HTML table(s) selected above
+                // Default: false - Checks if the element this plugin is applied to is an HTML table
                 tableSel: false,
 
-                // The tooltip string - Defines a string for concatenating a custom tooltip.
+                // Ignore row indexes array - An array of row index numbers to ignore
+                // Default: []
+                // Note: Only works on data extracted from HTML tables or Google Sheets
+                // The headings row is index 0
+                ignoreRow: [],
+
+                // Ignore column indexes array
+                // An array of column indexes to ignore in the HTML table or Google Sheet
+                // Default: []
+                // Note: Only works on data extracted from HTML tables or Google Sheets
+                ignoreCol: [],
+
+                // Transpose data Boolean - swap columns and rows
+                // Default: false
+                // Note: Only works on data extracted from HTML tables or Google Sheets
+                transpose: false,
+
+                // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
                 // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
                 // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
                 // Default: false - use Google Charts tooltip defaults
-                // Note: Only works when extracting data from HTML tables
+                // Note: Only works when extracting data from HTML tables or Google Sheets
                 // Not supported on pie, calendar charts
                 tooltipConcat: false,
 
-                // The annotation string - Defines a string for concatenating a custom annotation.
+                // The annotation concatenation - Defines a string for concatenating a custom annotation.
                 // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
                 // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
                 // Default: false - use Google Charts annotation defaults
-                // Note: Only works when extracting data from HTML tables.
+                // Note: Only works when extracting data from HTML tables or Google Sheets.
                 // Not supported on pie, geo, calendar charts
                 annotationConcat: false,
 

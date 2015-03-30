@@ -4,7 +4,7 @@
   "authors": [
     "jbowyers"
   ],
-  "description": "A jQuery plugin for transforming HTML tables and js arrays into charts using Google Charts",
+  "description": "A jQuery plugin for transforming HTML tables, Google Sheets and js arrays into charts using Google Charts",
   "main": [
     "dist/js/chartinator.js",
     "dist/js/chartinator.min.js"
