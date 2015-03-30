@@ -10,7 +10,7 @@
 * **Author**: jbowyers
 * **Copyright**: 2015 jbowyers
 * **License**: GPLv3
-* **Version: 0.2.3**
+* **Version: 0.3.0**
 
 ## Demo ##
 
