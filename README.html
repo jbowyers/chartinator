@@ -204,11 +204,12 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
                 // Not supported on pie, geo, calendar charts
                 annotationConcat: &#39;domain - label: data&#39;,
 
-                // The chart height aspect ratio custom option
-                // Used to refactor the chart height relative to the width in RWD
-                // this is overridden if the Google Charts height option has a value
+                // The chart aspect ratio custom option - width/height
+                // Used to calculate the chart dimensions relative to the width or height
+                // this is overridden if the Google Chart&#39;s height and width options have values
+                // Suggested value: 1.25
                 // Default: false - not used
-                chartHeightRatio: 0.75,
+                chartAspectRatio: 1.25,
 
                 // Google Bar Chart Options
                 barChart: {
@@ -219,7 +220,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    // Overrides the chartHeightRatio
                     //height: 400,
 
                     chartArea: {
@@ -353,11 +353,11 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // The class to apply to the dynamically created chart container element
     chartClass: &#39;chtr-chart&#39;,
 
-    // The chart height aspect ratio custom option
-    // Used to refactor the chart height relative to the width in responsive designs
-    // this is overridden if the Google Charts height option has a value
+    // The chart aspect ratio custom option - width/height
+    // Used to calculate the chart dimensions relative to the width or height
+    // this is overridden if the Google Chart&#39;s height and width options have values
     // Default: false - not used
-    chartHeightRatio: false,
+    chartAspectRatio: false,
 
     // Show table along with chart - String
     // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;. Default: &#39;hide&#39;
@@ -386,7 +386,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         chartArea: {
@@ -455,7 +454,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         chartArea: { // The chart proportions
@@ -522,7 +520,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         chartArea: { // The chart proportions
@@ -589,7 +586,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         // Background Color - Default: &#39;white&#39;
@@ -645,7 +641,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         calendar: {

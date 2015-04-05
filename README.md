@@ -230,11 +230,12 @@ The Chart must be initialized using jQuery.
                 // Not supported on pie, geo, calendar charts
                 annotationConcat: 'domain - label: data',
                 
-                // The chart height aspect ratio custom option
-                // Used to refactor the chart height relative to the width in RWD
-                // this is overridden if the Google Charts height option has a value
+                // The chart aspect ratio custom option - width/height
+                // Used to calculate the chart dimensions relative to the width or height
+                // this is overridden if the Google Chart's height and width options have values
+                // Suggested value: 1.25
                 // Default: false - not used
-                chartHeightRatio: 0.75,
+                chartAspectRatio: 1.25,
 
                 // Google Bar Chart Options
                 barChart: {
@@ -245,7 +246,6 @@ The Chart must be initialized using jQuery.
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    // Overrides the chartHeightRatio
                     //height: 400,
 
                     chartArea: {
@@ -386,11 +386,11 @@ The following are options that are specific to Chartinator and apply to all char
     // The class to apply to the dynamically created chart container element
     chartClass: 'chtr-chart',
 
-    // The chart height aspect ratio custom option
-    // Used to refactor the chart height relative to the width in responsive designs
-    // this is overridden if the Google Charts height option has a value
+    // The chart aspect ratio custom option - width/height
+    // Used to calculate the chart dimensions relative to the width or height
+    // this is overridden if the Google Chart's height and width options have values
     // Default: false - not used
-    chartHeightRatio: false,
+    chartAspectRatio: false,
     
     // Show table along with chart - String
     // Options: 'show', 'hide', 'remove'. Default: 'hide'
@@ -424,7 +424,6 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
 
         chartArea: {
@@ -499,7 +498,6 @@ The following are some of the Google Charts Pie Chart options, unless otherwise 
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
     
         chartArea: { // The chart proportions
@@ -572,7 +570,6 @@ The following are some of the Google Charts Column Chart options, unless otherwi
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
     
         chartArea: { // The chart proportions
@@ -645,7 +642,6 @@ The following are some of the Google Charts Geo Chart options, unless otherwise 
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
     
         // Background Color - Default: 'white'
@@ -708,7 +704,6 @@ The following are some of the Google Charts Calendar Chart options, unless other
 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
-        // Overrides the chartHeightRatio
         height: 200,
                 
         calendar: {

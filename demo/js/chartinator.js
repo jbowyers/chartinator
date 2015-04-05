@@ -3,7 +3,7 @@
  * Version: 0.3.0
  * URL: http://chartinator.com
  * Description: Chartinator transforms data contained in HTML tables, Google Sheets and js arrays into charts using Google Charts
- * Requires: jQuery
+ * Requires: jQuery, Google Charts
  * Author: jbowyers
  * Copyright: 2014-2015 jbowyers
  * License: This file is part of Chartinator.
@@ -129,7 +129,7 @@
             // Used to refactor the chart height relative to the width in responsive designs
             // this is overridden if the Google Charts height option has a value
             // Default: false - not used
-            chartHeightRatio: false,
+            chartAspectRatio: false,
 
             // Google Bar Chart Options
             barChart: {
@@ -363,25 +363,25 @@
 
             // Construct Chart options -------------------------------------------
 
-            // Clone Google Chart options so we don't overwrite original values
-            o.cOptions = $.extend( true, {}, o.options );
+            // Clone Chart options so we don't overwrite original values
+            o.oOptions = $.extend( true, {}, o.options );
 
-            // Apply the Google Chart options and set calculated values
-            if ( o.cOptions.chartType === 'BarChart' ) {
-                o.cOptions = o.cOptions.barChart;
-            } else if ( o.cOptions.chartType === 'ColumnChart' ) {
-                o.cOptions = o.cOptions.columnChart;
-            } else if ( o.cOptions.chartType === 'PieChart' ) {
-                o.cOptions = o.cOptions.pieChart;
-            } else if ( o.cOptions.chartType === 'GeoChart' ) {
-                o.cOptions = o.cOptions.geoChart;
+            // Limit to Google Chart options and set calculated values
+            if ( o.oOptions.chartType === 'BarChart' ) {
+                o.oOptions = o.oOptions.barChart;
+            } else if ( o.oOptions.chartType === 'ColumnChart' ) {
+                o.oOptions = o.oOptions.columnChart;
+            } else if ( o.oOptions.chartType === 'PieChart' ) {
+                o.oOptions = o.oOptions.pieChart;
+            } else if ( o.oOptions.chartType === 'GeoChart' ) {
+                o.oOptions = o.oOptions.geoChart;
                 o.chartPackage = 'geochart';
-            } else if ( o.cOptions.chartType === 'Calendar' ) {
-                o.cOptions = o.cOptions.calendarChart;
+            } else if ( o.oOptions.chartType === 'Calendar' ) {
+                o.oOptions = o.oOptions.calendarChart;
                 o.chartPackage = 'calendar';
-                o.cOptions.calendar.cellSize = o.cOptions.calendar.cellSize || $chartS.width() * o.cOptions.cellScaleFactor;
+                o.oOptions.calendar.cellSize = o.oOptions.calendar.cellSize || $chartS.width() * o.oOptions.cellScaleFactor;
             } else if ( o.options.chartType === 'Table' ) {
-                o.cOptions = o.cOptions.tableChart;
+                o.oOptions = o.oOptions.tableChart;
                 o.chartPackage = 'table';
             } else { // Unrecognized chart type - Chart failed
 
@@ -390,6 +390,9 @@
                 console.log( 'Unrecognized chart type' );
                 return;
             }
+
+            // Clone Google Chart options so we don't overwrite original values
+            o.cOptions = $.extend( true, {}, o.oOptions );
 
             // Load Google Chart ----------------------------------------------------------
 
@@ -446,6 +449,9 @@
             // Note: this overwrites any data extracted from A Google Sheet
             if ( o.tableClone && o.tableClone.find( 'td' ).length ) {
                 dataArray = o.getTableData();
+
+                // Set the chart title
+                o.cOptions.title = o.cOptions.title || o.tableClone.find('caption').text() || '';
             }
 
             // Add/overwrite with js data-array columns
@@ -524,16 +530,11 @@
                 }
             }
 
-            // Set the chart title
-            o.cOptions.title = o.cOptions.title || o.tableClone.find('caption').text() || '';
-
-            // Set chart height ratio if valid
-            if (o.options.chartHeightRatio && !o.cOptions.height){
-                o.cOptions.height = $chartS.width() * o.options.chartHeightRatio;
-            }
+            // Set Chart dimensions
+            o.setDimensions();
 
             // Revise Chart Options -------------------------------------------------------------
-            if ( o.options.chartType === 'BarChart' && !o.options.chartHeightRatio && !o.cOptions.height) { // Height not set
+            if ( o.options.chartType === 'BarChart' && !o.options.chartAspectRatio && !o.oOptions.height) { // Height not set
 
                 var fontSize = o.cOptions.fontSize || o.getFontSize('body', 16);
                 // Define height based on font size and number of rows
@@ -909,10 +910,8 @@
                                     o.cOptions.calendar.cellSize = $chartS.width() * 0.017;
                                 }
 
-                                // Recalculate height
-                                if ( o.options.chartHeightRatio && !(o.options.barChart.height || o.options.pieChart.height || o.options.columnChart.height || o.options.geoChart.height || o.options.calendarChart.height) ) {
-                                    o.cOptions.height = $chartS.width() * o.options.chartHeightRatio;
-                                }
+                                // Set Chart dimensions
+                                o.setDimensions();
 
                                 // Redraw chart ---------------------------------------------
                                 o.chart.draw( o.data, o.cOptions );
@@ -973,6 +972,26 @@
                 }
             }
             return tArr;
+        };
+
+        // Set chart width and height values
+        o.setDimensions = function () {
+            // Store the chart parent width
+            o.chartParentWidth = o.chartParent.width();
+
+            // Set chart width and height
+            if ( o.options.chartAspectRatio ){
+                if ( o.oOptions.width && !o.oOptions.height ){
+                    o.cOptions.height = o.oOptions.width / o.options.chartAspectRatio;
+                } else if ( !o.oOptions.width && o.oOptions.height ){
+                    o.cOptions.width = o.oOptions.height * o.options.chartAspectRatio;
+                } else if (!o.oOptions.width && !o.oOptions.height) {
+                    o.cOptions.width = o.chartParentWidth;
+                    o.cOptions.height = o.cOptions.width / o.options.chartAspectRatio;
+                }
+            } else if (!o.oOptions.width && !o.oOptions.height) {
+                o.cOptions.width = o.chartParentWidth;
+            }
         };
 
         // initialize --------------------------------------------------------------------------
