@@ -26,9 +26,16 @@
         jQuery(function ($) {
             /**
              * A jQuery plugin that loads data from HTML tables, Google Sheets and data arrays and draws charts using Google Charts.
-             * th elements in HTML table must have one of the following
-             * 'data-type' attributes: 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'
-             * or 'data-role' attributes:  'tooltip','annotation'
+             *
+             * Using HTML Tables
+             * HTML tables can help make the chart data accessible.
+             * You can either display the table with the chart or accessibly hide the table
+             *
+             * Suggested HTML Table setup
+             * Create an HTML table with a caption and 'th' elements in the first row
+             * For each 'th' element apply one of the following
+             * 'data-type' attribute: 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'
+             * or 'data-role' attribute:  'tooltip','annotation'
              * The caption element's text is used as a title for the chart by default.
              *
              * Apply the jQuery Chartinator plugin to the chart canvas(es)
@@ -41,8 +48,10 @@
             var chart1 = $('#barChart').chartinator({
 
                 // Custom Options ------------------------------------------------------
-                // Note: This example extracts data from an HTML table
 
+                // The Google Sheet key
+                // The id code of the Google sheet taken from the public url of your Google Sheet
+                // Default: false
                 googleSheetKey: '1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI',
 
                 // The jQuery selector of the HTML table element to extract the data from - String
@@ -52,8 +61,11 @@
                 //tableSel: '.barChart',
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'BarChart',
 
                 // Transpose data Boolean - swap columns and rows
@@ -167,8 +179,11 @@
                     ['Mexico', 2]],
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'PieChart',
 
                 // The chart aspect ratio custom option - width/height
@@ -292,8 +307,11 @@
                 ignoreCol: [2],
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'GeoChart',
 
                 // The chart aspect ratio custom option - width/height
@@ -303,8 +321,9 @@
                 // Default: false - not used
                 chartAspectRatio: 1.25,
 
-                // Google Geo Chart Options
-                geoChart: {
+                // The Chart Options
+                // The Google Chart options - This option can be used with any chart type
+                chartOptions: {
 
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -385,8 +404,11 @@
                     ['Italy', 4, '2013 - 4', 3, '2014 - 3', 5, '2015 - 5']],
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'ColumnChart',
 
                 // The chart aspect ratio custom option - width/height
@@ -480,12 +502,15 @@
                 ignoreCol: [2],
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'Table',
 
                 // Google Table Chart Options
-                tableChart: {
+                table: {
 
                     // Format a data column in a Table Chart
                     formatter: {
@@ -601,8 +626,11 @@
                 // Custom Options ------------------------------------------------------
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'Calendar',
 
                 // The chart aspect ratio custom option - width/height
@@ -613,7 +641,7 @@
                 chartAspectRatio: 4,
 
                 // Google Calendar Chart Options
-                calendarChart: {
+                calendar: {
 
                     // The cell scaling factor custom option - Not a Google Chart option
                     // Used to refactor the cell size in responsive designs

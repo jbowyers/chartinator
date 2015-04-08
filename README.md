@@ -24,13 +24,7 @@ Transforming HTML tables, Google Sheets and js arrays into charts using Google C
 
 Chartinator currently supports the following:
 
-* Creation of the following chart types using Google Charts
-    * Bar Chart
-    * Pie Chart
-    * Column Chart
-    * Calendar
-    * Geo Chart
-    * Table Chart with data column formatter
+* Creation of all chart types using Google Charts - Visit https://developers.google.com/chart/interactive/docs/gallery
 * Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays
 * Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots
 * Showing and hiding of HTML tables accessibly
@@ -163,8 +157,6 @@ The Chart must be initialized using jQuery.
             var chart1 = $('#barChart').chartinator({
 
                 // Custom Options ------------------------------------------------------
-                // Note: This example extracts data from an HTML table 
-                // and replaces a row with a tooltip and adds an annotation column
                 
                 // The Google Sheet key
                 // The id of the Google sheet taken from the public url of the Sheet
@@ -174,7 +166,10 @@ The Chart must be initialized using jQuery.
                 // The data columns js array
                 // An array of object literals that define each column
                 // Default: false
-                //columns: [{role: 'tooltip', type: 'string'}],
+                //columns: [
+                //    {label: 'Country', type: 'string'},
+                //    {label: 'Students', type: 'number'},
+                //    {role: 'tooltip', type: 'string'}],
 
                 // Column indexes array - An array of column indexes defining where
                 // the data will be inserted into any existing data extracted 
@@ -190,7 +185,10 @@ The Chart must be initialized using jQuery.
                 // the row data will be appended to any existing row data extracted 
                 // from an HTML table or Google Sheet
                 // Default: false
-                //rows: [['China - 2015'],['Colombia - 2015'],['France - 2015']],
+                //rows: [
+                //  ['China', 18, '2013 - 18'],
+                //  ['Japan', 12, '2013 - 12'],
+                //  ['Russia', 10, '2013 - 10']],
 
                 // The jQuery selector of the HTML table to extract the data from.
                 // Default: false - Checks if the element this plugin 
@@ -201,21 +199,24 @@ The Chart must be initialized using jQuery.
                 // Default: []
                 // Note: Only works on data extracted from HTML tables or Google Sheets
                 // The headings row is index 0
-                ignoreRow: [6,8],
+                //ignoreRow: [6,8],
                 
                 // Ignore column indexes array - An array of column indexes to ignore
                 // Default: []
                 // Note: Only works when extracting data from HTML tables or Google Sheets
-                ignoreCol: [2],
+                //ignoreCol: [2],
                 
                 // Transpose data Boolean - swap columns and rows
                 // Default: false
                 // Note: Only works on data extracted from HTML tables or Google Sheets
-                transpose: false,
+                //transpose: false,
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'BarChart',
 
                 // The annotation concatenation 
@@ -379,8 +380,12 @@ The following are options that are specific to Chartinator and apply to all char
     // Not supported on pie, geo, calendar charts
     annotationConcat: false,
 
-    // The chart type - Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+    // The chart type - String
+    // Derived from the Google Charts visualization class name
     // Default: 'BarChart'
+    // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+    // See Google Charts Gallery for a complete list of Chart types
+    // https://developers.google.com/chart/interactive/docs/gallery
     chartType: 'BarChart',
 
     // The class to apply to the dynamically created chart container element
@@ -391,6 +396,42 @@ The following are options that are specific to Chartinator and apply to all char
     // this is overridden if the Google Chart's height and width options have values
     // Default: false - not used
     chartAspectRatio: false,
+    
+    // The Google Chart Options
+    // This option can be used with any chart type
+    // Some chart types have default options defined within Chartinator by the following objects:
+    // barChart, pieChart, columnChart, calendar, table
+    // These objects should be used instead of this one when using those chart types
+    // Default: no default - not defined
+    chartOptions: {},
+    
+    // Google Bar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a bar chart
+    //barChart: {},
+    
+    // Google Pie Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a pie chart
+    //pieChart: {},
+    
+    // Google Column Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a column chart
+    //columnChart: {},
+    
+    // Google Line Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a line chart
+    //lineChart: {},
+        
+    // Google Area Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a area chart
+    //areaChart: {},
+        
+    // Google Calendar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a calendar chart
+    //calendar: {},
+            
+    // Google Table Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a table chart
+    //table: {},
     
     // Show table along with chart - String
     // Options: 'show', 'hide', 'remove'. Default: 'hide'
@@ -691,7 +732,7 @@ The following are some of the Google Charts Calendar Chart options, unless other
 ```
 
     // Google Calendar Chart Options
-    calendarChart: { 
+    calendar: { 
     
         // The cell scaling factor custom option - Not a Google Chart option
         // Used to refactor the cell size in responsive designs
@@ -758,7 +799,7 @@ The following are some of the Google Charts Table Chart options, unless otherwis
 ```
 
     // Google Table Chart Options
-    tableChart: { 
+    table: { 
     
         // Format a data column in a Table Chart
         formatter: { 

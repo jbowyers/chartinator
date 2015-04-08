@@ -37,7 +37,7 @@
 
 ; (function ($, window, document, Math, undefined) {
 
-    "use strict";
+    'use strict';
 
     var chartinator = function (el, options) {
         
@@ -118,20 +118,24 @@
             // Not supported on pie, geo, calendar charts
             annotationConcat: false,
 
-            // The chart type - Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+            // The chart type - String
+            // Derived from the Google Charts visualization class name
             // Default: 'BarChart'
+            // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+            // See Google Charts Gallery for a complete list of Chart types
+            // https://developers.google.com/chart/interactive/docs/gallery
             chartType: 'BarChart',
 
             // The class to apply to the dynamically created chart container element
             chartClass: 'chtr-chart',
 
-            // The chart height aspect ratio custom option
-            // Used to refactor the chart height relative to the width in responsive designs
-            // this is overridden if the Google Charts height option has a value
+            // The chart aspect ratio custom option - width/height
+            // Used to calculate the chart dimensions relative to the width or height
+            // this is overridden if the Google Chart's height and width options have values
             // Default: false - not used
             chartAspectRatio: false,
 
-            // Google Bar Chart Options
+            // Google Bar Chart Default Options
             barChart: {
 
                 // The font size in pixels - Number
@@ -145,7 +149,7 @@
                 legend: { position: 'bottom' }
             },
 
-            // Google Pie Chart Options
+            // Google Pie Chart Default Options
             pieChart: {
 
                 // The font size in pixels - Number
@@ -158,7 +162,7 @@
                 fontName: o.fontFamily
             },
 
-            // Google Column Chart Options
+            // Google Column Chart Default Options
             columnChart: {
 
                 // The font size in pixels - Number
@@ -171,13 +175,34 @@
                 legend: { position: 'bottom' }
             },
 
-            // Google Geo Chart Options
-            geoChart: {
+            // Google line Chart Default Options
+            lineChart: {
 
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: false,
+
+                fontName: o.fontFamily,
+                legend: { position: 'bottom' }
             },
 
-            // Google Calendar Chart Options
-            calendarChart: {
+            // Google Area Chart Default Options
+            areaChart: {
+
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: 'body'
+                // Default: false - Use Google Charts defaults
+                fontSize: false,
+
+                fontName: o.fontFamily,
+                legend: { position: 'bottom' }
+            },
+
+            // Google Calendar Chart Default Options
+            calendar: {
 
                 // The cell scaling factor custom option - Not a Google Chart option
                 // Used to refactor the cell size in responsive designs
@@ -208,8 +233,8 @@
                 }
             },
 
-            // Google Table Chart Options
-            tableChart: {
+            // Google Table Chart Default Options
+            table: {
 
                 // Format a data column in a Table Chart
                 formatter: {
@@ -247,8 +272,11 @@
 
         };  //  o.optionsInit close
 
-        // Initiate Google Chart options object
-        o.cOptions = {};
+        // The Google Chart options object
+        o.chartOptions = {};
+
+        // The Google Chart options object clone
+        o.cchartOptions = {};
 
         // Window resize event timer function
         o.timer = false;
@@ -262,8 +290,11 @@
         // Data array - the array of collected data to send to Google Charts
         o.dataArray = [];
 
-        // Set chartPackage - Options: corechart, calendar, geochart, table - The Google Chart Package to load.
+        // Set chartPackage - Default: corechart - The Google Chart Package to load.
         o.chartPackage = 'corechart';
+
+        // Array of chart types included in the Google Charts corechart package
+        o.coreCharts = ['BarChart','ColumnChart','PieChart','AreaChart','BubbleChart','CandlestickChart','ComboChart','Histogram', 'LineChart', 'ScatterChart', 'SteppedAreaChart'];
 
         // Init chart parent
         o.chartParent = false;
@@ -361,38 +392,29 @@
                 return;
             }
 
+            // Set chart package
+            if ( o.coreCharts.indexOf(o.options.chartType) === -1 ) { // not a core chart
+
+                // Get chart package from chart type
+                o.chartPackage = o.options.chartType.toLowerCase();
+            }
+
             // Construct Chart options -------------------------------------------
 
-            // Clone Chart options so we don't overwrite original values
-            o.oOptions = $.extend( true, {}, o.options );
-
-            // Limit to Google Chart options and set calculated values
-            if ( o.oOptions.chartType === 'BarChart' ) {
-                o.oOptions = o.oOptions.barChart;
-            } else if ( o.oOptions.chartType === 'ColumnChart' ) {
-                o.oOptions = o.oOptions.columnChart;
-            } else if ( o.oOptions.chartType === 'PieChart' ) {
-                o.oOptions = o.oOptions.pieChart;
-            } else if ( o.oOptions.chartType === 'GeoChart' ) {
-                o.oOptions = o.oOptions.geoChart;
-                o.chartPackage = 'geochart';
-            } else if ( o.oOptions.chartType === 'Calendar' ) {
-                o.oOptions = o.oOptions.calendarChart;
-                o.chartPackage = 'calendar';
-                o.oOptions.calendar.cellSize = o.oOptions.calendar.cellSize || $chartS.width() * o.oOptions.cellScaleFactor;
-            } else if ( o.options.chartType === 'Table' ) {
-                o.oOptions = o.oOptions.tableChart;
-                o.chartPackage = 'table';
-            } else { // Unrecognized chart type - Chart failed
-
-                // Show HTML table and remove chart
-                o.showTableChart( 'show', 'remove' );
-                console.log( 'Unrecognized chart type' );
-                return;
+            // Set the Google chart options
+            if ( o.options.chartOptions ) { // Use chartOptions object if it exists
+                o.chartOptions = o.options.chartOptions;
+            } else if (o.options[o.camelCase(o.options.chartType)]) { // Use options specific to the chart type if they exist
+                o.chartOptions = o.options[o.camelCase(o.options.chartType)];
             }
 
             // Clone Google Chart options so we don't overwrite original values
-            o.cOptions = $.extend( true, {}, o.oOptions );
+            o.cchartOptions = $.extend( true, {}, o.chartOptions );
+
+            // Set the Calendar cell size if a calendar chart
+            if ( o.options.chartType === 'Calendar' ) {
+                o.cchartOptions.calendar.cellSize = o.cchartOptions.calendar.cellSize || $chartS.width() * o.cchartOptions.cellScaleFactor;
+            }
 
             // Load Google Chart ----------------------------------------------------------
 
@@ -451,7 +473,7 @@
                 dataArray = o.getTableData();
 
                 // Set the chart title
-                o.cOptions.title = o.cOptions.title || o.tableClone.find('caption').text() || '';
+                o.cchartOptions.title = o.cchartOptions.title || o.tableClone.find('caption').text() || '';
             }
 
             // Add/overwrite with js data-array columns
@@ -507,26 +529,26 @@
             }
 
             // Format data ----------------------------------------------------------------
-            if ( o.options.tableChart.formatter.type !== 'none' ) {
-                var formatter = new google.visualization[o.options.tableChart.formatter.type](o.options.tableChart.formatter);
-                formatter.format( o.data, o.options.tableChart.formatter.column); // Apply formatter to column
+            if ( o.cchartOptions.formatter && o.cchartOptions.formatter.type !== 'none' ) {
+                var formatter = new google.visualization[o.cchartOptions.formatter.type](o.cchartOptions.formatter);
+                formatter.format( o.data, o.cchartOptions.formatter.column); // Apply formatter to column
             }
 
             // Adjust options -------------------------------------------------------------
 
             // Set font sizes
-            if (o.cOptions.fontSize && isNaN(parseInt(o.cOptions.fontSize, 10))) {
-                o.cOptions.fontSize = o.getFontSize(o.cOptions.fontSize, 16);
+            if (o.cchartOptions.fontSize && isNaN(parseInt(o.cchartOptions.fontSize, 10))) {
+                o.cchartOptions.fontSize = o.getFontSize(o.cchartOptions.fontSize, 16);
             }
-            if (o.cOptions.titleTextStyle && o.cOptions.titleTextStyle.fontSize && isNaN(parseInt(o.cOptions.titleTextStyle.fontSize, 10))) {
-                o.cOptions.titleTextStyle.fontSize = o.getFontSize(o.cOptions.titleTextStyle.fontSize, 16);
+            if (o.cchartOptions.titleTextStyle && o.cchartOptions.titleTextStyle.fontSize && isNaN(parseInt(o.cchartOptions.titleTextStyle.fontSize, 10))) {
+                o.cchartOptions.titleTextStyle.fontSize = o.getFontSize(o.cchartOptions.titleTextStyle.fontSize, 16);
             }
-            if (o.cOptions.calendar) {
-                if ( o.cOptions.calendar.monthLabel && o.cOptions.calendar.monthLabel.fontSize && isNaN( parseInt( o.cOptions.calendar.monthLabel.fontSize, 10 ) ) ) {
-                    o.cOptions.calendar.monthLabel.fontSize = o.getFontSize( o.cOptions.calendar.monthLabel.fontSize, 16 );
+            if (o.cchartOptions.calendar) {
+                if ( o.cchartOptions.calendar.monthLabel && o.cchartOptions.calendar.monthLabel.fontSize && isNaN( parseInt( o.cchartOptions.calendar.monthLabel.fontSize, 10 ) ) ) {
+                    o.cchartOptions.calendar.monthLabel.fontSize = o.getFontSize( o.cchartOptions.calendar.monthLabel.fontSize, 16 );
                 }
-                if (o.cOptions.calendar.dayOfWeekLabel && o.cOptions.calendar.dayOfWeekLabel.fontSize && isNaN(parseInt(o.cOptions.calendar.dayOfWeekLabel.fontSize, 10))) {
-                    o.cOptions.calendar.dayOfWeekLabel.fontSize = o.getFontSize(o.cOptions.calendar.dayOfWeekLabel.fontSize, 16);
+                if (o.cchartOptions.calendar.dayOfWeekLabel && o.cchartOptions.calendar.dayOfWeekLabel.fontSize && isNaN(parseInt(o.cchartOptions.calendar.dayOfWeekLabel.fontSize, 10))) {
+                    o.cchartOptions.calendar.dayOfWeekLabel.fontSize = o.getFontSize(o.cchartOptions.calendar.dayOfWeekLabel.fontSize, 16);
                 }
             }
 
@@ -534,11 +556,11 @@
             o.setDimensions();
 
             // Revise Chart Options -------------------------------------------------------------
-            if ( o.options.chartType === 'BarChart' && !o.options.chartAspectRatio && !o.oOptions.height) { // Height not set
+            if ( o.options.chartType === 'BarChart' && !o.options.chartAspectRatio && !o.chartOptions.height) { // Height not set
 
-                var fontSize = o.cOptions.fontSize || o.getFontSize('body', 16);
+                var fontSize = o.cchartOptions.fontSize || o.getFontSize('body', 16);
                 // Define height based on font size and number of rows
-                o.cOptions.height = fontSize * 2 * o.data.getNumberOfRows();
+                o.cchartOptions.height = fontSize * 2 * o.data.getNumberOfRows();
             }
 
             // Draw chart ----------------------------------------------------------------------
@@ -560,10 +582,11 @@
             google.visualization.events.addListener( o.chart, 'error', function (e) {
                 // Show table remove chart
                 o.showTableChart('show', 'remove');
+                console.log(e);
             });
 
             // Draw chart
-            o.chart.draw( o.data, o.cOptions );
+            o.chart.draw( o.data, o.cchartOptions );
 
         }; // o.drawChart close
 
@@ -906,15 +929,15 @@
                                 // Recalculate calculated option values ---------------------
 
                                 // Recalculate calendar cellSize
-                                if ( o.cOptions.calendar && !o.options.calendarChart.calendar.cellSize ) {
-                                    o.cOptions.calendar.cellSize = $chartS.width() * 0.017;
+                                if ( o.cchartOptions.calendar && !o.options.calendar.calendar.cellSize ) {
+                                    o.cchartOptions.calendar.cellSize = $chartS.width() * 0.017;
                                 }
 
                                 // Set Chart dimensions
                                 o.setDimensions();
 
                                 // Redraw chart ---------------------------------------------
-                                o.chart.draw( o.data, o.cOptions );
+                                o.chart.draw( o.data, o.cchartOptions );
 
                             } else { // parent has not changed width
 
@@ -981,17 +1004,25 @@
 
             // Set chart width and height
             if ( o.options.chartAspectRatio ){
-                if ( o.oOptions.width && !o.oOptions.height ){
-                    o.cOptions.height = o.oOptions.width / o.options.chartAspectRatio;
-                } else if ( !o.oOptions.width && o.oOptions.height ){
-                    o.cOptions.width = o.oOptions.height * o.options.chartAspectRatio;
-                } else if (!o.oOptions.width && !o.oOptions.height) {
-                    o.cOptions.width = o.chartParentWidth;
-                    o.cOptions.height = o.cOptions.width / o.options.chartAspectRatio;
+                if ( o.chartOptions.width && !o.chartOptions.height ){
+                    o.cchartOptions.height = o.chartOptions.width / o.options.chartAspectRatio;
+                } else if ( !o.chartOptions.width && o.chartOptions.height ){
+                    o.cchartOptions.width = o.chartOptions.height * o.options.chartAspectRatio;
+                } else if (!o.chartOptions.width && !o.chartOptions.height) {
+                    o.cchartOptions.width = o.chartParentWidth;
+                    o.cchartOptions.height = o.cchartOptions.width / o.options.chartAspectRatio;
                 }
-            } else if (!o.oOptions.width && !o.oOptions.height) {
-                o.cOptions.width = o.chartParentWidth;
+            } else if (!o.chartOptions.width && !o.chartOptions.height) {
+                o.cchartOptions.width = o.chartParentWidth;
             }
+        };
+
+        // camelCase function - converts text to camelCase
+        o.camelCase = function (str) {
+            return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+                if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+                return index === 0 ? match.toLowerCase() : match.toUpperCase();
+            });
         };
 
         // initialize --------------------------------------------------------------------------
