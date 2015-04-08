@@ -18,15 +18,7 @@
 <h3 id="what-are-the-current-features-">What are the current features?</h3>
 <p>Chartinator currently supports the following:</p>
 <ul>
-<li>Creation of the following chart types using Google Charts<ul>
-<li>Bar Chart</li>
-<li>Pie Chart</li>
-<li>Column Chart</li>
-<li>Calendar</li>
-<li>Geo Chart</li>
-<li>Table Chart with data column formatter</li>
-</ul>
-</li>
+<li>Creation of all chart types using Google Charts - Visit <a href="https://developers.google.com/chart/interactive/docs/gallery">https://developers.google.com/chart/interactive/docs/gallery</a></li>
 <li>Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays</li>
 <li>Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots</li>
 <li>Showing and hiding of HTML tables accessibly</li>
@@ -34,6 +26,7 @@
 <li>Transposition of data - swapping of rows and columns</li>
 <li>Resizing of charts on screen resize - Responsive Web Design</li>
 <li>Chart aspect ratio control</li>
+<li>Zoom and offset of chart - Useful for refining the region displayed in maps</li>
 <li>Customization of chart tooltips and annotations</li>
 <li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
 </ul>
@@ -137,8 +130,6 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
             var chart1 = $(&#39;#barChart&#39;).chartinator({
 
                 // Custom Options ------------------------------------------------------
-                // Note: This example extracts data from an HTML table 
-                // and replaces a row with a tooltip and adds an annotation column
 
                 // The Google Sheet key
                 // The id of the Google sheet taken from the public url of the Sheet
@@ -148,7 +139,10 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
                 // The data columns js array
                 // An array of object literals that define each column
                 // Default: false
-                //columns: [{role: &#39;tooltip&#39;, type: &#39;string&#39;}],
+                //columns: [
+                //    {label: &#39;Country&#39;, type: &#39;string&#39;},
+                //    {label: &#39;Students&#39;, type: &#39;number&#39;},
+                //    {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
 
                 // Column indexes array - An array of column indexes defining where
                 // the data will be inserted into any existing data extracted 
@@ -164,7 +158,10 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
                 // the row data will be appended to any existing row data extracted 
                 // from an HTML table or Google Sheet
                 // Default: false
-                //rows: [[&#39;China - 2015&#39;],[&#39;Colombia - 2015&#39;],[&#39;France - 2015&#39;]],
+                //rows: [
+                //  [&#39;China&#39;, 18, &#39;2013 - 18&#39;],
+                //  [&#39;Japan&#39;, 12, &#39;2013 - 12&#39;],
+                //  [&#39;Russia&#39;, 10, &#39;2013 - 10&#39;]],
 
                 // The jQuery selector of the HTML table to extract the data from.
                 // Default: false - Checks if the element this plugin 
@@ -175,21 +172,24 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
                 // Default: []
                 // Note: Only works on data extracted from HTML tables or Google Sheets
                 // The headings row is index 0
-                ignoreRow: [6,8],
+                //ignoreRow: [6,8],
 
                 // Ignore column indexes array - An array of column indexes to ignore
                 // Default: []
                 // Note: Only works when extracting data from HTML tables or Google Sheets
-                ignoreCol: [2],
+                //ignoreCol: [2],
 
                 // Transpose data Boolean - swap columns and rows
                 // Default: false
                 // Note: Only works on data extracted from HTML tables or Google Sheets
-                transpose: false,
+                //transpose: false,
 
                 // The chart type - String
+                // Derived from the Google Charts visualization class name
                 // Default: &#39;BarChart&#39;
-                // Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: &#39;BarChart&#39;,
 
                 // The annotation concatenation 
@@ -346,8 +346,12 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // Not supported on pie, geo, calendar charts
     annotationConcat: false,
 
-    // The chart type - Options: BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+    // The chart type - String
+    // Derived from the Google Charts visualization class name
     // Default: &#39;BarChart&#39;
+    // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+    // See Google Charts Gallery for a complete list of Chart types
+    // https://developers.google.com/chart/interactive/docs/gallery
     chartType: &#39;BarChart&#39;,
 
     // The class to apply to the dynamically created chart container element
@@ -358,6 +362,53 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // this is overridden if the Google Chart&#39;s height and width options have values
     // Default: false - not used
     chartAspectRatio: false,
+
+    // The chart zoom factor - number
+    // A scaling factor for the chart - uses CSS3 transform
+    // Default: false
+    chartZoom: false,
+
+    // The chart offset - Array of numbers
+    // An array of x and y offset values in pixels
+    // Used to offset the chart - uses CSS3 transform
+    // Default: false
+    chartOffset: false,
+
+    // The Google Chart Options
+    // This option can be used with any chart type
+    // Some chart types have default options defined within Chartinator by the following objects:
+    // barChart, pieChart, columnChart, calendar, table
+    // These objects should be used instead of this one when using those chart types
+    // Default: no default - not defined
+    chartOptions: {},
+
+    // Google Bar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a bar chart
+    //barChart: {},
+
+    // Google Pie Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a pie chart
+    //pieChart: {},
+
+    // Google Column Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a column chart
+    //columnChart: {},
+
+    // Google Line Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a line chart
+    //lineChart: {},
+
+    // Google Area Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a area chart
+    //areaChart: {},
+
+    // Google Calendar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a calendar chart
+    //calendar: {},
+
+    // Google Table Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a table chart
+    //table: {},
 
     // Show table along with chart - String
     // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;. Default: &#39;hide&#39;
@@ -628,7 +679,7 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 <p>The following are some of the Google Charts Calendar Chart options, unless otherwise specified.</p>
 <pre><code>
     // Google Calendar Chart Options
-    calendarChart: { 
+    calendar: { 
 
         // The cell scaling factor custom option - Not a Google Chart option
         // Used to refactor the cell size in responsive designs
@@ -689,7 +740,7 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 <p>The following are some of the Google Charts Table Chart options, unless otherwise specified.</p>
 <pre><code>
     // Google Table Chart Options
-    tableChart: { 
+    table: { 
 
         // Format a data column in a Table Chart
         formatter: { 

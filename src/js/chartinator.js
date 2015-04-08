@@ -135,6 +135,17 @@
             // Default: false - not used
             chartAspectRatio: false,
 
+            // The chart zoom factor - number
+            // A scaling factor for the chart - uses CSS3 transform
+            // Default: false
+            chartZoom: false,
+
+            // The chart offset - Array of numbers
+            // An array of x and y offset values in pixels
+            // Used to offset the chart - uses CSS3 transform
+            // Default: false
+            chartOffset: false,
+
             // Google Bar Chart Default Options
             barChart: {
 
@@ -578,6 +589,19 @@
 
                 // Store the chart parent width
                 o.chartParentWidth = o.chartParent.width();
+
+                // Zoom and offset chart
+                if ( o.options.chartZoom || o.options.chartOffset ) {
+                    var transform = '';
+                    if ( o.options.chartZoom ) {
+                        transform = 'scale(' + o.options.chartZoom + ')';
+                    }
+                    if ( o.options.chartOffset ) {
+                        transform += ' translate(' + o.options.chartOffset[0] + 'px,' + o.options.chartOffset[1] + 'px)';
+                    }
+                    $chartS.children( ':first' ).css( 'transform', transform );
+                    $chartS.css( 'overflow', 'hidden' );
+                }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
                 // Show table remove chart

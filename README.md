@@ -32,6 +32,7 @@ Chartinator currently supports the following:
 * Transposition of data - swapping of rows and columns
 * Resizing of charts on screen resize - Responsive Web Design
 * Chart aspect ratio control
+* Zoom and offset of chart - Useful for refining the region displayed in maps
 * Customization of chart tooltips and annotations
 * Customization of all Google Chart options - Fonts, colors, chart formatting, etc.
 
@@ -396,6 +397,17 @@ The following are options that are specific to Chartinator and apply to all char
     // this is overridden if the Google Chart's height and width options have values
     // Default: false - not used
     chartAspectRatio: false,
+    
+    // The chart zoom factor - number
+    // A scaling factor for the chart - uses CSS3 transform
+    // Default: false
+    chartZoom: false,
+
+    // The chart offset - Array of numbers
+    // An array of x and y offset values in pixels
+    // Used to offset the chart - uses CSS3 transform
+    // Default: false
+    chartOffset: false,
     
     // The Google Chart Options
     // This option can be used with any chart type
