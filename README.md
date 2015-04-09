@@ -400,12 +400,14 @@ The following are options that are specific to Chartinator and apply to all char
     
     // The chart zoom factor - number
     // A scaling factor for the chart - uses CSS3 transform
+    // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
     // Default: false
     chartZoom: false,
 
     // The chart offset - Array of numbers
     // An array of x and y offset values in pixels
     // Used to offset the chart - uses CSS3 transform
+    // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
     // Default: false
     chartOffset: false,
     

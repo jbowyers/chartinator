@@ -137,12 +137,14 @@
 
             // The chart zoom factor - number
             // A scaling factor for the chart - uses CSS3 transform
+            // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
             // Default: false
             chartZoom: false,
 
             // The chart offset - Array of numbers
             // An array of x and y offset values in pixels
             // Used to offset the chart - uses CSS3 transform
+            // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
             // Default: false
             chartOffset: false,
 
@@ -605,8 +607,8 @@
 
                     if ( o.options.chartZoom ) {
                         transform = 'scale(' + o.options.chartZoom + ')';
-                        top = (($chartS.height()*o.options.chartZoom) - $chartS.height())/2;
-                        left = (($chartS.width()*o.options.chartZoom) - $chartS.width())/2;
+                        top = ((($chartS.height()*o.options.chartZoom) - $chartS.height())/2)/o.options.chartZoom;
+                        left = ((($chartS.width()*o.options.chartZoom) - $chartS.width())/2)/o.options.chartZoom;
                     }
                     if ( o.options.chartOffset ) {
                         transform += ' translate(' + o.options.chartOffset[0] + 'px,' + o.options.chartOffset[1] + 'px)';
@@ -620,8 +622,9 @@
 
                     // Add style to head to Adjust tooltip
                     $('<style> .google-visualization-tooltip{ ' +
-                        'top: ' + top + 'px !important; ' +
-                        'left: ' + left + 'px !important; } </style>').appendTo('head');
+                        'top: ' + top  + 'px !important; ' +
+                        'left: ' + left + 'px !important; ' +
+                        'transform: scale(' + (1/o.options.chartZoom) + ')} </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
