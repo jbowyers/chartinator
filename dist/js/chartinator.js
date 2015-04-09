@@ -605,15 +605,19 @@
                     var top = 0;
                     var left = 0;
 
-                    if ( o.options.chartZoom ) {
-                        transform = 'scale(' + o.options.chartZoom + ')';
-                        top = ((($chartS.height()*parseFloat(o.options.chartZoom)) - $chartS.height())/2)/parseFloat(o.options.chartZoom);
-                        left = ((($chartS.width()*parseFloat(o.options.chartZoom)) - $chartS.width())/2)/parseFloat(o.options.chartZoom);
+                    var zoom = parseFloat(o.options.chartZoom) || false;
+                    var offsetX = parseInt(o.options.chartOffset[0]) || 0;
+                    var offsetY = parseInt(o.options.chartOffset[1]) || 0;
+
+                    if ( zoom ) {
+                        transform = 'scale(' + zoom + ')';
+                        top = ((($chartS.height()*zoom) - $chartS.height())/2)/zoom;
+                        left = ((($chartS.width()*zoom) - $chartS.width())/2)/zoom;
                     }
-                    if ( o.options.chartOffset ) {
-                        transform += ' translate(' + o.options.chartOffset[0] + 'px,' + o.options.chartOffset[1] + 'px)';
-                        top += (-parseInt(o.options.chartOffset[1]));
-                        left += (-parseInt(o.options.chartOffset[0]));
+                    if ( offsetX || offsetY ) {
+                        transform += ' translate(' + offsetX + 'px,' + offsetY + 'px)';
+                        top -= offsetY;
+                        left -= offsetX;
                     }
 
                     // Transform chart and prevent overflow
