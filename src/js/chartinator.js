@@ -607,13 +607,13 @@
 
                     if ( o.options.chartZoom ) {
                         transform = 'scale(' + o.options.chartZoom + ')';
-                        top = ((($chartS.height()*o.options.chartZoom) - $chartS.height())/2)/o.options.chartZoom;
-                        left = ((($chartS.width()*o.options.chartZoom) - $chartS.width())/2)/o.options.chartZoom;
+                        top = ((($chartS.height()*parseFloat(o.options.chartZoom)) - $chartS.height())/2)/parseFloat(o.options.chartZoom);
+                        left = ((($chartS.width()*parseFloat(o.options.chartZoom)) - $chartS.width())/2)/parseFloat(o.options.chartZoom);
                     }
                     if ( o.options.chartOffset ) {
                         transform += ' translate(' + o.options.chartOffset[0] + 'px,' + o.options.chartOffset[1] + 'px)';
-                        top += (-o.options.chartOffset[1]);
-                        left += (-o.options.chartOffset[0]);
+                        top += (-parseInt(o.options.chartOffset[1]));
+                        left += (-parseInt(o.options.chartOffset[0]));
                     }
 
                     // Transform chart and prevent overflow
@@ -624,7 +624,7 @@
                     $('<style> .google-visualization-tooltip{ ' +
                         'top: ' + top  + 'px !important; ' +
                         'left: ' + left + 'px !important; ' +
-                        'transform: scale(' + (1/o.options.chartZoom) + ')} </style>').appendTo('head');
+                        'transform: scale(' + (1/parseFloat(o.options.chartZoom)) + ')} </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
