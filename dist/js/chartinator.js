@@ -592,15 +592,36 @@
 
                 // Zoom and offset chart
                 if ( o.options.chartZoom || o.options.chartOffset ) {
+
+                    // The CSS3 transform value
                     var transform = '';
+
+                    // The chart canvas object
+                    var $chartCanvas = $chartS.children( ':last' );
+
+                    // The top and left css values to be applied to the tooltip
+                    var top = 0;
+                    var left = 0;
+
                     if ( o.options.chartZoom ) {
                         transform = 'scale(' + o.options.chartZoom + ')';
+                        top = (($chartS.height()*o.options.chartZoom) - $chartS.height())/2;
+                        left = (($chartS.width()*o.options.chartZoom) - $chartS.width())/2;
                     }
                     if ( o.options.chartOffset ) {
                         transform += ' translate(' + o.options.chartOffset[0] + 'px,' + o.options.chartOffset[1] + 'px)';
+                        top += (-o.options.chartOffset[1]);
+                        left += (-o.options.chartOffset[0]);
                     }
-                    $chartS.children( ':first' ).css( 'transform', transform );
+
+                    // Transform chart and prevent overflow
+                    $chartCanvas.css( 'transform', transform );
                     $chartS.css( 'overflow', 'hidden' );
+
+                    // Add style to head to Adjust tooltip
+                    $('<style> .google-visualization-tooltip{ ' +
+                        'top: ' + top + 'px !important; ' +
+                        'left: ' + left + 'px !important; } </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {

@@ -330,7 +330,7 @@
                 // An array of x and y offset values in pixels
                 // Used to offset the chart - uses CSS3 transform
                 // Default: false
-                //chartOffset: false,
+                chartOffset: [-30,0],
 
                 // The Chart Options
                 // The Google Chart options - This option can be used with any chart type
@@ -377,7 +377,9 @@
 
                         // Show tooltip with values on hover - String
                         // Options: focus, none. Default: 'focus'
-                        trigger: 'focus'
+                        trigger: 'focus',
+
+                        isHtml: true
                     }
                 },
 
