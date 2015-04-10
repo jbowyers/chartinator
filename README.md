@@ -389,6 +389,10 @@ The following are options that are specific to Chartinator and apply to all char
     // https://developers.google.com/chart/interactive/docs/gallery
     chartType: 'BarChart',
 
+    // Chart Id - The id applied to the chart container element as an id and a class
+    // This is overridden if the chart element has an id or is user defined
+    chartId: 'c24_' + Math.random().toString(36).substr(2, 9),
+    
     // The class to apply to the dynamically created chart container element
     chartClass: 'chtr-chart',
 

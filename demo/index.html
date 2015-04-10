@@ -1328,6 +1328,10 @@
                 // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: &#39;BarChart&#39;,
 
+                // Chart Id - The id applied to the chart container element as an id and a class
+                // This is overridden if the chart element has an id or is user defined
+                chartId: &#39;c24_&#39; + Math.random().toString(36).substr(2, 9),
+
                 // The class to apply to the dynamically created chart container element
                 chartClass: &#39;chtr-chart&#39;,
 

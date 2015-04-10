@@ -126,6 +126,10 @@
             // https://developers.google.com/chart/interactive/docs/gallery
             chartType: 'BarChart',
 
+            // Chart Id - The id applied to the chart container element as an id and a class
+            // This is overridden if the chart element has an id or is user defined
+            chartId: 'c24_' + Math.random().toString(36).substr(2, 9),
+
             // The class to apply to the dynamically created chart container element
             chartClass: 'chtr-chart',
 
@@ -297,6 +301,9 @@
         // Initialize table clone
         o.tableClone = false;
 
+        // Chart Id - A dynamically generated id to apply to the chart container element
+        o.chartId = o.optionsInit.chartId;
+
         // The Google Sheet data object - Data returned
         o.googleSheetData = false;
 
@@ -326,6 +333,9 @@
             //  Merge options
             o.options = $.extend({}, o.optionsInit, options);
 
+            // Update chartId
+            o.chartId = options.chartId || $chartS.attr('id') || o.options.chartId ;
+
             // Define table and chart elements --------------------------------------------------
 
             // Set table element
@@ -345,21 +355,21 @@
             if ($chartS[0] === $tableS[0]) { // table and chart are the same element
                 if (tableHasData) {
                     // Insert a new chart element after the table
-                    $chartS = $( '<div class="' + o.options.chartClass + '"></div>' ).insertAfter( $tableS );
+                    $chartS = $( '<div id="' + o.chartId + '" class="' + o.chartId + ' ' + o.options.chartClass + '"></div>' ).insertAfter( $tableS );
                 } else { // table does not exist
                     $tableS = false;
                 }
             }
 
-            // Add chart class
-            $chartS.addClass(o.options.chartClass);
+            // Add chart class and id
+            $chartS
+                .addClass( o.chartId + ' ' + o.options.chartClass )
+                .attr( 'id', o.chartId );
 
             // Get chart parent element
             o.chartParent = $chartS.parent();
 
-
             // Get data ----------------------------------------------------------
-
             if ( o.options.googleSheetKey ) {
 
                 // Get Google Sheets data
@@ -535,16 +545,16 @@
             if ( !o.data || !o.data.getNumberOfRows() ) { // No data
 
                 // Show table remove chart
-                o.showTableChart('show', 'remove');
+                o.showTableChart( 'show', 'remove' );
 
-                console.log('Google Charts data table failed');
+                console.log( 'Google Charts data table failed' );
                 return;
             }
 
             // Format data ----------------------------------------------------------------
             if ( o.cchartOptions.formatter && o.cchartOptions.formatter.type !== 'none' ) {
                 var formatter = new google.visualization[o.cchartOptions.formatter.type](o.cchartOptions.formatter);
-                formatter.format( o.data, o.cchartOptions.formatter.column); // Apply formatter to column
+                formatter.format( o.data, o.cchartOptions.formatter.column ); // Apply formatter to column
             }
 
             // Adjust options -------------------------------------------------------------
@@ -625,7 +635,7 @@
                     $chartS.css( 'overflow', 'hidden' );
 
                     // Add style to head to Adjust tooltip
-                    $('<style> .google-visualization-tooltip{ ' +
+                    $('<style> .' + o.chartId +' .google-visualization-tooltip{ ' +
                         'top: ' + top  + 'px !important; ' +
                         'left: ' + left + 'px !important; ' +
                         'transform: scale(' + (1/parseFloat(o.options.chartZoom)) + ')} </style>').appendTo('head');
