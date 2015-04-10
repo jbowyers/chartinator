@@ -141,14 +141,14 @@
 
             // The chart zoom factor - number
             // A scaling factor for the chart - uses CSS3 transform
-            // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
-            // Default: false
-            chartZoom: false,
+            // To prevent tooltips from displaying off canvas while zooming, set tooltip.isHtml: true
+            // Default: 0
+            chartZoom: 0,
 
             // The chart offset - Array of numbers
-            // An array of x and y offset values in pixels
-            // Used to offset the chart - uses CSS3 transform
-            // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
+            // An array of x and y offset percentage values
+            // Used to offset the chart by percentages of the height and width - uses CSS3 transform
+            // To prevent tooltips from displaying off canvas while offsetting, set tooltip.isHtml: true
             // Default: false
             chartOffset: false,
 
@@ -615,9 +615,12 @@
                     var top = 0;
                     var left = 0;
 
-                    var zoom = parseFloat(o.options.chartZoom) || false;
+                    var zoom = parseFloat(o.options.chartZoom) || 0;
+                    var tooltipZoom = 1/zoom || 1;
                     var offsetX = parseInt(o.options.chartOffset[0]) || 0;
                     var offsetY = parseInt(o.options.chartOffset[1]) || 0;
+                    offsetX = offsetX*$chartS.width()*zoom/100;
+                    offsetY = offsetY*$chartS.height()*zoom/100;
 
                     if ( zoom ) {
                         transform = 'scale(' + zoom + ')';
@@ -638,7 +641,7 @@
                     $('<style> .' + o.chartId +' .google-visualization-tooltip{ ' +
                         'top: ' + top  + 'px !important; ' +
                         'left: ' + left + 'px !important; ' +
-                        'transform: scale(' + (1/parseFloat(o.options.chartZoom)) + ')} </style>').appendTo('head');
+                        'transform: scale(' + tooltipZoom + ')} </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {

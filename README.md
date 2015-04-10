@@ -390,7 +390,7 @@ The following are options that are specific to Chartinator and apply to all char
     chartType: 'BarChart',
 
     // Chart Id - The id applied to the chart container element as an id and a class
-    // This is overridden if the chart element has an id or is user defined
+    // This is overridden if the chart element has an id or the id is user defined
     chartId: 'c24_' + Math.random().toString(36).substr(2, 9),
     
     // The class to apply to the dynamically created chart container element
@@ -404,14 +404,14 @@ The following are options that are specific to Chartinator and apply to all char
     
     // The chart zoom factor - number
     // A scaling factor for the chart - uses CSS3 transform
-    // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
-    // Default: false
-    chartZoom: false,
+    // To prevent tooltips from displaying off canvas when zooming, set tooltip.isHtml: true
+    // Default: 0
+    chartZoom: 0,
 
     // The chart offset - Array of numbers
-    // An array of x and y offset values in pixels
-    // Used to offset the chart - uses CSS3 transform
-    // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
+    // An array of x and y offset percentage values
+    // Used to offset the chart by percentages of the height and width - uses CSS3 transform
+    // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
     // Default: false
     chartOffset: false,
     

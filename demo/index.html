@@ -323,16 +323,16 @@
 
                 // The chart zoom factor - number
                 // A scaling factor for the chart - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
-                // Default: false
-                chartZoom: 1.25,
+                // To prevent tooltips from displaying off canvas while zooming, set tooltip.isHtml: true
+                // Default: 0
+                chartZoom: 1.75,
 
                 // The chart offset - Array of numbers
-                // An array of x and y offset values in pixels
-                // Used to offset the chart - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
+                // An array of x and y offset percentage values
+                // Used to offset the chart by percentages of the height and width - uses CSS3 transform
+                // To prevent tooltips from displaying off canvas while offsetting, set tooltip.isHtml: true
                 // Default: false
-                chartOffset: [-30,0],
+                chartOffset: [-12,0],
 
                 // The Chart Options
                 // The Google Chart options - This option can be used with any chart type
@@ -1329,7 +1329,7 @@
                 chartType: &#39;BarChart&#39;,
 
                 // Chart Id - The id applied to the chart container element as an id and a class
-                // This is overridden if the chart element has an id or is user defined
+                // This is overridden if the chart element has an id or the id is user defined
                 chartId: &#39;c24_&#39; + Math.random().toString(36).substr(2, 9),
 
                 // The class to apply to the dynamically created chart container element
@@ -1343,14 +1343,14 @@
 
                 // The chart zoom factor - number
                 // A scaling factor for the chart - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
-                // Default: false
-                chartZoom: false,
+                // To prevent tooltips from displaying off canvas when zooming, set tooltip.isHtml: true
+                // Default: 0
+                chartZoom: 0,
 
                 // The chart offset - Array of numbers
-                // An array of x and y offset values in pixels
-                // Used to offset the chart - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas, set tooltip.isHtml: true
+                // An array of x and y offset percentage values
+                // Used to offset the chart by percentages of the height and width - uses CSS3 transform
+                // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
                 // Default: false
                 chartOffset: false,
 
