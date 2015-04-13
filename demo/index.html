@@ -68,6 +68,20 @@
                 // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'BarChart',
 
+                // The data title
+                // A title used to identify the set of data
+                // Used as a caption when generating an HTML table
+                dataTitle: 'Bar Chart Data',
+
+                // The class to apply to the table element
+                tableClass: 'col-table',
+
+                // Create Table
+                // Create an HTML table from chart data
+                // Note: This table will replace an existing HTML table
+                // Default: false
+                createTable: true,
+
                 // Transpose data Boolean - swap columns and rows
                 // Default: false
                 transpose: false,
@@ -111,7 +125,7 @@
 
                     chartArea: {
                         left: "20%",
-                        top: 40,
+                        top: 30,
                         width: "74%",
                         height: "80%"
                     },
@@ -128,7 +142,8 @@
 
                     // Chart Title - String
                     // Default: Table caption.
-                    title: 'Bar Chart Sample',
+                    title: 'Bar Chart',
+
                     titleTextStyle: {
 
                         // The font size in pixels - Number
@@ -151,6 +166,7 @@
                     // Stack values within a bar or column chart - Boolean
                     // Default: false.
                     isStacked: false,
+
                     tooltip: {
 
                         // Shows tooltip with values on hover - String
@@ -178,6 +194,17 @@
                     ['France', 5],
                     ['Mexico', 2]],
 
+                // Create Table
+                // Create an HTML table from chart data
+                // Note: This table will replace an existing HTML table
+                // Default: false
+                createTable: true,
+
+                // The data title
+                // A title used to identify the set of data
+                // Used as a caption when generating an HTML table
+                dataTitle: 'Pie Chart Data',
+
                 // The chart type - String
                 // Derived from the Google Charts visualization class name
                 // Default: 'BarChart'
@@ -186,12 +213,18 @@
                 // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'PieChart',
 
+                // The class to apply to the chart container element
+                chartClass: 'col',
+
+                // The class to apply to the table element
+                tableClass: 'col-table',
+
                 // The chart aspect ratio custom option - width/height
                 // Used to calculate the chart dimensions relative to the width or height
                 // this is overridden if the Google Chart's height and width options have values
                 // Suggested value: 1.25
                 // Default: false - not used
-                chartAspectRatio: 1.25,
+                //chartAspectRatio: 1.25,
 
                 // Google Pie Chart Options
                 pieChart: {
@@ -202,12 +235,12 @@
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    //height: 400,
+                    height: 300,
 
                     chartArea: {
-                        left: "0%",
-                        top: 40,
-                        width: "100%",
+                        left: "6%",
+                        top: 30,
+                        width: "94%",
                         height: "100%"
                     },
 
@@ -223,7 +256,7 @@
 
                     // Chart Title - String
                     // Default: Table caption.
-                    title: 'Pie Chart Sample',
+                    //title: 'Pie Chart',
 
                     titleTextStyle: {
 
@@ -255,7 +288,10 @@
                         // Default: focus
                         trigger: 'focus'
                     }
-                }
+                },
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
             });
 
             //  Geo Chart Example
@@ -273,8 +309,7 @@
                 tableSel: '.geoChart',
 
                 // Columns - The columns data-array
-                columns: [
-                    {role: 'tooltip', type: 'string'}],
+                columns: [{role: 'tooltip', type: 'string'}],
 
                 // Column indexes array - An array of column indexes defining where
                 // the data will be inserted into any existing data extracted from an HTML table or Google Sheet
@@ -319,7 +354,7 @@
                 // this is overridden if the Google Chart's height and width options have values
                 // Suggested value: 1.25
                 // Default: false - not used
-                chartAspectRatio: 1.25,
+                chartAspectRatio: 1.5,
 
                 // The chart zoom factor - number
                 // A scaling factor for the chart - uses CSS3 transform
@@ -344,7 +379,7 @@
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    //height: 320,
+                    //height: 250,
 
                     // Background color
                     // Default: 'white'
@@ -383,14 +418,14 @@
 
                         isHtml: true
                     }
-                },
+                }
 
                 // Show table as well as chart - String
                 // Options: 'show', 'hide', 'remove'
-                showTable: 'show'
+                //showTable: 'show'
             });
 
-            //  Column Chart Chart Example
+            //  Column Chart Example
             var chart4 = $('#columnChart').chartinator({
 
                 // Custom Options ------------------------------------------------------
@@ -400,23 +435,29 @@
                 columns: [
                     {label: 'Country', type: 'string'},
                     {label: '2013', type: 'number'},
-                    {role: 'tooltip', type: 'string'},
                     {label: '2014', type: 'number'},
-                    {role: 'tooltip', type: 'string'},
-                    {label: '2015', type: 'number'},
-                    {role: 'tooltip', type: 'string'}],
+                    {label: '2015', type: 'number'}],
 
                 // Rows - The rows data-array
                 // If colIndexes array has values the row data will be inserted into the columns
                 // defined in the colindexes array. Otherwise the row data will be appended
                 // to any existing row data extracted from an HTML table or Google Sheet
                 rows: [
-                    ['China', 18, '2013 - 18', 11, '2014 - 11', 9, '2015 - 9'],
-                    ['Japan', 12, '2013 - 12', 8, '2014 - 8', 9, '2015 - 9'],
-                    ['Russia', 10, '2013 - 10', 9, '2014 - 9', 7, '2015 - 7'],
-                    ['Mexico', 5, '2013 - 5', 4, '2014 - 4', 2, '2015 - 2'],
-                    ['Brazil', 6, '2013 - 6', 2, '2014 - 2', 1, '2015 - 1'],
-                    ['Italy', 4, '2013 - 4', 3, '2014 - 3', 5, '2015 - 5']],
+                    ['China', 18, 11, 9],
+                    ['Japan', 12, 8, 9],
+                    ['Russia', 10, 9, 7],
+                    ['Mexico', 5, 4, 2],
+                    ['Brazil', 6, 2, 1],
+                    ['Italy', 4, 3, 5]],
+
+                // The class to apply to the table element
+                tableClass: 'col-table',
+
+                // Create Table
+                // Create an HTML table from chart data
+                // Note: This table will replace an existing HTML table
+                // Default: false
+                createTable: true,
 
                 // The chart type - String
                 // Derived from the Google Charts visualization class name
@@ -426,12 +467,17 @@
                 // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: 'ColumnChart',
 
+                // The data title
+                // A title used to identify the set of data
+                // Used as a caption when generating an HTML table
+                dataTitle: 'Column Chart Data',
+
                 // The chart aspect ratio custom option - width/height
                 // Used to calculate the chart dimensions relative to the width or height
                 // this is overridden if the Google Chart's height and width options have values
                 // Suggested value: 1.25
                 // Default: false - not used
-                chartAspectRatio: 1.25,
+                chartAspectRatio: 1.5,
 
                 // Google Column Chart Options
                 columnChart: {
@@ -442,12 +488,12 @@
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    //height: 400,
+                    //height: 200,
 
                     chartArea: {
                         left: "10%",
-                        top: 40,
-                        width: "100%",
+                        top: 30,
+                        width: "90%",
                         height: "65%"
                     },
 
@@ -463,7 +509,7 @@
 
                     // Chart Title - String
                     // Default: Table caption.
-                    title: 'Column Chart Sample',
+                    title: 'Column Chart',
 
                     titleTextStyle: {
 
@@ -495,11 +541,245 @@
                         // Default: focus
                         trigger: 'focus'
                     }
+                },
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
+            });
+
+            //  Area Chart Example
+            var chart5 = $('#areaChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+                // note: This example uses js data arrays for data instead of HTML tables
+
+                // Columns - The columns data-array
+                columns: [
+                    {label: 'Country', type: 'string'},
+                    {label: '2013', type: 'number'},
+                    {label: '2014', type: 'number'},
+                    {label: '2015', type: 'number'}],
+
+                // Rows - The rows data-array
+                // If colIndexes array has values the row data will be inserted into the columns
+                // defined in the colindexes array. Otherwise the row data will be appended
+                // to any existing row data extracted from an HTML table or Google Sheet
+                rows: [
+                    ['China', 18, 11, 9],
+                    ['Japan', 12, 8, 9],
+                    ['Russia', 10, 9, 7],
+                    ['Mexico', 5, 4, 2],
+                    ['Brazil', 6, 2, 1],
+                    ['Italy', 4, 3, 5]],
+
+                // Create Table
+                // Create an HTML table from chart data
+                // Note: This table will replace an existing HTML table
+                // Default: false
+                createTable: true,
+
+                // The data title
+                // A title used to identify the set of data
+                // Used as a caption when generating an HTML table
+                dataTitle: 'Area Chart Data',
+
+                // The class to apply to the chart container element
+                chartClass: 'col',
+
+                // The class to apply to the table element
+                tableClass: 'col-table',
+
+                // The chart type - String
+                // Derived from the Google Charts visualization class name
+                // Default: 'BarChart'
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
+                chartType: 'AreaChart',
+
+                // The chart aspect ratio custom option - width/height
+                // Used to calculate the chart dimensions relative to the width or height
+                // this is overridden if the Google Chart's height and width options have values
+                // Suggested value: 1.25
+                // Default: false - not used
+                chartAspectRatio: 1.5,
+
+                // Google Area Chart Options
+                areaChart: {
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    //height: 400,
+
+                    chartArea: {
+                        left: "10%",
+                        top: 40,
+                        width: "85%",
+                        height: "65%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    //fontSize: 'body',
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Area Chart',
+
+                    titleTextStyle: {
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'bottom'
+                    },
+
+                    // Array of colours
+                    colors: ['#94ac27', '#3691ff', '#bf5cff'],
+
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
+                },
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                showTable: 'show'
+            });
+
+            //  Line Chart Example
+            var chart6 = $('#lineChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+                // note: This example uses js data arrays for data instead of HTML tables
+
+                // Columns - The columns data-array
+                columns: [
+                    {label: 'Country', type: 'string'},
+                    {label: '2013', type: 'number'},
+                    {role: 'annotation', type: 'string'},
+                    {label: '2014', type: 'number'},
+                    {role: 'annotation', type: 'string'},
+                    {label: '2015', type: 'number'},
+                    {role: 'annotation', type: 'string'}],
+
+                // Rows - The rows data-array
+                // If colIndexes array has values the row data will be inserted into the columns
+                // defined in the colindexes array. Otherwise the row data will be appended
+                // to any existing row data extracted from an HTML table or Google Sheet
+                rows: [
+                    ['China', 18, '18', 11, '11', 9, '9'],
+                    ['Japan', 12, '12', 8, '8', 9, '9'],
+                    ['Russia', 10, '10', 9, '9', 7, '7'],
+                    ['Mexico', 5, '5', 4, '4', 2, '2'],
+                    ['Brazil', 6, '6', 2, '2', 1, '1'],
+                    ['Italy', 4, '4', 3, '3', 5, '5']],
+
+                // The chart type - String
+                // Derived from the Google Charts visualization class name
+                // Default: 'BarChart'
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
+                chartType: 'LineChart',
+
+                // The chart aspect ratio custom option - width/height
+                // Used to calculate the chart dimensions relative to the width or height
+                // this is overridden if the Google Chart's height and width options have values
+                // Suggested value: 1.25
+                // Default: false - not used
+                //chartAspectRatio: 1.25,
+
+                // Google Line Chart Options
+                lineChart: {
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    height: 310,
+
+                    chartArea: {
+                        left: "10%",
+                        top: 40,
+                        width: "85%",
+                        height: "65%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    //fontSize: 'body',
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Line Chart',
+
+                    titleTextStyle: {
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'bottom'
+                    },
+
+                    // Array of colours
+                    colors: ['#94ac27', '#3691ff', '#bf5cff'],
+
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
                 }
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                //showTable: 'show'
             });
 
             //  Table Chart Example
-            var chart5 = $('#tableChart').chartinator({
+            var chart7 = $('#tableChart').chartinator({
 
                 // Custom Options ------------------------------------------------------
                 // Note: this chart type does not display the table caption as a chart heading
@@ -600,7 +880,7 @@
                     // Default 10
                     pageSize: 10,
 
-                    // Enbale row numbers - Boolean
+                    // Enable row numbers - Boolean
                     // Default: false
                     showRowNumber: false,
 
@@ -636,7 +916,7 @@
             });
 
             //  Calendar example
-            var chart6 = $('#myDates').chartinator({
+            var chart8 = $('#myDates').chartinator({
 
                 // Custom Options ------------------------------------------------------
 
@@ -670,6 +950,25 @@
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
                     //height: 200,
+
+                    titleTextStyle: {
+                    // Note: Support for this option has been added by Chartinator
+                    // but is not supported by Google Charts for this chart type
+
+                        color: '#000',
+                        fontWeight: 'bold',
+                        fontName: 'Roboto',
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
+                    },
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Calendar Chart',
 
                     calendar: {
 
@@ -714,8 +1013,131 @@
 
                         // The colour gradient start and end values
                         colors: ['ff9de2', '#a82180']
+                    },
+                    tooltip: {
+                        // Note: Support for this option has been added by Chartinator
+                        // but is not supported by Google Charts for this chart type
+                        textStyle: {
+                            fontName: 'Roboto',
+                            fontSize: 14
+                        }
                     }
                 }
+
+            });
+
+            //  Bubble Chart Example
+            var chart9 = $('#bubbleChart').chartinator({
+
+                // Custom Options ------------------------------------------------------
+                // note: This example uses js data arrays for data instead of HTML tables
+
+                // Columns - The columns data-array
+                // Note: In this example the data types are not defined but are inferred by Google Charts
+                columns: ['Module', 'Attendance rate', 'Average Grade', 'Course', 'Number of Students'],
+
+                // Rows - The rows data-array
+                // If colIndexes array has values, the row data will be inserted into the columns
+                // defined in the colIndexes array. Otherwise the row data will be appended
+                // to any existing row data extracted from an HTML table or Google Sheet
+                rows: [
+                    ['HTML', .90, .75, 'Front-End Dev', 22],
+                    ['CSS', .88, .82, 'Front-End Dev', 25],
+                    ['JS', .92, .78, 'Front-End Dev', 21],
+                    ['PHP', .95, .75, 'Back-End Dev', 28],
+                    ['Node', .88, .73, 'Back-End Dev', 20],
+                    ['UX', .91, .85, 'Design', 20],
+                    ['UI', .85, .75, 'Design', 26]
+                ],
+
+                // The chart type - String
+                // Derived from the Google Charts visualization class name
+                // Default: 'BarChart'
+                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+                // See Google Charts Gallery for a complete list of Chart types
+                // https://developers.google.com/chart/interactive/docs/gallery
+                chartType: 'BubbleChart',
+
+                // The chart aspect ratio custom option - width/height
+                // Used to calculate the chart dimensions relative to the width or height
+                // this is overridden if the Google Chart's height and width options have values
+                // Suggested value: 1.25
+                // Default: false - not used
+                chartAspectRatio: 1.5,
+
+                // Google Bubble Chart Options
+                chartOptions: {
+
+                    // Width of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    width: null,
+
+                    // Height of chart in pixels - Number
+                    // Default: automatic (unspecified)
+                    //height: 400,
+
+                    chartArea: {
+                        left: "10%",
+                        top: 40,
+                        width: "85%",
+                        height: "65%"
+                    },
+
+                    // The font size in pixels - Number
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    //fontSize: 'body',
+
+                    // Font-family name - String
+                    // Default: 'Arial'
+                    fontName: 'Roboto',
+
+                    // Chart Title - String
+                    // Default: Table caption.
+                    title: 'Bubble Chart',
+
+                    // Format the horizontal axis as %
+                    hAxis: {
+                        title: 'Attendance Rate',
+                        format:'#%'},
+
+                    // Format the vertical axis as %
+                    vAxis: {
+                        title: 'Average Grade',
+                        format:'#%'},
+
+                    titleTextStyle: {
+
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
+                        fontSize: 'h3'
+                    },
+                    legend: {
+
+                        // Legend position - String
+                        // Options: bottom, top, left, right, in, none.
+                        // Default: right
+                        position: 'bottom'
+                    },
+
+                    // Array of colours
+                    colors: ['#94ac27', '#3691ff', '#bf5cff'],
+
+                    tooltip: {
+
+                        // Shows tooltip with values on hover - String
+                        // Options: focus, none.
+                        // Default: focus
+                        trigger: 'focus'
+                    }
+                }
+
+                // Show table as well as chart - String
+                // Options: 'show', 'hide', 'remove'
+                //showTable: 'show'
             });
 
         });
@@ -732,593 +1154,435 @@
 
 <body>
 <header>
-    <div class="wrapper">
-        <div class="brand">
-            <p><a href="#" class="logo">Chartinator</a></p>
-        </div>
+<div class="wrapper">
+    <div class="brand">
+        <p><a href="#" class="logo">Chartinator</a></p>
+    </div>
 
-        <!-- START Responsive Menu HTML -->
-        <div class="rm-container">
-            <a class="rm-toggle rm-button rm-nojs" href="#">Menu</a>
+    <!-- START Responsive Menu HTML -->
+    <div class="rm-container">
+        <a class="rm-toggle rm-button rm-nojs" href="#">Menu</a>
 
-            <nav class="rm-nav rm-nojs rm-lighten">
-                <ul>
-                    <li><a href="#barChart">Bar</a></li>
-                    <li><a href="#charts2">Pie</a></li>
-                    <li><a href="#columnChart">Column</a></li>
-                    <li><a href="#tableChartTitle">Table</a></li>
-                    <li><a href="#geoChartTitle">Geo</a></li>
-                    <li><a href="#charts4">Calendar</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-            </nav>
-        </div><!-- .rm-container -->
-        <!-- End Responsive Menu HTML -->
-    </div><!-- .wrapper -->
+        <nav class="rm-nav rm-nojs rm-lighten">
+            <ul>
+                <li><a href="#barChart">Bar</a></li>
+                <li><a href="#geoChartTitle">Geo</a></li>
+                <li><a href="#lineChart">Line</a></li>
+                <li><a href="#pieChart">Pie</a></li>
+                <li><a href="#areaChart">Area</a></li>
+                <li><a href="#bubbleChart">Bubble</a></li>
+                <li><a href="#tableChartTitle">Table</a></li>
+                <li><a href="#columnChart">Column</a></li>
+                <li><a href="#charts2">Calendar</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </div><!-- .rm-container -->
+    <!-- End Responsive Menu HTML -->
+</div><!-- .wrapper -->
 </header>
 
-<section id="intro" class="content">
-        <div class="intro">
-            <h1>chartinator</h1>
-            <p class="tagline">Google Charts made easier and accessible</p>
-            <p>A jQuery plugin that transforms data from HTML tables, Google Sheets and js arrays into charts using Google Charts</p>
-        </div>
+<section class="content">
+    <div class="intro">
+        <h1>chartinator</h1>
+        <p class="tagline">Google Charts made easier and accessible</p>
+        <p>A jQuery plugin that transforms data from HTML tables, Google Sheets and js arrays into charts using Google Charts</p>
+    </div>
 </section>
 <section id="charts1" class="charts">
-    <div class="wrapper">
-        <div class="col">
-            <div id="barChart" class="chart"></div>
-        </div>
-        <section class="col">
-            <table id="myTable" class="barChart geoChart tableChart data-table">
-                <caption>Student Nationalities Table</caption>
-                <tr>
-                    <th scope="col" data-type="string">Country</th>
-                    <th scope="col" data-type="number">Number of Students</th>
-                    <th scope="col" data-role="annotation">Annotation</th>
-                </tr>
-                <tr>
-                    <td>China</td>
-                    <td align="right">20</td>
-                    <td align="right">20</td>
-                </tr>
-                <tr>
-                    <td>Colombia</td>
-                    <td align="right">5</td>
-                    <td align="right">5</td>
-                </tr>
-                <tr>
-                    <td>France</td>
-                    <td align="right">3</td>
-                    <td align="right">3</td>
-                </tr>
-                <tr>
-                    <td>Italy</td>
-                    <td align="right">1</td>
-                    <td align="right">1</td>
-                </tr>
-                <tr>
-                    <td>Japan</td>
-                    <td align="right">18</td>
-                    <td align="right">18</td>
-                </tr>
-                <tr>
-                    <td>Kazakhstan</td>
-                    <td align="right">1</td>
-                    <td align="right">1</td>
-                </tr>
-                <tr>
-                    <td>Mexico</td>
-                    <td align="right">1</td>
-                    <td align="right">1</td>
-                </tr>
-                <tr>
-                    <td>Poland</td>
-                    <td align="right">1</td>
-                    <td align="right">1</td>
-                </tr>
-                <tr>
-                    <td>Russia</td>
-                    <td align="right">11</td>
-                    <td align="right">11</td>
-                </tr>
-                <tr>
-                    <td>Spain</td>
-                    <td align="right">2</td>
-                    <td align="right">2</td>
-                </tr>
-                <tr>
-                    <td>Tanzania</td>
-                    <td align="right">1</td>
-                    <td align="right">1</td>
-                </tr>
-                <tr>
-                    <td>Turkey</td>
-                    <td align="right">2</td>
-                    <td align="right">2</td>
-                </tr>
+<div class="wrapper-flex">
 
-            </table>
+    <div id="barChart" class="chart col"></div>
 
-        </section><!-- .col -->
+    <table id="myTable" class="geoChart tableChart data-table col-table">
+        <caption>Student Nationalities Table</caption>
+        <tr>
+            <th scope="col" data-type="string">Country</th>
+            <th scope="col" data-type="number">Number of Students</th>
+            <th scope="col" data-role="annotation">Annotation</th>
+        </tr>
+        <tr>
+            <td>China</td>
+            <td align="right">20</td>
+            <td align="right">20</td>
+        </tr>
+        <tr>
+            <td>Colombia</td>
+            <td align="right">5</td>
+            <td align="right">5</td>
+        </tr>
+        <tr>
+            <td>France</td>
+            <td align="right">3</td>
+            <td align="right">3</td>
+        </tr>
+        <tr>
+            <td>Italy</td>
+            <td align="right">1</td>
+            <td align="right">1</td>
+        </tr>
+        <tr>
+            <td>Japan</td>
+            <td align="right">18</td>
+            <td align="right">18</td>
+        </tr>
+        <tr>
+            <td>Kazakhstan</td>
+            <td align="right">1</td>
+            <td align="right">1</td>
+        </tr>
+        <tr>
+            <td>Mexico</td>
+            <td align="right">1</td>
+            <td align="right">1</td>
+        </tr>
+        <tr>
+            <td>Poland</td>
+            <td align="right">1</td>
+            <td align="right">1</td>
+        </tr>
+        <tr>
+            <td>Russia</td>
+            <td align="right">11</td>
+            <td align="right">11</td>
+        </tr>
+        <tr>
+            <td>Spain</td>
+            <td align="right">2</td>
+            <td align="right">2</td>
+        </tr>
+        <tr>
+            <td>Tanzania</td>
+            <td align="right">1</td>
+            <td align="right">1</td>
+        </tr>
+        <tr>
+            <td>Turkey</td>
+            <td align="right">2</td>
+            <td align="right">2</td>
+        </tr>
 
-    </div><!-- .wrapper -->
+    </table>
+
+    <div class="col">
+        <h3 id="geoChartTitle">Geo Chart</h3>
+        <div id="geoChart" class="chart"></div>
+    </div>
+
+    <div class="col">
+        <div id="lineChart" class="lineChart chart"></div>
+    </div>
+
+    <table id="pieChart" class="pieChart data-table col-table">
+        <caption>Pie Chart</caption>
+        <tr>
+            <th scope="col" data-type="string">Country</th>
+            <th scope="col" data-type="number">Number of Students</th>
+        </tr>
+        <tr>
+            <td>China</td>
+            <td align="right">20</td>
+        </tr>
+
+        <tr>
+            <td>Japan</td>
+            <td align="right">18</td>
+        </tr>
+
+        <tr>
+            <td>Russia</td>
+            <td align="right">11</td>
+        </tr>
+    </table>
+
+    <div id="areaChart" class="areaChart chart col"></div>
+
+    <div class="col">
+        <div id="bubbleChart" class="bubbleChart chart"></div>
+    </div>
+
+    <div class="col">
+        <h3 id="tableChartTitle">Table Chart</h3>
+        <div id="tableChart" class="chart"></div>
+    </div>
+
+    <div id="columnChart" class="columnChart chart col"></div>
+
+</div><!-- .wrapper-flex -->
 </section>
 <section id="charts2" class="charts">
-    <div class="wrapper">
-        <div class="col">
-            <table id="pieChart" class="pieChart data-table">
-                <caption>Student Nationalities Section 1</caption>
-                <tr>
-                    <th scope="col" data-type="string">Country</th>
-                    <th scope="col" data-type="number">Number of Students</th>
-                </tr>
-                <tr>
-                    <td>China</td>
-                    <td align="right">20</td>
-                </tr>
-
-                <tr>
-                    <td>Japan</td>
-                    <td align="right">18</td>
-                </tr>
-
-                <tr>
-                    <td>Russia</td>
-                    <td align="right">11</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col">
-            <div id="columnChart" class="columnChart chart"></div>
-        </div>
-    </div><!-- .wrapper -->
-</section>
-<section id="charts3" class="charts">
-    <div class="wrapper">
-        <div class="col">
-            <h3 id="tableChartTitle">Table Chart Sample</h3>
-            <div id="tableChart" class="chart"></div>
-        </div>
-        <div class="col">
-            <h3 id="geoChartTitle">Geo Chart Sample</h3>
-            <div id="geoChart" class="chart"></div>
-        </div>
-    </div><!-- .wrapper -->
-</section>
-<section id="charts4">
-    <div class="wrapper">
-        <table id="myDates" class="data-table">
-            <caption>Calendar Chart Sample</caption>
-            <tr>
-                <th scope="col" data-type="date">Dates</th>
-                <th scope="col" data-type="number">Values</th>
-            </tr>
-            <tr>
-                <td align="right">Jan 9, 2015</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td align="right">Jan 11, 2015</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td align="right">Feb 12, 2015</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td align="right">Apr 14, 2015</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td align="right">Apr 16, 2015</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td align="right">Apr 18, 2015</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td align="right">Apr 9, 2015</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td align="right">Jun 11, 2015</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td align="right">Jun 12, 2015</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td align="right">Jun 14, 2015</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td align="right">Jul 16, 2015</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td align="right">Jul 18, 2015</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td align="right">Aug 9, 2015</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td align="right">Aug 11, 2015</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td align="right">Aug 12, 2015</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td align="right">Oct 14, 2015</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td align="right">Dec 16, 2015</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td align="right">Dec 18, 2015</td>
-                <td>5</td>
-            </tr>
-        </table>
-    </div><!-- .wrapper -->
+<div class="wrapper">
+    <table id="myDates" class="data-table">
+        <caption>Calendar Chart</caption>
+        <tr>
+            <th scope="col" data-type="date">Dates</th>
+            <th scope="col" data-type="number">Values</th>
+        </tr>
+        <tr>
+            <td align="right">Jan 9, 2015</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td align="right">Jan 11, 2015</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td align="right">Feb 12, 2015</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td align="right">Apr 14, 2015</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td align="right">Apr 16, 2015</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td align="right">Apr 18, 2015</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td align="right">Apr 9, 2015</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td align="right">Jun 11, 2015</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td align="right">Jun 12, 2015</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td align="right">Jun 14, 2015</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td align="right">Jul 16, 2015</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td align="right">Jul 18, 2015</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td align="right">Aug 9, 2015</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td align="right">Aug 11, 2015</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td align="right">Aug 12, 2015</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td align="right">Oct 14, 2015</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td align="right">Dec 16, 2015</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td align="right">Dec 18, 2015</td>
+            <td>5</td>
+        </tr>
+    </table>
+</div><!-- .wrapper -->
 </section><!-- .main -->
 <section class="main">
-    <div class="wrapper">
-        <div id="about" class="dev-output">
-            <h1 id="about-chartinator">About Chartinator</h1>
-            <p><strong>Chartinator</strong> - Google Charts made easier and accessible.</p>
-            <ul>
-            <li><strong>Description</strong>: A jQuery plugin for transforming HTML tables, Google Sheets and js arrays into charts using Google Charts</li>
-            <li><strong>Repository</strong>: <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
-            <li><strong>Demo</strong>: <a href="http://chartinator.com">http://chartinator.com</a></li>
-            <li><strong>Bower</strong>: chartinator</li>
-            <li><strong>Requires</strong>: jQuery, Google Charts</li>
-            <li><strong>Author</strong>: jbowyers</li>
-            <li><strong>Copyright</strong>: 2015 jbowyers</li>
-            <li><strong>License</strong>: GPLv3</li>
-            <li><strong>Version: 0.3.7</strong></li>
-            </ul>
-            <h2 id="demo">Demo</h2>
-            <p>Visit <a href="http://chartinator.com">http://chartinator.com</a> to view a demo</p>
-            <h3 id="what-is-this-repository-for-">What is this repository for?</h3>
-            <p>Transforming HTML tables, Google Sheets and js arrays into charts using Google Chart ( <a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a> ).</p>
-            <h3 id="what-are-the-current-features-">What are the current features?</h3>
-            <p>Chartinator currently supports the following:</p>
-            <ul>
-            <li>Creation of all chart types using Google Charts - Visit <a href="https://developers.google.com/chart/interactive/docs/gallery">https://developers.google.com/chart/interactive/docs/gallery</a></li>
-            <li>Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays</li>
-            <li>Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots</li>
-            <li>Showing and hiding of HTML tables accessibly</li>
-            <li>Manipulation of data extracted from HTML tables and Google Sheets using JavaScript arrays</li>
-            <li>Transposition of data - swapping of rows and columns</li>
-            <li>Resizing of charts on screen resize - Responsive Web Design</li>
-            <li>Chart aspect ratio control</li>
-            <li>Zoom and offset of chart - Useful for refining the region displayed in maps</li>
-            <li>Customization of chart tooltips and annotations</li>
-            <li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
-            </ul>
-            <h3 id="how-do-i-get-set-up-">How do I get set up?</h3>
-            <ul>
-            <li><strong>Download</strong> - Download and extract the Chartinator zip files - <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
-            <li><strong>Copy files</strong> - Copy the chartinator.js file to your project</li>
-            <li><strong>Setup the HTML</strong> - Open the chartinator.html sample file and copy and paste the desired html into the 
-            files in your project. Or, adapt your existing project files to work with chartinator (see Configuration).</li>
-            <li><strong>Link to chartinator.js</strong> - Add a script references in your HTML files</li>
-            <li><strong>Initialize Chartinator</strong> - Activate the plugin using jQuery (see Configuration)</li>
-            </ul>
-            <h3 id="using-bower-package-manager">Using Bower Package Manager</h3>
-            <p>The Chartinator repo is registered as a bower package as chartinator.</p>
-            <h2 id="configuration">Configuration</h2>
-            <p>The Chartinator repo includes the chartinator.js plugin file as well as sample HTML. 
-            To use the plugin you need to: </p>
-            <ul>
-            <li>Reference the chartinator.js file in your html</li>
-            <li>add/modify your HTML tables, Google Sheets or js arrays </li>
-            <li>Use jQuery to modify options</li>
-            </ul>
-            <h3 id="using-data-from-html-tables">Using Data from HTML Tables</h3>
-            <p>Chartinator is designed to extract data from HTML tables. 
-            The &#39;th&#39; elements in your HTML table should have one of the following &#39;data-type&#39; attributes:</p>
-            <ul>
-            <li>&#39;string&#39; </li>
-            <li>&#39;number&#39; </li>
-            <li>&#39;boolean&#39; </li>
-            <li>&#39;date&#39; </li>
-            <li>&#39;datetime&#39; </li>
-            <li>&#39;timeofday&#39; </li>
-            </ul>
-            <p>or a data-role attribute:</p>
-            <ul>
-            <li>&#39;tooltip&#39;</li>
-            <li>&#39;annotation&#39;</li>
-            </ul>
-            <p>The caption element&#39;s text will be used as a title for the chart by default</p>
-            <p>You can also use data extracted from an HTML table and add and replace data with data contained in js data arrays. 
-            For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
-            and columns and transpose data.</p>
-            <h4 id="sample-html">Sample HTML</h4>
-            <pre><code>
-                &lt;div id=&quot;chart_canvas&quot;&gt;&lt;/div&gt;
-                &lt;table id=&quot;chart_data&quot;&gt;
-                    &lt;caption&gt;Chart Title&lt;/caption&gt;
-                    &lt;tr&gt;
-                        &lt;th scope=&quot;col&quot; data-type=&quot;string&quot;&gt;Domain Axis Name&lt;/th&gt;
-                        &lt;th scope=&quot;col&quot; data-type=&quot;number&quot;&gt;Data Axis Name&lt;/th&gt;
-                        &lt;th scope=&quot;col&quot; data-role=&quot;tooltip&quot;&gt;Tooltip&lt;/th&gt;
-                    &lt;/tr&gt;
-                    &lt;tr&gt;
-                        &lt;td&gt;Data&lt;/td&gt;
-                        &lt;td&gt;Data&lt;/td&gt;
-                        &lt;td&gt;Tooltip text&lt;/td&gt;
-                    &lt;/tr&gt; ...</code></pre>
-            <h3 id="using-data-from-google-sheets">Using Data from Google Sheets</h3>
-            <p>You can also use data from Google Sheets to define chart data. 
-            Data extracted from a Google Sheet can be added to and replaced with data contained in js data arrays. 
-            For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
-            and columns and transpose data.</p>
-            <p>To use a Google Sheet as a data source you need to do the following:</p>
-            <ul>
-            <li>Create the Google Sheet (visit: <a href="https://docs.google.com/spreadsheets">https://docs.google.com/spreadsheets</a>)</li>
-            <li>Make sure your sheet is the only sheet in the Google Sheets document</li>
-            <li>Make the sheet public - Choose &#39;Publish to the Web&#39; from the &#39;File&#39; menu</li>
-            <li>Get the key id from the link url - Should look something like: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;</li>
-            <li>Set the &#39;googleSheetKey&#39; option in the jQuery Chartinator options to be the key id</li>
-            </ul>
-            <p>Note: Data is extracted from a Google Sheet as comma separated values (csv) so don&#39;t use commas in data</p>
-            <h3 id="using-data-from-javascript-arrays">Using Data from JavaScript Arrays</h3>
-            <p>You can also use data from JavaScript arrays you create to completely define the chart data 
-            or to add to and replace data extracted from an HTML table or Google Sheet, including the column headers.</p>
-            <p>The JS data arrays must adhere to the following syntax:</p>
-            <pre><code>
-                // Columns - The columns data-array
-                columns: [
-                    {label: &#39;Primary Column Title&#39;, type: &#39;string&#39;},
-                    {label: &#39;Data Column Title&#39;, type: &#39;number&#39;},
-                    {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
+<div class="wrapper">
+<div id="about" class="dev-output">
+<h1 id="about-chartinator">About Chartinator</h1>
+<p><strong>Chartinator</strong> - Google Charts made easier and accessible.</p>
+<ul>
+<li><strong>Description</strong>: A jQuery plugin for transforming HTML tables, Google Sheets and js arrays into charts using Google Charts</li>
+<li><strong>Repository</strong>: <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
+<li><strong>Demo</strong>: <a href="http://chartinator.com">http://chartinator.com</a></li>
+<li><strong>Bower</strong>: chartinator</li>
+<li><strong>Requires</strong>: jQuery, Google Charts</li>
+<li><strong>Author</strong>: jbowyers</li>
+<li><strong>Copyright</strong>: 2015 jbowyers</li>
+<li><strong>License</strong>: GPLv3</li>
+<li><strong>Version: 0.3.7</strong></li>
+</ul>
+<h2 id="demo">Demo</h2>
+<p>Visit <a href="http://chartinator.com">http://chartinator.com</a> to view a demo</p>
+<h3 id="what-is-this-repository-for-">What is this repository for?</h3>
+<p>Transforming HTML tables, Google Sheets and js arrays into charts using Google Chart ( <a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a> ).</p>
+<h3 id="what-are-the-current-features-">What are the current features?</h3>
+<p>Chartinator currently supports the following:</p>
+<ul>
+<li>Creation of all chart types using Google Charts - Visit <a href="https://developers.google.com/chart/interactive/docs/gallery">https://developers.google.com/chart/interactive/docs/gallery</a></li>
+<li>Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays</li>
+<li>Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots</li>
+<li>Generation of HTML tables from other data sources - Makes data extracted from JS arrays and Google Sheets accessible</li>
+<li>Showing and hiding of HTML tables accessibly</li>
+<li>Manipulation of data extracted from HTML tables and Google Sheets using JavaScript arrays</li>
+<li>Transposition of data - swapping of rows and columns</li>
+<li>Resizing of charts on screen resize - Responsive Web Design</li>
+<li>Chart aspect ratio control</li>
+<li>Art direction - Zoom and offset of chart - Useful for refining the region displayed in geoCharts</li>
+<li>Customization of chart tooltips and annotations</li>
+<li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
+</ul>
+<h3 id="how-do-i-get-set-up-">How do I get set up?</h3>
+<ul>
+<li><strong>Download</strong> - Download and extract the Chartinator zip files - <a href="https://github.com/jbowyers/chartinator">https://github.com/jbowyers/chartinator</a></li>
+<li><strong>Copy files</strong> - Copy the chartinator.js file to your project</li>
+<li><strong>Setup the HTML</strong> - Open the chartinator.html sample file and copy and paste the desired html into the 
+files in your project. Or, adapt your existing project files to work with chartinator (see Configuration).</li>
+<li><strong>Link to chartinator.js</strong> - Add a script references in your HTML files</li>
+<li><strong>Initialize Chartinator</strong> - Activate the plugin using jQuery (see Configuration)</li>
+</ul>
+<h3 id="using-bower-package-manager">Using Bower Package Manager</h3>
+<p>The Chartinator repo is registered as a bower package as &#39;chartinator&#39;.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The Chartinator repo includes the chartinator.js plugin file as well as sample HTML. 
+To use the plugin you need to: </p>
+<ul>
+<li>Reference the chartinator.js file in your html</li>
+<li>add/modify your HTML tables, Google Sheets or js arrays </li>
+<li>Use jQuery to modify options</li>
+</ul>
+<h3 id="using-data-from-html-tables">Using Data from HTML Tables</h3>
+<p>Chartinator is designed to extract data from HTML tables. 
+The header cells (th elements) in HTML table must be in the first row (or first column if transposing table)
+and should have a &#39;data-type&#39; attribute with one of the following  values:</p>
+<ul>
+<li>&#39;string&#39; </li>
+<li>&#39;number&#39; </li>
+<li>&#39;boolean&#39; </li>
+<li>&#39;date&#39; </li>
+<li>&#39;datetime&#39; </li>
+<li>&#39;timeofday&#39; </li>
+</ul>
+<p>or a &#39;data-role&#39; attribute with one of the following  values:</p>
+<ul>
+<li>&#39;tooltip&#39;</li>
+<li>&#39;annotation&#39;</li>
+</ul>
+<p>The caption element&#39;s text will be used as a title for the chart by default</p>
+<p>You can also restructure the data extracted from an HTML table by adding and replace data with data contained in js data arrays. 
+For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
+and columns and transpose data.</p>
+<h4 id="sample-html">Sample HTML</h4>
+<pre><code>
+    &lt;div id=&quot;chart_canvas&quot;&gt;&lt;/div&gt;
+    &lt;table id=&quot;chart_data&quot;&gt;
+        &lt;caption&gt;Chart Title&lt;/caption&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot; data-type=&quot;string&quot;&gt;Domain Axis Name&lt;/th&gt;
+            &lt;th scope=&quot;col&quot; data-type=&quot;number&quot;&gt;Data Axis Name&lt;/th&gt;
+            &lt;th scope=&quot;col&quot; data-role=&quot;tooltip&quot;&gt;Tooltip&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Data&lt;/td&gt;
+            &lt;td&gt;Data&lt;/td&gt;
+            &lt;td&gt;Tooltip text&lt;/td&gt;
+        &lt;/tr&gt; ...</code></pre>
+<h3 id="using-data-from-google-sheets">Using Data from Google Sheets</h3>
+<p>You can also use data from Google Sheets to define chart data. 
+Data extracted from a Google Sheet can be added to and replaced with data contained in js data arrays. 
+For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
+and columns and transpose data.</p>
+<p>To use a Google Sheet as a data source you need to do the following:</p>
+<ul>
+<li>Create the Google Sheet (visit: <a href="https://docs.google.com/spreadsheets">https://docs.google.com/spreadsheets</a>)</li>
+<li>Make sure your sheet is the only sheet in the Google Sheets document</li>
+<li>Make the sheet public - Choose &#39;Publish to the Web&#39; from the &#39;File&#39; menu</li>
+<li>Get the key id from the link url - Should look something like: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;</li>
+<li>Set the &#39;googleSheetKey&#39; option in the jQuery Chartinator options to be the key id</li>
+</ul>
+<p>Note: Data is extracted from a Google Sheet as comma separated values (csv) so don&#39;t use commas in data</p>
+<h3 id="using-data-from-javascript-arrays">Using Data from JavaScript Arrays</h3>
+<p>You can also use data from JavaScript arrays you create to completely define the chart data 
+or to add to and replace data extracted from an HTML table or Google Sheet, including the column headers.</p>
+<p>The JS data arrays must adhere to the following syntax:</p>
+<pre><code>
+    // Columns - The columns data-array
+    columns: [
+        {label: &#39;Primary Column Title&#39;, type: &#39;string&#39;},
+        {label: &#39;Data Column Title&#39;, type: &#39;number&#39;},
+        {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
 
-                // Rows - The rows data-array
-                rows: [
-                    [&#39;China&#39;, 18, &#39;2015 - 18&#39;],
-                    [&#39;Japan&#39;, 12, &#39;2015 - 12&#39;],
-                    [&#39;Russia&#39;, 10, &#39;2015 - 10&#39;],
-                    [&#39;Mexico&#39;, 5, &#39;2015 - 5&#39;],
-                    [&#39;Brazil&#39;, 6, &#39;2015 - 6&#39;],
-                    [&#39;Italy&#39;, 4, &#39;2015 - 4&#39;]],</code></pre>
-            <p>See <a href="https://developers.google.com/chart/interactive/docs/datatables_dataviews#arraytodatatable">https://developers.google.com/chart/interactive/docs/datatables_dataviews#arraytodatatable</a> for more info.</p>
-            <h3 id="sample-jquery">Sample jQuery</h3>
-            <p>The Chart must be initialized using jQuery.</p>
-            <pre><code>
-                &lt;script src=&quot;js/chartinator.js&quot; &gt;&lt;/script&gt;
-                &lt;script type=&quot;text/javascript&quot;&gt;
-                    jQuery(function ($) {
+    // Rows - The rows data-array
+    rows: [
+        [&#39;China&#39;, 18, &#39;2015 - 18&#39;],
+        [&#39;Japan&#39;, 12, &#39;2015 - 12&#39;],
+        [&#39;Russia&#39;, 10, &#39;2015 - 10&#39;],
+        [&#39;Mexico&#39;, 5, &#39;2015 - 5&#39;],
+        [&#39;Brazil&#39;, 6, &#39;2015 - 6&#39;],
+        [&#39;Italy&#39;, 4, &#39;2015 - 4&#39;]],</code></pre>
+<p>See <a href="https://developers.google.com/chart/interactive/docs/datatables_dataviews#arraytodatatable">https://developers.google.com/chart/interactive/docs/datatables_dataviews#arraytodatatable</a> for more info.</p>
+<h3 id="sample-jquery">Sample jQuery</h3>
+<p>The Chart must be initialized using jQuery.</p>
+<pre><code>
+    &lt;script src=&quot;js/chartinator.js&quot; &gt;&lt;/script&gt;
+    &lt;script&gt;
+        jQuery(function ($) {
 
-                        //  Bar Chart Example
-                        // Use any jQuery selector to select the chart canvas(es)
-                        var chart1 = $(&#39;#barChart&#39;).chartinator({
+            //  Bar Chart Example
+            // Use any jQuery selector to select the chart canvas(es)
+            var chart1 = $(&#39;#barChart&#39;).chartinator({
 
-                            // Custom Options ------------------------------------------------------
-
-                            // The Google Sheet key
-                            // The id of the Google sheet taken from the public url of the Sheet
-                            // Default: false
-                            googleSheetKey: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;,
-
-                            // The data columns js array
-                            // An array of object literals that define each column
-                            // Default: false
-                            //columns: [
-                            //    {label: &#39;Country&#39;, type: &#39;string&#39;},
-                            //    {label: &#39;Students&#39;, type: &#39;number&#39;},
-                            //    {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
-
-                            // Column indexes array - An array of column indexes defining where
-                            // the data will be inserted into any existing data extracted 
-                            // from an HTML table or Google Sheet
-                            // Default: false - js data array columns replace any existing columns
-                            // Note: when inserting more than one column be sure to 
-                            // increment index number to account for previously inserted indexes
-                            //colIndexes: [2],
-
-                            // Rows - The rows data-array
-                            // If colIndexes array has values the row data will be inserted 
-                            // into the columns defined in the colindexes array. Otherwise 
-                            // the row data will be appended to any existing row data extracted 
-                            // from an HTML table or Google Sheet
-                            // Default: false
-                            //rows: [
-                            //  [&#39;China&#39;, 18, &#39;2013 - 18&#39;],
-                            //  [&#39;Japan&#39;, 12, &#39;2013 - 12&#39;],
-                            //  [&#39;Russia&#39;, 10, &#39;2013 - 10&#39;]],
-
-                            // The jQuery selector of the HTML table to extract the data from.
-                            // Default: false - Checks if the element this plugin 
-                            // is applied to is an HTML table
-                            //tableSel: &#39;.barChart&#39;,
-
-                            // Ignore row indexes array - An array of row index numbers to ignore
-                            // Default: []
-                            // Note: Only works on data extracted from HTML tables or Google Sheets
-                            // The headings row is index 0
-                            //ignoreRow: [6,8],
-
-                            // Ignore column indexes array - An array of column indexes to ignore
-                            // Default: []
-                            // Note: Only works when extracting data from HTML tables or Google Sheets
-                            //ignoreCol: [2],
-
-                            // Transpose data Boolean - swap columns and rows
-                            // Default: false
-                            // Note: Only works on data extracted from HTML tables or Google Sheets
-                            //transpose: false,
-
-                            // The chart type - String
-                            // Derived from the Google Charts visualization class name
-                            // Default: &#39;BarChart&#39;
-                            // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
-                            // See Google Charts Gallery for a complete list of Chart types
-                            // https://developers.google.com/chart/interactive/docs/gallery
-                            chartType: &#39;BarChart&#39;,
-
-                            // The annotation concatenation 
-                            // Defines a string for concatenating a custom annotation.
-                            // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; 
-                            // The keywords will be replaced with current values
-                            // &#39;domain&#39;: the primary axis value, 
-                            // &#39;data&#39;: the data value, 
-                            // &#39;label&#39;: the column title
-                            // Default: false - use Google Charts annotation defaults
-                            // Note: Only works when extracting data from HTML tables or Google Sheets.
-                            // Not supported on pie, geo, calendar charts
-                            annotationConcat: &#39;domain - label: data&#39;,
-
-                            // The chart aspect ratio custom option - width/height
-                            // Used to calculate the chart dimensions relative to the width or height
-                            // this is overridden if the Google Chart&#39;s height and width options have values
-                            // Suggested value: 1.25
-                            // Default: false - not used
-                            chartAspectRatio: 1.25,
-
-                            // Google Bar Chart Options
-                            barChart: {
-
-                                // Width of chart in pixels - Number
-                                // Default: automatic (unspecified)
-                                width: null,
-
-                                // Height of chart in pixels - Number
-                                // Default: automatic (unspecified)
-                                //height: 400,
-
-                                chartArea: {
-                                    left: &quot;20%&quot;,
-                                    top: 40,
-                                    width: &quot;74%&quot;,
-                                    height: &quot;80%&quot;
-                                },
-
-                                // The font size in pixels - Number
-                                // Default: body font size
-                                fontSize: 14,
-
-                                // Font-family name - String
-                                // Default: &#39;Arial&#39;
-                                fontName: &#39;Roboto&#39;,
-
-                                // Chart Title - String
-                                // Default: Table caption.
-                                title: &#39;Bar Chart Sample&#39;,
-                                titleTextStyle: {
-
-                                    // The chart title font size in pixels - Number
-                                    // Default: h3 font size
-                                    fontSize: 20
-                                },
-                                legend: {
-
-                                    // Legend position - String
-                                    // Options: bottom, top, left, right, in, none.
-                                    // Default: right
-                                    position: &#39;bottom&#39;
-                                },
-
-                                // Array of colours
-                                colors: [&#39;#3691ff&#39;],
-
-                                // Stack values within a bar or column chart - Boolean
-                                // Default: false.
-                                isStacked: false,
-                                tooltip: {
-
-                                    // Shows tooltip with values on hover - String
-                                    // Options: focus, none.
-                                    // Default: focus
-                                    trigger: &#39;focus&#39;
-                                }
-                            },
-
-                            // Show table as well as chart - String
-                            // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;
-                            showTable: &#39;show&#39;
-                        });
-                    });
-                &lt;/script&gt;</code></pre>
-            <h3 id="list-of-options">List of Options</h3>
-            <p>The following is a list of useful options with default values. For more information about Google Chart options visit
-            <a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a></p>
-            <h4 id="all-chart-types-options">All chart types options</h4>
-            <p>The following are options that are specific to Chartinator and apply to all chart types unless otherwise specified.</p>
-            <pre><code>
-                // URL - The path to the Google AJAX API. Default: &#39;https://www.google.com/jsapi&#39;
-                urlJSAPI: &#39;https://www.google.com/jsapi&#39;,
+                // Custom Options ------------------------------------------------------
 
                 // The Google Sheet key
-                // The id code of the Google sheet taken from the public url of your Google Sheet
+                // The id of the Google sheet taken from the public url of the Sheet
                 // Default: false
-                googleSheetKey: false,
+                googleSheetKey: &#39;1kg6f4UVJPpT45D7ucAE8lhsVp8vIUl7bSMM442_DrhI&#39;,
 
                 // The data columns js array
                 // An array of object literals that define each column
                 // Default: false
-                columns: false,
+                //columns: [
+                //    {label: &#39;Country&#39;, type: &#39;string&#39;},
+                //    {label: &#39;Students&#39;, type: &#39;number&#39;},
+                //    {role: &#39;tooltip&#39;, type: &#39;string&#39;}],
 
                 // Column indexes array - An array of column indexes defining where
-                // the data will be inserted into any existing data extracted from an 
-                // HTML table or Google Sheet
+                // the data will be inserted into any existing data extracted 
+                // from an HTML table or Google Sheet
                 // Default: false - js data array columns replace any existing columns
-                // Note: when inserting more than one column be sure to increment index number
-                // to account for previously inserted indexes
-                colIndexes: false,
+                // Note: when inserting more than one column be sure to 
+                // increment index number to account for previously inserted indexes
+                //colIndexes: [2],
 
                 // Rows - The rows data-array
-                // If colIndexes array has values the row data will be inserted into the columns
-                // defined in the colindexes array. Otherwise the row data will be appended
-                // to any existing row data extracted from an HTML table or Google Sheet
+                // If colIndexes array has values the row data will be inserted 
+                // into the columns defined in the colindexes array. Otherwise 
+                // the row data will be appended to any existing row data extracted 
+                // from an HTML table or Google Sheet
                 // Default: false
-                rows: false,
+                //rows: [
+                //  [&#39;China&#39;, 18, &#39;2013 - 18&#39;],
+                //  [&#39;Japan&#39;, 12, &#39;2013 - 12&#39;],
+                //  [&#39;Russia&#39;, 10, &#39;2013 - 10&#39;]],
 
-                // The jQuery selector of the HTML table element to extract the data from.
-                // Default: false - Checks if the element this plugin is applied to is an HTML table
-                tableSel: false,
+                // The jQuery selector of the HTML table to extract the data from.
+                // Default: false - Checks if the element this plugin 
+                // is applied to is an HTML table
+                //tableSel: &#39;.barChart&#39;,
 
                 // Ignore row indexes array - An array of row index numbers to ignore
                 // Default: []
                 // Note: Only works on data extracted from HTML tables or Google Sheets
                 // The headings row is index 0
-                ignoreRow: [],
+                //ignoreRow: [6,8],
 
-                // Ignore column indexes array
-                // An array of column indexes to ignore in the HTML table or Google Sheet
+                // Ignore column indexes array - An array of column indexes to ignore
                 // Default: []
-                // Note: Only works on data extracted from HTML tables or Google Sheets
-                ignoreCol: [],
+                // Note: Only works when extracting data from HTML tables or Google Sheets
+                //ignoreCol: [2],
 
                 // Transpose data Boolean - swap columns and rows
                 // Default: false
                 // Note: Only works on data extracted from HTML tables or Google Sheets
-                transpose: false,
-
-                // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
-                // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
-                // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
-                // Default: false - use Google Charts tooltip defaults
-                // Note: Only works when extracting data from HTML tables or Google Sheets
-                // Not supported on pie, calendar charts
-                tooltipConcat: false,
-
-                // The annotation concatenation - Defines a string for concatenating a custom annotation.
-                // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
-                // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
-                // Default: false - use Google Charts annotation defaults
-                // Note: Only works when extracting data from HTML tables or Google Sheets.
-                // Not supported on pie, geo, calendar charts
-                annotationConcat: false,
+                //transpose: false,
 
                 // The chart type - String
                 // Derived from the Google Charts visualization class name
@@ -1328,87 +1592,26 @@
                 // https://developers.google.com/chart/interactive/docs/gallery
                 chartType: &#39;BarChart&#39;,
 
-                // Chart Id - The id applied to the chart container element as an id and a class
-                // This is overridden if the chart element has an id or the id is user defined
-                chartId: &#39;c24_&#39; + Math.random().toString(36).substr(2, 9),
-
-                // The class to apply to the dynamically created chart container element
-                chartClass: &#39;chtr-chart&#39;,
+                // The annotation concatenation 
+                // Defines a string for concatenating a custom annotation.
+                // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; 
+                // The keywords will be replaced with current values
+                // &#39;domain&#39;: the primary axis value, 
+                // &#39;data&#39;: the data value, 
+                // &#39;label&#39;: the column title
+                // Default: false - use Google Charts annotation defaults
+                // Note: Only works when extracting data from HTML tables or Google Sheets.
+                // Not supported on pie, geo, calendar charts
+                annotationConcat: &#39;domain - label: data&#39;,
 
                 // The chart aspect ratio custom option - width/height
                 // Used to calculate the chart dimensions relative to the width or height
                 // this is overridden if the Google Chart&#39;s height and width options have values
+                // Suggested value: 1.25
                 // Default: false - not used
-                chartAspectRatio: false,
+                chartAspectRatio: 1.25,
 
-                // The chart zoom factor - number
-                // A scaling factor for the chart - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas when zooming, set tooltip.isHtml: true
-                // Default: 0
-                chartZoom: 0,
-
-                // The chart offset - Array of numbers
-                // An array of x and y offset percentage values
-                // Used to offset the chart by percentages of the height and width - uses CSS3 transform
-                // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
-                // Default: false
-                chartOffset: false,
-
-                // The Google Chart Options
-                // This option can be used with any chart type
-                // Some chart types have default options defined within Chartinator by the following objects:
-                // barChart, pieChart, columnChart, calendar, table
-                // These objects should be used instead of this one when using those chart types
-                // Default: no default - not defined
-                chartOptions: {},
-
-                // Google Bar Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a bar chart
-                //barChart: {},
-
-                // Google Pie Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a pie chart
-                //pieChart: {},
-
-                // Google Column Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a column chart
-                //columnChart: {},
-
-                // Google Line Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a line chart
-                //lineChart: {},
-
-                // Google Area Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a area chart
-                //areaChart: {},
-
-                // Google Calendar Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a calendar chart
-                //calendar: {},
-
-                // Google Table Chart Options - Object Literal
-                // This should be used instead of the chartOptions object when creating a table chart
-                //table: {},
-
-                // Show table along with chart - String
-                // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;. Default: &#39;hide&#39;
-                showTable: &#39;hide&#39;,  
-
-                // The CSS literal used to show the table.
-                showTableCSS: { &#39;position&#39;: &#39;static&#39;, &#39;top&#39;: 0 }, 
-
-                // The CSS literal used to hide the table.
-                hideTableCSS: { &#39;position&#39;: &#39;absolute&#39;, &#39;top&#39;: &#39;-9999px&#39;, &#39;width&#39;: $tableS.width() },
-
-                // The CSS literal used to show the chart.
-                showChartCSS: { }, 
-
-                // The CSS literal used to hide the chart.
-                hideChartCSS: { &#39;opacity&#39;: 0}</code></pre>
-            <h4 id="google-bar-chart-options">Google Bar Chart Options</h4>
-            <p>The following are some of the Google Charts Bar Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Bar Chart Options - Object Literal
+                // Google Bar Chart Options
                 barChart: {
 
                     // Width of chart in pixels - Number
@@ -1417,43 +1620,38 @@
 
                     // Height of chart in pixels - Number
                     // Default: automatic (unspecified)
-                    height: 200,
+                    //height: 400,
 
                     chartArea: {
-                        left: &quot;20%&quot;, 
-                        top: 40, 
-                        width: &quot;75%&quot;, 
-                        height: &quot;85%&quot;
+                        left: &quot;20%&quot;,
+                        top: 40,
+                        width: &quot;74%&quot;,
+                        height: &quot;80%&quot;
                     },
 
                     // The font size in pixels - Number
-                    // Or use css selectors as keywords to assign font sizes from the page
-                    // For example: &#39;body&#39;
-                    // Default: false - Use Google Charts defaults
-                    fontSize: &#39;body&#39;,
+                    // Default: body font size
+                    fontSize: 14,
 
                     // Font-family name - String
                     // Default: &#39;Arial&#39;
-                    fontName: &#39;Arial&#39;,
+                    fontName: &#39;Roboto&#39;,
 
                     // Chart Title - String
                     // Default: Table caption.
                     title: &#39;Bar Chart Sample&#39;,
-
                     titleTextStyle: {
 
-                        // The font size in pixels - Number
-                        // Or use css selectors as keywords to assign font sizes from the page
-                        // For example: &#39;body&#39;
-                        // Default: false - Use Google Charts defaults
-                        fontSize: &#39;h3&#39;,
+                        // The chart title font size in pixels - Number
+                        // Default: h3 font size
+                        fontSize: 20
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
                         // Default: right
-                        position: &#39;right&#39;
+                        position: &#39;bottom&#39;
                     },
 
                     // Array of colours
@@ -1462,7 +1660,6 @@
                     // Stack values within a bar or column chart - Boolean
                     // Default: false.
                     isStacked: false,
-
                     tooltip: {
 
                         // Shows tooltip with values on hover - String
@@ -1470,356 +1667,631 @@
                         // Default: focus
                         trigger: &#39;focus&#39;
                     }
-                },</code></pre>
-            <p>For a complete list of Bar chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/barchart#Configuration_Options">Google Bar Charts</a></p>
-            <h4 id="google-pie-chart-options">Google Pie Chart Options</h4>
-            <p>The following are some of the Google Charts Pie Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Pie Chart Options
-                pieChart: {
-
-                    // Width of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    width: null,
-
-                    // Height of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    height: 200,
-
-                    chartArea: { // The chart proportions
-                        left: &quot;20%&quot;,
-                        top: 40,
-                        width: &quot;60%&quot;,
-                        height: &quot;85%&quot;
-                    },
-
-                    // The font size in pixels - Number
-                    // Or use css selectors as keywords to assign font sizes from the page
-                    // For example: &#39;body&#39;
-                    // Default: false - Use Google Charts defaults
-                    fontSize: &#39;body&#39;,
-
-                    // The font family name. String
-                    // Default: body font family
-                    fontName: &#39;Arial&#39;,
-
-                    // Chart Title. String
-                    // Default: The table caption text.
-                    title: &#39;Chart Title&#39;,
-
-                    titleTextStyle: {
-
-                        // The font size in pixels - Number
-                        // Or use css selectors as keywords to assign font sizes from the page
-                        // For example: &#39;body&#39;
-                        // Default: false - Use Google Charts defaults
-                        fontSize: &#39;h3&#39;, 
-                    },
-
-                    legend: {
-
-                        // Legend position - Controls display of legend. String 
-                        // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
-                        position: &#39;right&#39; 
-                    },
-
-                    // Array of colours
-                    colors: [&#39;#90A046&#39;, &#39;#90A046&#39;],
-
-                    // Makes chart 3D. Boolean, Default: false.
-                    is3D: false, 
-
-                    tooltip: {
-
-                        // String - Shows tooltip with values on hover. 
-                        // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
-                        trigger: &#39;focus&#39;,
-                    }
-                },</code></pre>
-            <p>For a complete list of Pie Chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#Configuration_Options">Google Pie Charts</a></p>
-            <h4 id="google-column-chart-options">Google Column Chart Options</h4>
-            <p>The following are some of the Google Charts Column Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Column Chart Options
-                columnChart: { 
-
-                    // Width of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    width: null,
-
-                    // Height of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    height: 200,
-
-                    chartArea: { // The chart proportions
-                        left: &quot;20%&quot;,
-                        top: 40,
-                        width: &quot;60%&quot;,
-                        height: &quot;85%&quot;
-                    },
-
-                    // The font size in pixels - Number
-                    // Or use css selectors as keywords to assign font sizes from the page
-                    // For example: &#39;body&#39;
-                    // Default: false - Use Google Charts defaults
-                    fontSize: &#39;body&#39;,
-
-                    // The font family name - String
-                    // Default: body font family
-                    fontName: &#39;Arial&#39;,
-
-                    // Chart Title - String
-                    // Default: The table caption text.
-                    title: &#39;Chart Title&#39;,
-
-                    titleTextStyle: {
-
-                        // The font size in pixels - Number
-                        // Or use css selectors as keywords to assign font sizes from the page
-                        // For example: &#39;body&#39;
-                        // Default: false - Use Google Charts defaults
-                        fontSize: &#39;h3&#39;,  
-                    },
-
-                    legend: {
-
-                        // Legend position - Controls display of legend. String 
-                        // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
-                        position: &#39;right&#39; 
-                    },
-
-                    // Array of colours
-                    colors: [&#39;#90A046&#39;, &#39;#90A046&#39;],
-
-                    // Stack values within a bar or column chart. Boolean, Default: false.
-                    isStacked: false,
-
-                    tooltip: {
-
-                        // String - Shows tooltip with values on hover. 
-                        // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
-                        trigger: &#39;focus&#39;,
-                    }
-                },</code></pre>
-            <p>For a complete list of Column Chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart#Configuration_Options">Google Column Charts</a></p>
-            <h4 id="google-geo-chart-options">Google Geo Chart Options</h4>
-            <p>The following are some of the Google Charts Geo Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Geo Chart Options
-                geoChart: { 
-
-                    // Width of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    width: null,
-
-                    // Height of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    height: 200,
-
-                    // Background Color - Default: &#39;white&#39;
-                    backgroundColor: &#39;#fff&#39;,
-
-                    // Dataless Region Color - Default: &#39;#F5F5F5&#39;
-                    datalessRegionColor: &#39;#F5F5F5&#39;,
-
-                    // Map Region - String, Options: &#39;world&#39;, continent, region, country, states. 
-                    // Default: &#39;world&#39;
-                    region: &#39;world&#39;,
-
-                    // Resolution - String
-                    // Options: &#39;countries&#39;, &#39;provinces&#39;, &#39;metros&#39;. Default: &#39;countries&#39;
-                    resolution: &#39;countries&#39;,
-
-                    legend: {
-
-                        // Legend position - Controls display of legend. String 
-                        // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
-                        position: &#39;right&#39; 
-                    },
-
-                    colorAxis: {
-
-                        // Start and end colour gradient values. Default: null
-                        colors: [] 
-                    },
-
-                    tooltip: {
-
-                        // String - Shows tooltip with values on hover. 
-                        // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
-                        trigger: &#39;focus&#39;,
-                    }
-                },</code></pre>
-            <p>Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.<br>For a complete list of Geo Chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/geochart#Configuration_Options">Google Geo Charts</a></p>
-            <h4 id="google-calendar-chart-options">Google Calendar Chart Options</h4>
-            <p>The following are some of the Google Charts Calendar Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Calendar Chart Options
-                calendar: { 
-
-                    // The cell scaling factor custom option - Not a Google Chart option
-                    // Used to refactor the cell size in responsive designs
-                    // this is overridden if the calendar.cellSize option has a value
-                    cellScaleFactor: 0.017,
-
-                    // Width of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    width: null,
-
-                    // Height of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    height: 200,
-
-                    calendar: {
-
-                        // Cell size in pixels. Number, Default: 16
-                        cellSize: 16, 
-
-                        monthLabel: {
-
-                            // String - Default: &#39;Times-Roman&#39;
-                            fontName: &#39;Times-Roman&#39;, 
-
-                            // The font size in pixels - Number
-                            // Or use css selectors as keywords to assign font sizes from the page
-                            // For example: &#39;body&#39;
-                            // Default: false - Use Google Charts defaults
-                            fontSize: &#39;body&#39;,
-                        },
-                        dayOfWeekLabel: {
-
-                            // The font size in pixels - Number
-                            // Or use css selectors as keywords to assign font sizes from the page
-                            // For example: &#39;body&#39;
-                            // Default: false - Use Google Charts defaults
-                            fontSize: 12,
-
-                            // Font-family name - String
-                            // Default: &#39;Arial&#39;
-                            fontName: &#39;Arial&#39;
-                        },
-                        monthOutlineColor: {
-
-                            // The active month outline stroke colour. String, Default: #000
-                            stroke: &#39;#000&#39;, 
-                        }
-                    },
-                    colorAxis: {
-
-                        // The colour gradient start and end values
-                        colors: [&#39;#FF0000&#39;, &#39;#00FF00&#39;]
-                    }
-                },</code></pre>
-            <p>For a complete list of Calendar Chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options">Google Calendar Charts</a></p>
-            <h4 id="google-table-chart-options">Google Table Chart Options</h4>
-            <p>The following are some of the Google Charts Table Chart options, unless otherwise specified.</p>
-            <pre><code>
-                // Google Table Chart Options
-                table: { 
-
-                    // Format a data column in a Table Chart
-                    formatter: { 
-
-                        // Formatter type - String, Options: &#39;none&#39;, &#39;BarFormat&#39;. Default: &#39;none&#39;
-                        type: &#39;none&#39;,
-
-                        // The index number of the column to format - Integer
-                        // Options: 0, 1, 2, etc. Default: 1
-                        column: 1, 
-
-                        // Base value number to compare the cell value against. Default: 0
-                        base: 0, 
-
-                        // Negative bar color - String 
-                        // Options: &#39;red&#39;, &#39;green&#39;, &#39;blue&#39;. Default: &#39;red&#39;
-                        colorNegative: &#39;red&#39;,
-
-                        // Positive bar color - String 
-                        // Options:&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;. Default: &#39;blue&#39;
-                        colorPositive: &#39;green&#39;, 
-
-                        // Dark base line when negative values are present. 
-                        // Default value is &#39;false&#39;
-                        drawZeroLine: false, 
-
-                        // Maximum  bar value. Number, Default: highest value in table
-                        max: , 
-
-                        // Minimum bar value. Number, Default; lowest value in the table
-                        min: ,
-
-                        // Show number values. Boolean, Default: true
-                        showValue: true, 
-
-                        // Thickness of each bar in pixels. Number, Default: 100
-                        width: 100 
-                    },
-
-                    // Allow HTML in cells. Boolean, default: true
-                    allowHtml: true,
-
-                    // Alternating row styling - Boolean, Default: true
-                    alternatingRowStyle: true,
-
-                    // Width of chart in pixels. Number, Default: automatic (unspecified)
-                    width: ,
-
-                    // Height of chart in pixels. Number, Default: automatic (unspecified)
-                    height: ,
-
-                    // Enable paging - String, Options: enable, event, disable. Default: disable
-                    page: &#39;disable&#39;, 
-
-                    // Rows per page. Integer, Default 10
-                    pageSize: 10, 
-
-                    // Enable row numbers. Boolean, Default: false
-                    showRowNumber: false, 
-
-                    // Enables sorting. String, Options: enable, event, disable. Default: enable
-                    sort: &#39;enable&#39;, 
-
-                    // Sort order. Boolean, Default: true
-                    sortAscending: true, 
-
-                    // The index of a column to sort. Integer, Default: -1
-                    sortColumn: -1, 
-
-                    // CSS class names - Default: no classes
-                    cssClassNames: { 
-                        headerRow: &#39;headerRow&#39;,
-                        tableRow: &#39;tableRow&#39;,
-                        oddTableRow: &#39;oddTableRow&#39;,
-                        selectedTableRow: &#39;selectedTableRow&#39;,
-                        hoverTableRow: &#39;hoverTableRow&#39;,
-                        headerCell: &#39;headerCell&#39;,
-                        tableCell: &#39;tableCell&#39;,
-                        rowNumberCell: &#39;rowNumberCell&#39;
-                    }
-                },</code></pre>
-            <p>Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.<br>For a complete list of Table Chart options visit 
-            <a href="https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options">Google Table Charts</a></p>
-            <h3 id="dependencies">Dependencies</h3>
-            <p>jQuery, Google Charts</p>
-            <h3 id="how-to-run-tests">How to run tests</h3>
-            <p>No testing framework at this time</p>
-            <h3 id="task-managers">Task Managers</h3>
-            <p>Gruntfile.js and package.json files are included if you want to manage tasks using Grunt.<br>Note: The Grunt file uses configuration information contained in the package.json</p>
-            <h3 id="deployment-instructions">Deployment instructions</h3>
-            <p>The git repo is versioned and includes a Bower configuration file so the repo can be easily included in your project as a dependency.</p>
-            <h2 id="contribution-guidelines">Contribution guidelines</h2>
-            <p>Contributions are much appreciated and welcomed.</p>
-            <h3 id="who-do-i-talk-to-">Who do I talk to?</h3>
-            <p>jbowyers</p>
-
-        </div><!-- .dev-output -->
-    </div><!-- .wrapper -->
+                },
+
+                // Show table as well as chart - String
+                // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;
+                showTable: &#39;show&#39;
+            });
+        });
+    &lt;/script&gt;</code></pre>
+<h3 id="list-of-options">List of Options</h3>
+<p>The following is a list of useful options with default values. For more information about Google Chart options visit
+<a href="https://developers.google.com/chart/">https://developers.google.com/chart/</a></p>
+<h4 id="all-chart-types-options">All chart types options</h4>
+<p>The following are options that are specific to Chartinator and apply to all chart types unless otherwise specified.</p>
+<pre><code>
+    // URL - The path to the Google AJAX API. Default: &#39;https://www.google.com/jsapi&#39;
+    urlJSAPI: &#39;https://www.google.com/jsapi&#39;,
+
+    // The Google Sheet key
+    // The id code of the Google sheet taken from the public url of your Google Sheet
+    // Default: false
+    googleSheetKey: false,
+
+    // The data columns js array
+    // An array of object literals that define each column
+    // Default: false
+    columns: false,
+
+    // Column indexes array - An array of column indexes defining where
+    // the data will be inserted into any existing data extracted from an 
+    // HTML table or Google Sheet
+    // Default: false - js data array columns replace any existing columns
+    // Note: when inserting more than one column be sure to increment index number
+    // to account for previously inserted indexes
+    colIndexes: false,
+
+    // Rows - The rows data-array
+    // If colIndexes array has values the row data will be inserted into the columns
+    // defined in the colindexes array. Otherwise the row data will be appended
+    // to any existing row data extracted from an HTML table or Google Sheet
+    // Default: false
+    rows: false,
+
+    // The jQuery selector of the HTML table element to extract the data from.
+    // Default: false - Checks if the element this plugin is applied to is an HTML table
+    tableSel: false,
+
+    // The data title
+    // A title used to identify the set of data
+    // Used as a caption when generating an HTML table
+    dataTitle: false,
+
+    // Create Table
+    // Create an HTML table from chart data
+    // Note: This table will replace an existing HTML table
+    createTable: false,
+
+    // Ignore row indexes array - An array of row index numbers to ignore
+    // Default: []
+    // Note: Only works on data extracted from HTML tables or Google Sheets
+    // The headings row is index 0
+    ignoreRow: [],
+
+    // Ignore column indexes array
+    // An array of column indexes to ignore in the HTML table or Google Sheet
+    // Default: []
+    // Note: Only works on data extracted from HTML tables or Google Sheets
+    ignoreCol: [],
+
+    // Transpose data Boolean - swap columns and rows
+    // Default: false
+    // Note: Only works on data extracted from HTML tables or Google Sheets
+    transpose: false,
+
+    // The tooltip concatenation - Defines a string for concatenating a custom tooltip.
+    // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
+    // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
+    // Default: false - use Google Charts tooltip defaults
+    // Note: Only works when extracting data from HTML tables or Google Sheets
+    // Not supported on pie, calendar charts
+    tooltipConcat: false,
+
+    // The annotation concatenation - Defines a string for concatenating a custom annotation.
+    // Keywords: &#39;domain&#39;, &#39;data&#39;, &#39;label&#39; - these will be replaced with current values
+    // &#39;domain&#39;: the primary axis value, &#39;data&#39;: the data value, &#39;label&#39;: the column title
+    // Default: false - use Google Charts annotation defaults
+    // Note: Only works when extracting data from HTML tables or Google Sheets.
+    // Not supported on pie, geo, calendar charts
+    annotationConcat: false,
+
+    // The chart type - String
+    // Derived from the Google Charts visualization class name
+    // Default: &#39;BarChart&#39;
+    // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
+    // See Google Charts Gallery for a complete list of Chart types
+    // https://developers.google.com/chart/interactive/docs/gallery
+    chartType: &#39;BarChart&#39;,
+
+    // Chart Id - The id applied to the chart container element as an id and a class
+    // This is overridden if the chart element has an id or the id is user defined
+    chartId: &#39;c24_&#39; + Math.random().toString(36).substr(2, 9),
+
+    // The class to apply to the dynamically created chart container element
+    chartClass: &#39;chtr-chart&#39;,
+
+    // Table Id - The id applied to the table element as an id and a class
+    // This is overridden if the table element has an id or is user defined
+    tableId: &#39;c24_table_&#39; + Math.random().toString(36).substr(2, 9),
+
+    // The class to apply to the table element
+    tableClass: &#39;chtr-table&#39;,
+
+    // The chart aspect ratio custom option - width/height
+    // Used to calculate the chart dimensions relative to the width or height
+    // this is overridden if the Google Chart&#39;s height and width options have values
+    // Default: false - not used
+    chartAspectRatio: false,
+
+    // The chart zoom factor - number
+    // A scaling factor for the chart - uses CSS3 transform
+    // To prevent tooltips from displaying off canvas when zooming, set tooltip.isHtml: true
+    // Default: 0
+    chartZoom: 0,
+
+    // The chart offset - Array of numbers
+    // An array of x and y offset percentage values
+    // Used to offset the chart by percentages of the height and width - uses CSS3 transform
+    // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
+    // Default: false
+    chartOffset: false,
+
+    // The Google Chart Options
+    // This option can be used with any chart type
+    // Some chart types have default options defined within Chartinator by the following objects:
+    // barChart, pieChart, columnChart, calendar, table, areaChart, lineChart
+    // These objects should be used instead of this one when using those chart types
+    // Default: no default - not defined
+    chartOptions: {},
+
+    // Google Bar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a bar chart
+    //barChart: {},
+
+    // Google Pie Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a pie chart
+    //pieChart: {},
+
+    // Google Column Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a column chart
+    //columnChart: {},
+
+    // Google Line Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a line chart
+    //lineChart: {},
+
+    // Google Area Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a area chart
+    //areaChart: {},
+
+    // Google Calendar Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a calendar chart
+    //calendar: {},
+
+    // Google Table Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a table chart
+    //table: {},
+
+    // Show table along with chart - String
+    // Options: &#39;show&#39;, &#39;hide&#39;, &#39;remove&#39;. Default: &#39;hide&#39;
+    showTable: &#39;hide&#39;,  
+
+    // The CSS literal used to show the table.
+    showTableCSS: { &#39;position&#39;: &#39;static&#39;, &#39;top&#39;: 0 }, 
+
+    // The CSS literal used to hide the table.
+    hideTableCSS: { &#39;position&#39;: &#39;absolute&#39;, &#39;top&#39;: &#39;-9999px&#39;, &#39;width&#39;: $tableS.width() },
+
+    // The CSS literal used to show the chart.
+    showChartCSS: { }, 
+
+    // The CSS literal used to hide the chart.
+    hideChartCSS: { &#39;opacity&#39;: 0}</code></pre>
+<h4 id="google-bar-chart-options">Google Bar Chart Options</h4>
+<p>The following are some of the Google Charts Bar Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Bar Chart Options - Object Literal
+    barChart: {
+
+        // Width of chart in pixels - Number
+        // Default: automatic (unspecified)
+        width: null,
+
+        // Height of chart in pixels - Number
+        // Default: automatic (unspecified)
+        height: 200,
+
+        chartArea: {
+            left: &quot;20%&quot;, 
+            top: 40, 
+            width: &quot;75%&quot;, 
+            height: &quot;85%&quot;
+        },
+
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
+
+        // Font-family name - String
+        // Default: &#39;Arial&#39;
+        fontName: &#39;Arial&#39;,
+
+        // Chart Title - String
+        // Default: Table caption.
+        title: &#39;Bar Chart Sample&#39;,
+
+        titleTextStyle: {
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;,
+        },
+        legend: {
+
+            // Legend position - String
+            // Options: bottom, top, left, right, in, none.
+            // Default: right
+            position: &#39;right&#39;
+        },
+
+        // Array of colours
+        colors: [&#39;#3691ff&#39;],
+
+        // Stack values within a bar or column chart - Boolean
+        // Default: false.
+        isStacked: false,
+
+        tooltip: {
+
+            // Shows tooltip with values on hover - String
+            // Options: focus, none.
+            // Default: focus
+            trigger: &#39;focus&#39;
+        }
+    },</code></pre>
+<p>For a complete list of Bar chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/barchart#Configuration_Options">Google Bar Charts</a></p>
+<h4 id="google-pie-chart-options">Google Pie Chart Options</h4>
+<p>The following are some of the Google Charts Pie Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Pie Chart Options
+    pieChart: {
+
+        // Width of chart in pixels - Number
+        // Default: automatic (unspecified)
+        width: null,
+
+        // Height of chart in pixels - Number
+        // Default: automatic (unspecified)
+        height: 200,
+
+        chartArea: { // The chart proportions
+            left: &quot;20%&quot;,
+            top: 40,
+            width: &quot;60%&quot;,
+            height: &quot;85%&quot;
+        },
+
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
+
+        // The font family name. String
+        // Default: body font family
+        fontName: &#39;Arial&#39;,
+
+        // Chart Title. String
+        // Default: The table caption text.
+        title: &#39;Chart Title&#39;,
+
+        titleTextStyle: {
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;, 
+        },
+
+        legend: {
+
+            // Legend position - Controls display of legend. String 
+            // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
+            position: &#39;right&#39; 
+        },
+
+        // Array of colours
+        colors: [&#39;#90A046&#39;, &#39;#90A046&#39;],
+
+        // Makes chart 3D. Boolean, Default: false.
+        is3D: false, 
+
+        tooltip: {
+
+            // String - Shows tooltip with values on hover. 
+            // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
+            trigger: &#39;focus&#39;,
+        }
+    },</code></pre>
+<p>For a complete list of Pie Chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#Configuration_Options">Google Pie Charts</a></p>
+<h4 id="google-column-chart-options">Google Column Chart Options</h4>
+<p>The following are some of the Google Charts Column Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Column Chart Options
+    columnChart: { 
+
+        // Width of chart in pixels - Number
+        // Default: automatic (unspecified)
+        width: null,
+
+        // Height of chart in pixels - Number
+        // Default: automatic (unspecified)
+        height: 200,
+
+        chartArea: { // The chart proportions
+            left: &quot;20%&quot;,
+            top: 40,
+            width: &quot;60%&quot;,
+            height: &quot;85%&quot;
+        },
+
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: &#39;body&#39;
+        // Default: false - Use Google Charts defaults
+        fontSize: &#39;body&#39;,
+
+        // The font family name - String
+        // Default: body font family
+        fontName: &#39;Arial&#39;,
+
+        // Chart Title - String
+        // Default: The table caption text.
+        title: &#39;Chart Title&#39;,
+
+        titleTextStyle: {
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;,  
+        },
+
+        legend: {
+
+            // Legend position - Controls display of legend. String 
+            // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
+            position: &#39;right&#39; 
+        },
+
+        // Array of colours
+        colors: [&#39;#90A046&#39;, &#39;#90A046&#39;],
+
+        // Stack values within a bar or column chart. Boolean, Default: false.
+        isStacked: false,
+
+        tooltip: {
+
+            // String - Shows tooltip with values on hover. 
+            // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
+            trigger: &#39;focus&#39;,
+        }
+    },</code></pre>
+<p>For a complete list of Column Chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart#Configuration_Options">Google Column Charts</a></p>
+<h4 id="google-geo-chart-options">Google Geo Chart Options</h4>
+<p>The following are some of the Google Charts Geo Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Geo Chart Options
+    geoChart: { 
+
+        // Width of chart in pixels - Number
+        // Default: automatic (unspecified)
+        width: null,
+
+        // Height of chart in pixels - Number
+        // Default: automatic (unspecified)
+        height: 200,
+
+        // Background Color - Default: &#39;white&#39;
+        backgroundColor: &#39;#fff&#39;,
+
+        // Dataless Region Color - Default: &#39;#F5F5F5&#39;
+        datalessRegionColor: &#39;#F5F5F5&#39;,
+
+        // Map Region - String, Options: &#39;world&#39;, continent, region, country, states. 
+        // Default: &#39;world&#39;
+        region: &#39;world&#39;,
+
+        // Resolution - String
+        // Options: &#39;countries&#39;, &#39;provinces&#39;, &#39;metros&#39;. Default: &#39;countries&#39;
+        resolution: &#39;countries&#39;,
+
+        legend: {
+
+            // Legend position - Controls display of legend. String 
+            // Options: &#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;, &#39;in&#39;, &#39;none&#39;. Default: right
+            position: &#39;right&#39; 
+        },
+
+        colorAxis: {
+
+            // Start and end colour gradient values. Default: null
+            colors: [] 
+        },
+
+        tooltip: {
+
+            // String - Shows tooltip with values on hover. 
+            // Options: &#39;focus&#39;, &#39;none&#39;. Default: focus
+            trigger: &#39;focus&#39;,
+        }
+    },</code></pre>
+<p>Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.<br>For a complete list of Geo Chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/geochart#Configuration_Options">Google Geo Charts</a></p>
+<h4 id="google-calendar-chart-options">Google Calendar Chart Options</h4>
+<p>The following are some of the Google Charts Calendar Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Calendar Chart Options
+    calendar: { 
+
+        // The cell scaling factor custom option - Not a Google Chart option
+        // Used to refactor the cell size in responsive designs
+        // this is overridden if the calendar.cellSize option has a value
+        cellScaleFactor: 0.017,
+
+        // Width of chart in pixels - Number
+        // Default: automatic (unspecified)
+        width: null,
+
+        // Height of chart in pixels - Number
+        // Default: automatic (unspecified)
+        height: 200,
+
+        titleTextStyle: {
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+
+            color: &#39;#000&#39;,
+            fontWeight: &#39;bold&#39;,
+            fontName: &#39;Arial&#39;,
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;
+        },
+
+        calendar: {
+
+            // Cell size in pixels. Number, Default: 16
+            cellSize: 16, 
+
+            monthLabel: {
+
+                // String - Default: &#39;Times-Roman&#39;
+                fontName: &#39;Times-Roman&#39;, 
+
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: &#39;body&#39;
+                // Default: false - Use Google Charts defaults
+                fontSize: &#39;body&#39;,
+            },
+            dayOfWeekLabel: {
+
+                // The font size in pixels - Number
+                // Or use css selectors as keywords to assign font sizes from the page
+                // For example: &#39;body&#39;
+                // Default: false - Use Google Charts defaults
+                fontSize: 12,
+
+                // Font-family name - String
+                // Default: &#39;Arial&#39;
+                fontName: &#39;Arial&#39;
+            },
+            monthOutlineColor: {
+
+                // The active month outline stroke colour. String, Default: #000
+                stroke: &#39;#000&#39;, 
+            }
+        },
+        colorAxis: {
+
+            // The colour gradient start and end values
+            colors: [&#39;#FF0000&#39;, &#39;#00FF00&#39;]
+        },
+        tooltip: {
+
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+            textStyle: {
+                color: &#39;#000&#39;,
+                fontName: &#39;Arial&#39;,
+                fontSize: 16
+            }
+        }
+    },</code></pre>
+<p>For a complete list of Calendar Chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options">Google Calendar Charts</a></p>
+<h4 id="google-table-chart-options">Google Table Chart Options</h4>
+<p>The following are some of the Google Charts Table Chart options, unless otherwise specified.</p>
+<pre><code>
+    // Google Table Chart Options
+    table: { 
+
+        // Format a data column in a Table Chart
+        formatter: { 
+
+            // Formatter type - String, Options: &#39;none&#39;, &#39;BarFormat&#39;. Default: &#39;none&#39;
+            type: &#39;none&#39;,
+
+            // The index number of the column to format - Integer
+            // Options: 0, 1, 2, etc. Default: 1
+            column: 1, 
+
+            // Base value number to compare the cell value against. Default: 0
+            base: 0, 
+
+            // Negative bar color - String 
+            // Options: &#39;red&#39;, &#39;green&#39;, &#39;blue&#39;. Default: &#39;red&#39;
+            colorNegative: &#39;red&#39;,
+
+            // Positive bar color - String 
+            // Options:&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;. Default: &#39;blue&#39;
+            colorPositive: &#39;green&#39;, 
+
+            // Dark base line when negative values are present. 
+            // Default value is &#39;false&#39;
+            drawZeroLine: false, 
+
+            // Maximum  bar value. Number, Default: highest value in table
+            max: , 
+
+            // Minimum bar value. Number, Default; lowest value in the table
+            min: ,
+
+            // Show number values. Boolean, Default: true
+            showValue: true, 
+
+            // Thickness of each bar in pixels. Number, Default: 100
+            width: 100 
+        },
+
+        // Allow HTML in cells. Boolean, default: true
+        allowHtml: true,
+
+        // Alternating row styling - Boolean, Default: true
+        alternatingRowStyle: true,
+
+        // Width of chart in pixels. Number, Default: automatic (unspecified)
+        width: ,
+
+        // Height of chart in pixels. Number, Default: automatic (unspecified)
+        height: ,
+
+        // Enable paging - String, Options: enable, event, disable. Default: disable
+        page: &#39;disable&#39;, 
+
+        // Rows per page. Integer, Default 10
+        pageSize: 10, 
+
+        // Enable row numbers. Boolean, Default: false
+        showRowNumber: false, 
+
+        // Enables sorting. String, Options: enable, event, disable. Default: enable
+        sort: &#39;enable&#39;, 
+
+        // Sort order. Boolean, Default: true
+        sortAscending: true, 
+
+        // The index of a column to sort. Integer, Default: -1
+        sortColumn: -1, 
+
+        // CSS class names - Default: no classes
+        cssClassNames: { 
+            headerRow: &#39;headerRow&#39;,
+            tableRow: &#39;tableRow&#39;,
+            oddTableRow: &#39;oddTableRow&#39;,
+            selectedTableRow: &#39;selectedTableRow&#39;,
+            hoverTableRow: &#39;hoverTableRow&#39;,
+            headerCell: &#39;headerCell&#39;,
+            tableCell: &#39;tableCell&#39;,
+            rowNumberCell: &#39;rowNumberCell&#39;
+        }
+    },</code></pre>
+<p>Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.<br>For a complete list of Table Chart options visit 
+<a href="https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options">Google Table Charts</a></p>
+<h3 id="dependencies">Dependencies</h3>
+<p>jQuery, Google Charts</p>
+<h3 id="how-to-run-tests">How to run tests</h3>
+<p>No testing framework at this time</p>
+<h3 id="task-managers">Task Managers</h3>
+<p>Gruntfile.js and package.json files are included if you want to manage tasks using Grunt.<br>Note: The Grunt file uses configuration information contained in the package.json</p>
+<h3 id="deployment-instructions">Deployment instructions</h3>
+<p>The git repo is versioned and includes a Bower configuration file so the repo can be easily included in your project as a dependency.</p>
+<h2 id="contribution-guidelines">Contribution guidelines</h2>
+<p>Contributions are much appreciated and welcomed.</p>
+<h3 id="who-do-i-talk-to-">Who do I talk to?</h3>
+<p>jbowyers</p>
+
+</div><!-- .dev-output -->
+</div><!-- .wrapper -->
 </section><!-- .main -->
+
+<!-- google-code-prettify -->
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script>$(function() { $('pre').addClass('prettyprint');})</script>
 
 </body>
 </html>

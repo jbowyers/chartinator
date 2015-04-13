@@ -28,7 +28,8 @@
  * or define the Google Sheet key id
  * or create js data arrays
  *
- * th elements in HTML table should have one of the following:
+ * The header cells (th elements) in HTML table must be in the first row (or first column if transposing table)
+ * and should have one of the following:
  * 'data-type' attributes: 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'
  * or 'data-role' attributes:  'tooltip','annotation'
  * The caption element's text is used as a title for the chart
@@ -46,7 +47,7 @@
 
         //  Define table and chart elements	
         var $tableS = $(el);
-        var $chartS = $(el);
+        var $chartS = $tableS;
 
         //  Define fonts
         o.fontFamily = $('body').css('font-family').replace(/["']{1}/gi, "") || 'Arial, Helvetica, sans-serif';
@@ -84,6 +85,16 @@
             // The jQuery selector of the HTML table element to extract the data from.
             // Default: false - Checks if the element this plugin is applied to is an HTML table
             tableSel: false,
+
+            // The data title
+            // A title used to identify the set of data
+            // Used as a caption when generating an HTML table
+            dataTitle: false,
+
+            // Create Table
+            // Create an HTML table from chart data
+            // Note: This table will replace an existing HTML table
+            createTable: false,
 
             // Ignore row indexes array - An array of row index numbers to ignore
             // Default: []
@@ -128,10 +139,17 @@
 
             // Chart Id - The id applied to the chart container element as an id and a class
             // This is overridden if the chart element has an id or is user defined
-            chartId: 'c24_' + Math.random().toString(36).substr(2, 9),
+            chartId: 'c24_chart_' + Math.random().toString(36).substr(2, 9),
 
-            // The class to apply to the dynamically created chart container element
+            // The class to apply to the chart container element
             chartClass: 'chtr-chart',
+
+            // Table Id - The id applied to the table element as an id and a class
+            // This is overridden if the table element has an id or is user defined
+            tableId: 'c24_table_' + Math.random().toString(36).substr(2, 9),
+
+            // The class to apply to the table element
+            tableClass: 'chtr-table',
 
             // The chart aspect ratio custom option - width/height
             // Used to calculate the chart dimensions relative to the width or height
@@ -161,8 +179,11 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                chartArea: { left: "20%", top: 40, width: "75%", height: "85%" },
+                // the body font-family
                 fontName: o.fontFamily,
+
+                chartArea: { left: '20%', top: 40, width: '75%', height: '85%' },
+
                 legend: { position: 'bottom' }
             },
 
@@ -175,8 +196,10 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
-                fontName: o.fontFamily
+                // the body font-family
+                fontName: o.fontFamily,
+
+                chartArea: { left: '6%', top: 40, width: '94%', height: '100%' }
             },
 
             // Google Column Chart Default Options
@@ -188,7 +211,11 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
+                // the body font-family
                 fontName: o.fontFamily,
+
+                chartArea: { left: '15%', top: 40, width: '85%', height: '70%' },
+
                 legend: { position: 'bottom' }
             },
 
@@ -201,7 +228,11 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
+                // the body font-family
                 fontName: o.fontFamily,
+
+                chartArea: { left: '15%', top: 40, width: '80%', height: '70%' },
+
                 legend: { position: 'bottom' }
             },
 
@@ -214,7 +245,11 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
+                // the body font-family
                 fontName: o.fontFamily,
+
+                chartArea: { left: '15%', top: 40, width: '80%', height: '70%' },
+
                 legend: { position: 'bottom' }
             },
 
@@ -225,6 +260,21 @@
                 // Used to refactor the cell size in responsive designs
                 // this is overridden if the calendar.cellSize option has a value
                 cellScaleFactor: 0.017,
+
+                titleTextStyle: {
+                    // Note: Support for this option has been added by Chartinator
+                    // but is not supported by Google Charts for this chart type
+
+                    color: '#000',
+                    fontWeight: 'bold',
+                    fontName: o.fontFamily,
+
+                    // The font size in pixels - Number
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Default: false - Use Google Charts defaults
+                    fontSize: 'h3'
+                },
 
                 calendar: {
                     monthLabel: {
@@ -246,6 +296,16 @@
                         fontSize: false,
 
                         fontName: o.fontFamily
+                    }
+                },
+                tooltip: {
+
+                    // Note: Support for this option has been added by Chartinator
+                    // but is not supported by Google Charts for this chart type
+                    textStyle: {
+                        color: '#000',
+                        fontName: o.fontFamily,
+                        fontSize: 16
                     }
                 }
             },
@@ -283,7 +343,7 @@
 
             // The CSS to apply to show or hide the table and chart
             showTableCSS: { 'position': 'static', 'top': 0, 'width': '' },
-            hideTableCSS: { 'position': 'absolute', 'top': '-9999px', 'width': $tableS.width() },
+            hideTableCSS: { 'position': 'absolute', 'top': '-99999px', 'width': $tableS.width() },
             showChartCSS: {  },
             hideChartCSS: { 'opacity': 0 }
 
@@ -298,11 +358,16 @@
         // Window resize event timer function
         o.timer = false;
 
-        // Initialize table clone
-        o.tableClone = false;
-
-        // Chart Id - A dynamically generated id to apply to the chart container element
+        // Chart Id - The id to apply to the chart container element
         o.chartId = o.optionsInit.chartId;
+
+        // Table Id - The id to apply to the table element
+        o.tableId = o.optionsInit.tableId;
+
+        // The table has data boolean
+        o.tableHasData = false;
+
+        o.tableCaption = false;
 
         // The Google Sheet data object - Data returned
         o.googleSheetData = false;
@@ -328,10 +393,8 @@
         //  Initiate Chart ======================================================================
         o.init = function (el, options) {
 
-            var tableHasData = false;
-
             //  Merge options
-            o.options = $.extend({}, o.optionsInit, options);
+            o.options = $.extend( true, {}, o.optionsInit, options );
 
             // Update chartId
             o.chartId = options.chartId || $chartS.attr('id') || o.options.chartId ;
@@ -344,18 +407,20 @@
             }
 
             // Check table for data
-            tableHasData = $tableS.find('td').length;
-
-            // Get table clone
-            if (tableHasData) {
-
-                o.tableClone = $tableS.clone();
-            }
+            o.tableHasData = $tableS.find('td').length;
 
             if ($chartS[0] === $tableS[0]) { // table and chart are the same element
-                if (tableHasData) {
+
+                if (o.tableHasData) { // chart element does not exist
+
+                    // Reset Chart id
+                    o.chartId = o.options.chartId ;
+
                     // Insert a new chart element after the table
-                    $chartS = $( '<div id="' + o.chartId + '" class="' + o.chartId + ' ' + o.options.chartClass + '"></div>' ).insertAfter( $tableS );
+                    $chartS = $( '<div id="' + o.chartId +
+                        '" class="' + o.chartId + ' ' + o.options.chartClass +
+                        '"></div>' ).insertAfter( $tableS );
+
                 } else { // table does not exist
                     $tableS = false;
                 }
@@ -365,6 +430,25 @@
             $chartS
                 .addClass( o.chartId + ' ' + o.options.chartClass )
                 .attr( 'id', o.chartId );
+
+            // Add table class and id and get caption
+            if (o.tableHasData) {
+
+                // Update tableId
+                o.tableId = options.tableId || $tableS.attr('id') || o.options.tableId ;
+
+                // Apply id and classes to table
+                $tableS
+                    .addClass( o.tableId + ' ' + o.options.tableClass )
+                    .attr( 'id', o.tableId );
+
+                o.tableCaption = $tableS.find( 'caption' );
+
+            } else {
+
+                // Update tableId
+                o.tableId = o.options.tableId ;
+            }
 
             // Get chart parent element
             o.chartParent = $chartS.parent();
@@ -434,12 +518,22 @@
             // Clone Google Chart options so we don't overwrite original values
             o.cchartOptions = $.extend( true, {}, o.chartOptions );
 
-            // Set the Calendar cell size if a calendar chart
-            if ( o.options.chartType === 'Calendar' ) {
-                o.cchartOptions.calendar.cellSize = o.cchartOptions.calendar.cellSize || $chartS.width() * o.cchartOptions.cellScaleFactor;
+            // Create table -------------------------------------------------------
+            if ( o.options.createTable ) {
+
+                // The caption text
+                var tableTitle = o.options.dataTitle || o.cchartOptions.title || 'The Chart Data';
+
+                if ( o.tableHasData ) {
+                    $tableS.replaceWith( o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass ) );
+                } else {
+                    $tableS = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass ).insertBefore( $chartS );
+                }
+            } else if ( o.tableHasData && o.options.dataTitle ) {
+                o.tableCaption.text( o.options.dataTitle );
             }
 
-            // Load Google Chart ----------------------------------------------------------
+            // Load Google Chart --------------------------------------------------
 
             // Hide chart and HTML table
             o.showTableChart('hide', 'hide');
@@ -448,7 +542,7 @@
 
                 $.ajax({
                     url: o.options.urlJSAPI,
-                    dataType: "script",
+                    dataType: 'script',
                     cache: true
                 })
                     .done(function () {
@@ -479,6 +573,7 @@
         };
 
         // Collect data - Assemble data from the HTML table, js array and Google Sheet
+        // Returns an Array of data
         o.collectData = function () {
 
             var dataArray = [];
@@ -492,11 +587,8 @@
 
             // Get HTML table data
             // Note: this overwrites any data extracted from A Google Sheet
-            if ( o.tableClone && o.tableClone.find( 'td' ).length ) {
-                dataArray = o.getTableData();
-
-                // Set the chart title
-                o.cchartOptions.title = o.cchartOptions.title || o.tableClone.find('caption').text() || '';
+            if ( o.tableHasData ) {
+                dataArray = o.getTableData( $tableS );
             }
 
             // Add/overwrite with js data-array columns
@@ -540,7 +632,7 @@
         o.drawChart = function ( ) {
 
             // Create dataTable -----------------------------------------------------------
-            o.data = new google.visualization.arrayToDataTable(o.dataArray);
+            o.data = new google.visualization.arrayToDataTable( o.dataArray );
 
             if ( !o.data || !o.data.getNumberOfRows() ) { // No data
 
@@ -558,6 +650,16 @@
             }
 
             // Adjust options -------------------------------------------------------------
+
+            // Set chart Title
+            if ( o.tableHasData ) {
+                o.cchartOptions.title = o.cchartOptions.title || o.tableCaption.text() || '';
+            }
+
+            // Set the Calendar cell size if a calendar chart
+            if ( o.options.chartType === 'Calendar' ) {
+                o.cchartOptions.calendar.cellSize = o.cchartOptions.calendar.cellSize || $chartS.width() * o.cchartOptions.cellScaleFactor;
+            }
 
             // Set font sizes
             if (o.cchartOptions.fontSize && isNaN(parseInt(o.cchartOptions.fontSize, 10))) {
@@ -615,6 +717,7 @@
                     var top = 0;
                     var left = 0;
 
+                    // The zoom and offset values
                     var zoom = parseFloat(o.options.chartZoom) || 0;
                     var tooltipZoom = 1/zoom || 1;
                     var offsetX = parseInt(o.options.chartOffset[0]) || 0;
@@ -622,11 +725,14 @@
                     offsetX = offsetX*$chartS.width()*zoom/100;
                     offsetY = offsetY*$chartS.height()*zoom/100;
 
+                    // Zoom
                     if ( zoom ) {
                         transform = 'scale(' + zoom + ')';
                         top = ((($chartS.height()*zoom) - $chartS.height())/2)/zoom;
                         left = ((($chartS.width()*zoom) - $chartS.width())/2)/zoom;
                     }
+
+                    // Offset
                     if ( offsetX || offsetY ) {
                         transform += ' translate(' + offsetX + 'px,' + offsetY + 'px)';
                         top -= offsetY;
@@ -638,16 +744,37 @@
                     $chartS.css( 'overflow', 'hidden' );
 
                     // Add style to head to Adjust tooltip
-                    $('<style> .' + o.chartId +' .google-visualization-tooltip{ ' +
+                    $('<style> .' + o.chartId +' .google-visualization-tooltip { ' +
                         'top: ' + top  + 'px !important; ' +
                         'left: ' + left + 'px !important; ' +
                         'transform: scale(' + tooltipZoom + ')} </style>').appendTo('head');
+                }
+
+                //Style calendar chart
+                if ( o.options.chartType === 'Calendar') {
+                    $chartS.find( 'text:contains("' + o.cchartOptions.title + '")' ).css({
+                        fill: o.cchartOptions.titleTextStyle.color,
+                        fontWeight: o.cchartOptions.titleTextStyle.fontWeight,
+                        fontSize: o.cchartOptions.titleTextStyle.fontSize,
+                        fontFamily: o.cchartOptions.titleTextStyle.fontName
+                    });
+
+                    // Add style to head to style tooltip
+                    $('<style> .' + o.chartId +' .google-visualization-tooltip span { ' +
+                        'color: ' + o.cchartOptions.tooltip.textStyle.color  + ' !important; ' +
+                        'font-size: ' + o.cchartOptions.tooltip.textStyle.fontSize  + 'px !important; ' +
+                        'font-family: "' + o.cchartOptions.tooltip.textStyle.fontName  + '" !important; ' +
+                        '} </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
                 // Show table remove chart
                 o.showTableChart('show', 'remove');
                 console.log(e);
+            });
+            google.visualization.events.addListener( o.chart, 'select', function () {
+                var selection = o.chart.getSelection();
+                console.log( $( '#charts2 span' ).parent()[0] );
             });
 
             // Draw chart
@@ -656,6 +783,7 @@
         }; // o.drawChart close
 
         // Format Google Sheets csv data
+        // Returns an array of formatted data
         o.formatSheet = function( data ) {
 
             // The array of data to return
@@ -714,7 +842,9 @@
         };
 
         // Get data from an HTML table
-        o.getTableData = function () {
+        // Accepts a jQuery html table object
+        // Returns a formatted data array
+        o.getTableData = function ( $tableHTML ) {
 
             // The data table Array - The array of column and row data extracted from the HTML table
             var dataTable = [];
@@ -722,7 +852,7 @@
             try {
 
                 // The rows - The collection of HTML table rows
-                var $rows = o.tableClone.find( 'tr' );
+                var $rows = $tableHTML.find( 'tr' ).not( $tableHTML.find( 'tfoot tr') );
 
                 // The array of data collected from all rows
                 var rowsArr = [];
@@ -732,7 +862,7 @@
 
                     rowsArr.push([]);
 
-                    $(this).find('td, th').each(function (col) {
+                    $( this ).find( 'td, th' ).each( function (col) {
 
                         var $cell = $( this );
                         var cellObj = {};
@@ -773,7 +903,7 @@
                     }
 
                     // add row to dataTable
-                    if (rowData.length > 0) {
+                    if ( rowData.length > 0 ) {
                         dataTable.push(rowData);
                     }
                 }
@@ -790,6 +920,7 @@
         };
 
         // Format the data - infer data types and add and remove columns
+        // Returns an array of formatted data
         o.formatData = function( data ) {
 
             // The formatted data array - The array of reformatted data
@@ -943,7 +1074,7 @@
                             } else if ( j !== 0 ) { // not the first column
                                 if ( !isNaN( parseFloat( cellData ) ) ) {
                                     cellData = parseFloat( cellData );
-                                } else if ( new Date( cellData ) !== "Invalid Date" && !isNaN( new Date( cellData ) ) ) {
+                                } else if ( new Date( cellData ) !== 'Invalid Date' && !isNaN( new Date( cellData ) ) ) {
                                     cellData = new Date( cellData );
                                 }
                             }
@@ -967,6 +1098,41 @@
             return formattedData;
         };
 
+        // Generate HTML table jQuery object from chart data
+        // Returns a jQuery object defining the table
+        o.generateTable = function ( data, tableTitle, tableId, tableClass ) {
+
+            // The html string
+            var html = '<table id="' + tableId +
+                '" class="' + tableId + ' ' + tableClass +
+                '"><caption>' + tableTitle + '</caption><thead><tr>';
+
+            // Add header columns to html
+            for (var i = 0; i < data[0].length; i++) {
+                if ( data[0][i].role && data[0][i].role === 'tooltip' ) {
+                    html += '<th>Tooltip</th>';
+                } else if ( data[0][i].role && data[0][i].role === 'annotation' ) {
+                    html += '<th>Annotation</th>';
+                } else if ( data[0][i].label ) {
+                    html += '<th>' + data[0][i].label + '</th>';
+                }
+            }
+            html += '</tr></thead><tbody>';
+
+            // Add rows to html
+            for (var i = 1; i < data.length; i++) {
+                html += '<tr>';
+                for (var j = 0; j < data[i].length; j++) {
+                    var align = isNaN(data[i][j]) ? 'left': 'right';
+                    html += '<td align="' + align + '">' + data[i][j] + '</td>';
+                }
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+
+            return $( html );
+        };
+
         // Add window resize event
         o.addResize = function () {
             // Window event handlers
@@ -980,7 +1146,7 @@
                     o.timer = setTimeout( function() {
 
                         // Test if width has resized - as opposed to height
-                        if ($( window ).width() !== o.windowWidth) {
+                        if ( $( window ).width() !== o.windowWidth ) {
 
                             // Save the chart style
                             var elStyle = $chartS.attr( 'style' );
@@ -1016,46 +1182,48 @@
         };
 
         // Show, hide or remove chart and table
-        o.showTableChart = function (table, chart) {    //  Values: 'show', 'hide', or 'remove'
+        o.showTableChart = function ( table, chart ) {    //  Values: 'show', 'hide', or 'remove'
 
             var tableLen = $tableS ? $tableS.length : false;
             var chartLen = $chartS ? $chartS.length : false;
 
             // Table
-            if (table === 'show' && tableLen) {
-                $tableS.css('opacity', 0);
-                $tableS.css(o.options.showTableCSS);
-                $tableS.fadeTo(400, 1);
-            } else if (table === 'hide' && tableLen) {
-                $tableS.css(o.options.hideTableCSS);
-            } else if (table === 'remove' && tableLen) {
-                $tableS.css('display', 'none');
+            if ( table === 'show' && tableLen ) {
+                $tableS.css( 'opacity', 0 );
+                $tableS.css( o.options.showTableCSS );
+                $tableS.fadeTo( 400, 1 );
+            } else if ( table === 'hide' && tableLen ) {
+                $tableS.css( o.options.hideTableCSS );
+            } else if ( table === 'remove' && tableLen ) {
+                $tableS.css( 'display', 'none' );
             }
 
             // Chart
-            if (chart === 'show' && chartLen) {
-                $chartS.css('opacity', 0);
-                $chartS.css(o.options.showChartCSS);
-                $chartS.fadeTo(400, 1);
-            } else if (chart === 'hide' && chartLen) {
-                $chartS.css(o.options.showChartCSS);
-            } else if (chart === 'remove' && chartLen) {
-                $chartS.css('display', 'none');
+            if ( chart === 'show' && chartLen ) {
+                $chartS.css( 'opacity', 0 );
+                $chartS.css( o.options.showChartCSS );
+                $chartS.fadeTo( 400, 1 );
+            } else if ( chart === 'hide' && chartLen ) {
+                $chartS.css( o.options.showChartCSS );
+            } else if ( chart === 'remove' && chartLen ) {
+                $chartS.css( 'display', 'none' );
             }
         };
 
         //  Get font size function
-        o.getFontSize = function (selector, dSize) {
-            return parseInt($(selector).css('fontSize'), 10) || dSize;
+        // Returns an integer
+        o.getFontSize = function ( selector, dSize ) {
+            return parseInt( $( selector ).css( 'fontSize' ), 10 ) || dSize;
         };
 
         // Transpose data array function
+        // Returns the transposed array of data
         o.transpose = function (arr) {
 
-            var tArr = new Array(arr[0].length);
-            for (var i = 0; i < arr[0].length; i++) {
-                tArr[i] = new Array(arr.length);
-                for (var j = 0; j < arr.length; j++) {
+            var tArr = new Array( arr[0].length );
+            for ( var i = 0; i < arr[0].length; i++ ) {
+                tArr[i] = new Array( arr.length );
+                for ( var j = 0; j < arr.length; j++ ) {
                     tArr[i][j] = arr[j][i];
                 }
             }
@@ -1064,6 +1232,7 @@
 
         // Set chart width and height values
         o.setDimensions = function () {
+
             // Store the chart parent width
             o.chartParentWidth = o.chartParent.width();
 
@@ -1074,18 +1243,19 @@
                 } else if ( !o.chartOptions.width && o.chartOptions.height ){
                     o.cchartOptions.width = o.chartOptions.height * o.options.chartAspectRatio;
                 } else if (!o.chartOptions.width && !o.chartOptions.height) {
-                    o.cchartOptions.width = o.chartParentWidth;
-                    o.cchartOptions.height = o.cchartOptions.width / o.options.chartAspectRatio;
+                    o.cchartOptions.width = $chartS.width();
+                    o.cchartOptions.height = $chartS.width() / o.options.chartAspectRatio;
                 }
             } else if (!o.chartOptions.width && !o.chartOptions.height) {
-                o.cchartOptions.width = o.chartParentWidth;
+                o.cchartOptions.width = $chartS.width();
             }
         };
 
         // camelCase function - converts text to camelCase
-        o.camelCase = function (str) {
+        // Returns a camelCased string
+        o.camelCase = function ( str ) {
             return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-                if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+                if (+match === 0) return ''; // or if (/\s+/.test(match)) for white spaces
                 return index === 0 ? match.toLowerCase() : match.toUpperCase();
             });
         };
