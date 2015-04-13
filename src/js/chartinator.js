@@ -772,10 +772,10 @@
                 o.showTableChart('show', 'remove');
                 console.log(e);
             });
-            google.visualization.events.addListener( o.chart, 'select', function () {
-                var selection = o.chart.getSelection();
-                console.log( $( '#charts2 span' ).parent()[0] );
-            });
+            //google.visualization.events.addListener( o.chart, 'select', function () {
+            //    // Review tooltip object
+            //    console.log( $( '.google-visualization-tooltip' ) );
+            //});
 
             // Draw chart
             o.chart.draw( o.data, o.cchartOptions );
