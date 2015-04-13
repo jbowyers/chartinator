@@ -27,12 +27,13 @@ Chartinator currently supports the following:
 * Creation of all chart types using Google Charts - Visit https://developers.google.com/chart/interactive/docs/gallery
 * Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays
 * Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots
+* Generation of HTML tables from other data sources - Makes data extracted from JS arrays and Google Sheets accessible
 * Showing and hiding of HTML tables accessibly
 * Manipulation of data extracted from HTML tables and Google Sheets using JavaScript arrays
 * Transposition of data - swapping of rows and columns
 * Resizing of charts on screen resize - Responsive Web Design
 * Chart aspect ratio control
-* Zoom and offset of chart - Useful for refining the region displayed in maps
+* Art direction - Zoom and offset of chart - Useful for refining the region displayed in geoCharts
 * Customization of chart tooltips and annotations
 * Customization of all Google Chart options - Fonts, colors, chart formatting, etc.
 
@@ -47,7 +48,7 @@ files in your project. Or, adapt your existing project files to work with charti
 
 ### Using Bower Package Manager ###
 
-The Chartinator repo is registered as a bower package as chartinator.
+The Chartinator repo is registered as a bower package as 'chartinator'.
 
 ## Configuration ##
 
@@ -61,7 +62,8 @@ To use the plugin you need to:
 ### Using Data from HTML Tables ###
 
 Chartinator is designed to extract data from HTML tables. 
-The 'th' elements in your HTML table should have one of the following 'data-type' attributes:
+The header cells (th elements) in HTML table must be in the first row (or first column if transposing table)
+and should have a 'data-type' attribute with one of the following  values:
 
 * 'string' 
 * 'number' 
@@ -70,14 +72,14 @@ The 'th' elements in your HTML table should have one of the following 'data-type
 * 'datetime' 
 * 'timeofday' 
 
-or a data-role attribute:
+or a 'data-role' attribute with one of the following  values:
  
 * 'tooltip'
 * 'annotation'
 
 The caption element's text will be used as a title for the chart by default
 
-You can also use data extracted from an HTML table and add and replace data with data contained in js data arrays. 
+You can also restructure the data extracted from an HTML table by adding and replace data with data contained in js data arrays. 
 For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
 and columns and transpose data.
 
@@ -150,7 +152,7 @@ The Chart must be initialized using jQuery.
 ```
 
     <script src="js/chartinator.js" ></script>
-    <script type="text/javascript">
+    <script>
         jQuery(function ($) {
 
             //  Bar Chart Example
@@ -347,6 +349,16 @@ The following are options that are specific to Chartinator and apply to all char
     // The jQuery selector of the HTML table element to extract the data from.
     // Default: false - Checks if the element this plugin is applied to is an HTML table
     tableSel: false,
+    
+    // The data title
+    // A title used to identify the set of data
+    // Used as a caption when generating an HTML table
+    dataTitle: false,
+
+    // Create Table
+    // Create an HTML table from chart data
+    // Note: This table will replace an existing HTML table
+    createTable: false,
 
     // Ignore row indexes array - An array of row index numbers to ignore
     // Default: []
@@ -395,6 +407,13 @@ The following are options that are specific to Chartinator and apply to all char
     
     // The class to apply to the dynamically created chart container element
     chartClass: 'chtr-chart',
+    
+    // Table Id - The id applied to the table element as an id and a class
+    // This is overridden if the table element has an id or is user defined
+    tableId: 'c24_table_' + Math.random().toString(36).substr(2, 9),
+
+    // The class to apply to the table element
+    tableClass: 'chtr-table',
 
     // The chart aspect ratio custom option - width/height
     // Used to calculate the chart dimensions relative to the width or height
@@ -418,7 +437,7 @@ The following are options that are specific to Chartinator and apply to all char
     // The Google Chart Options
     // This option can be used with any chart type
     // Some chart types have default options defined within Chartinator by the following objects:
-    // barChart, pieChart, columnChart, calendar, table
+    // barChart, pieChart, columnChart, calendar, table, areaChart, lineChart
     // These objects should be used instead of this one when using those chart types
     // Default: no default - not defined
     chartOptions: {},
@@ -764,6 +783,21 @@ The following are some of the Google Charts Calendar Chart options, unless other
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         height: 200,
+        
+        titleTextStyle: {
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+
+            color: '#000',
+            fontWeight: 'bold',
+            fontName: 'Arial',
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: 'body'
+            // Default: false - Use Google Charts defaults
+            fontSize: 'h3'
+        },
                 
         calendar: {
         
@@ -803,6 +837,16 @@ The following are some of the Google Charts Calendar Chart options, unless other
         
             // The colour gradient start and end values
             colors: ['#FF0000', '#00FF00']
+        },
+        tooltip: {
+        
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+            textStyle: {
+                color: '#000',
+                fontName: 'Arial',
+                fontSize: 16
+            }
         }
     },
 ```

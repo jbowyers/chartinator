@@ -21,12 +21,13 @@
 <li>Creation of all chart types using Google Charts - Visit <a href="https://developers.google.com/chart/interactive/docs/gallery">https://developers.google.com/chart/interactive/docs/gallery</a></li>
 <li>Extraction of data from HTML tables, Google spreadsheets, and JavaScript arrays</li>
 <li>Accessible data - Using HTML tables as data sources makes data accessible to screen readers and searchbots</li>
+<li>Generation of HTML tables from other data sources - Makes data extracted from JS arrays and Google Sheets accessible</li>
 <li>Showing and hiding of HTML tables accessibly</li>
 <li>Manipulation of data extracted from HTML tables and Google Sheets using JavaScript arrays</li>
 <li>Transposition of data - swapping of rows and columns</li>
 <li>Resizing of charts on screen resize - Responsive Web Design</li>
 <li>Chart aspect ratio control</li>
-<li>Zoom and offset of chart - Useful for refining the region displayed in maps</li>
+<li>Art direction - Zoom and offset of chart - Useful for refining the region displayed in geoCharts</li>
 <li>Customization of chart tooltips and annotations</li>
 <li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
 </ul>
@@ -40,7 +41,7 @@ files in your project. Or, adapt your existing project files to work with charti
 <li><strong>Initialize Chartinator</strong> - Activate the plugin using jQuery (see Configuration)</li>
 </ul>
 <h3 id="using-bower-package-manager">Using Bower Package Manager</h3>
-<p>The Chartinator repo is registered as a bower package as chartinator.</p>
+<p>The Chartinator repo is registered as a bower package as &#39;chartinator&#39;.</p>
 <h2 id="configuration">Configuration</h2>
 <p>The Chartinator repo includes the chartinator.js plugin file as well as sample HTML. 
 To use the plugin you need to: </p>
@@ -51,7 +52,8 @@ To use the plugin you need to: </p>
 </ul>
 <h3 id="using-data-from-html-tables">Using Data from HTML Tables</h3>
 <p>Chartinator is designed to extract data from HTML tables. 
-The &#39;th&#39; elements in your HTML table should have one of the following &#39;data-type&#39; attributes:</p>
+The header cells (th elements) in HTML table must be in the first row (or first column if transposing table)
+and should have a &#39;data-type&#39; attribute with one of the following  values:</p>
 <ul>
 <li>&#39;string&#39; </li>
 <li>&#39;number&#39; </li>
@@ -60,13 +62,13 @@ The &#39;th&#39; elements in your HTML table should have one of the following &#
 <li>&#39;datetime&#39; </li>
 <li>&#39;timeofday&#39; </li>
 </ul>
-<p>or a data-role attribute:</p>
+<p>or a &#39;data-role&#39; attribute with one of the following  values:</p>
 <ul>
 <li>&#39;tooltip&#39;</li>
 <li>&#39;annotation&#39;</li>
 </ul>
 <p>The caption element&#39;s text will be used as a title for the chart by default</p>
-<p>You can also use data extracted from an HTML table and add and replace data with data contained in js data arrays. 
+<p>You can also restructure the data extracted from an HTML table by adding and replace data with data contained in js data arrays. 
 For example you can add column headers, columns of data and rows of data. You can also remove and replace headers 
 and columns and transpose data.</p>
 <h4 id="sample-html">Sample HTML</h4>
@@ -122,7 +124,7 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 <p>The Chart must be initialized using jQuery.</p>
 <pre><code>
     &lt;script src=&quot;js/chartinator.js&quot; &gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
+    &lt;script&gt;
         jQuery(function ($) {
 
             //  Bar Chart Example
@@ -313,6 +315,16 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // Default: false - Checks if the element this plugin is applied to is an HTML table
     tableSel: false,
 
+    // The data title
+    // A title used to identify the set of data
+    // Used as a caption when generating an HTML table
+    dataTitle: false,
+
+    // Create Table
+    // Create an HTML table from chart data
+    // Note: This table will replace an existing HTML table
+    createTable: false,
+
     // Ignore row indexes array - An array of row index numbers to ignore
     // Default: []
     // Note: Only works on data extracted from HTML tables or Google Sheets
@@ -361,6 +373,13 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // The class to apply to the dynamically created chart container element
     chartClass: &#39;chtr-chart&#39;,
 
+    // Table Id - The id applied to the table element as an id and a class
+    // This is overridden if the table element has an id or is user defined
+    tableId: &#39;c24_table_&#39; + Math.random().toString(36).substr(2, 9),
+
+    // The class to apply to the table element
+    tableClass: &#39;chtr-table&#39;,
+
     // The chart aspect ratio custom option - width/height
     // Used to calculate the chart dimensions relative to the width or height
     // this is overridden if the Google Chart&#39;s height and width options have values
@@ -383,7 +402,7 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // The Google Chart Options
     // This option can be used with any chart type
     // Some chart types have default options defined within Chartinator by the following objects:
-    // barChart, pieChart, columnChart, calendar, table
+    // barChart, pieChart, columnChart, calendar, table, areaChart, lineChart
     // These objects should be used instead of this one when using those chart types
     // Default: no default - not defined
     chartOptions: {},
@@ -700,6 +719,21 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
         // Default: automatic (unspecified)
         height: 200,
 
+        titleTextStyle: {
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+
+            color: &#39;#000&#39;,
+            fontWeight: &#39;bold&#39;,
+            fontName: &#39;Arial&#39;,
+
+            // The font size in pixels - Number
+            // Or use css selectors as keywords to assign font sizes from the page
+            // For example: &#39;body&#39;
+            // Default: false - Use Google Charts defaults
+            fontSize: &#39;h3&#39;
+        },
+
         calendar: {
 
             // Cell size in pixels. Number, Default: 16
@@ -738,6 +772,16 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
             // The colour gradient start and end values
             colors: [&#39;#FF0000&#39;, &#39;#00FF00&#39;]
+        },
+        tooltip: {
+
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+            textStyle: {
+                color: &#39;#000&#39;,
+                fontName: &#39;Arial&#39;,
+                fontSize: 16
+            }
         }
     },</code></pre>
 <p>For a complete list of Calendar Chart options visit 
