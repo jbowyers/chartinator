@@ -76,11 +76,11 @@
                 // The class to apply to the table element
                 tableClass: 'col-table',
 
-                // Create Table
-                // Create an HTML table from chart data
+                // Create Table - String
+                // Create a basic HTML table or a Google Table Chart from chart data
+                // Options: false, 'basic-table', 'table-chart'
                 // Note: This table will replace an existing HTML table
-                // Default: false
-                createTable: true,
+                createTable: 'basic-table',
 
                 // Transpose data Boolean - swap columns and rows
                 // Default: false
@@ -137,7 +137,7 @@
                     //fontSize: 'body',
 
                     // Font-family name - String
-                    // Default: 'Arial'
+                    // Default: The body font-family
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -150,13 +150,13 @@
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
                         // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        fontSize: 'h4'
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
+                        // Default: bottom
                         position: 'bottom'
                     },
 
@@ -194,16 +194,16 @@
                     ['France', 5],
                     ['Mexico', 2]],
 
-                // Create Table
-                // Create an HTML table from chart data
+                // Create Table - String
+                // Create a basic HTML table or a Google Table Chart from chart data
+                // Options: false, 'basic-table', 'table-chart'
                 // Note: This table will replace an existing HTML table
-                // Default: false
-                createTable: true,
+                createTable: 'table-chart',
 
                 // The data title
                 // A title used to identify the set of data
                 // Used as a caption when generating an HTML table
-                dataTitle: 'Pie Chart Data',
+                dataTitle: 'Pie Chart Data - Table Chart',
 
                 // The chart type - String
                 // Derived from the Google Charts visualization class name
@@ -250,8 +250,8 @@
                     // Default: false - Use Google Charts defaults
                     fontSize: 'body',
 
-                    // Font-family name - String
-                    // Default: 'Arial'
+                    // The font family name. String
+                    // Default: body font family
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -264,7 +264,7 @@
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
                         // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        fontSize: 'h4'
                     },
                     legend: {
 
@@ -381,6 +381,10 @@
                     // Default: automatic (unspecified)
                     //height: 250,
 
+                    // The chart title - not a Google Geo Chart option
+                    // This option is supported by Chartinator only
+                    title: 'Geo Chart',
+
                     // Background color
                     // Default: 'white'
                     backgroundColor: '#fff',
@@ -453,11 +457,11 @@
                 // The class to apply to the table element
                 tableClass: 'col-table',
 
-                // Create Table
-                // Create an HTML table from chart data
+                // Create Table - String
+                // Create a basic HTML table or a Google Table Chart from chart data
+                // Options: false, 'basic-table', 'table-chart'
                 // Note: This table will replace an existing HTML table
-                // Default: false
-                createTable: true,
+                createTable: 'basic-table',
 
                 // The chart type - String
                 // Derived from the Google Charts visualization class name
@@ -503,8 +507,8 @@
                     // Default: false - Use Google Charts defaults
                     //fontSize: 'body',
 
-                    // Font-family name - String
-                    // Default: 'Arial'
+                    // The font family name - String
+                    // Default: body font family
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -517,13 +521,13 @@
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
                         // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        fontSize: 'h4'
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
+                        // Default: bottom
                         position: 'bottom'
                     },
 
@@ -573,16 +577,16 @@
                     ['Brazil', 6, 2, 1],
                     ['Italy', 4, 3, 5]],
 
-                // Create Table
-                // Create an HTML table from chart data
+                // Create Table - String
+                // Create a basic HTML table or a Google Table Chart from chart data
+                // Options: false, 'basic-table', 'table-chart'
                 // Note: This table will replace an existing HTML table
-                // Default: false
-                createTable: true,
+                createTable: 'table-chart',
 
                 // The data title
                 // A title used to identify the set of data
                 // Used as a caption when generating an HTML table
-                dataTitle: 'Area Chart Data',
+                dataTitle: 'Area Chart Data - Table Chart',
 
                 // The class to apply to the chart container element
                 chartClass: 'col',
@@ -629,8 +633,8 @@
                     // Default: false - Use Google Charts defaults
                     //fontSize: 'body',
 
-                    // Font-family name - String
-                    // Default: 'Arial'
+                    // The font family name. String
+                    // Default: body font family
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -643,13 +647,13 @@
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
                         // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        fontSize: 'h4'
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
+                        // Default: bottom
                         position: 'bottom'
                     },
 
@@ -737,8 +741,8 @@
                     // Default: false - Use Google Charts defaults
                     //fontSize: 'body',
 
-                    // Font-family name - String
-                    // Default: 'Arial'
+                    // The font family name. String
+                    // Default: body font family
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -751,13 +755,13 @@
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
                         // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        fontSize: 'h4'
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
+                        // Default: bottom
                         position: 'bottom'
                     },
 
@@ -806,6 +810,21 @@
 
                 // Google Table Chart Options
                 table: {
+
+                    // The table caption - not a Google Charts option for this chart type
+                    // Chartinator option only
+                    title: 'Table Chart',
+
+                    // The font size in pixels - Number
+                    // Or use css selectors as keywords to assign font sizes from the page
+                    // For example: 'body'
+                    // Not a Google Charts option for this chart type
+                    fontSize: 16,
+
+                    // The table caption - not a Google Charts option for this chart type
+                    // Chartinator option only
+                    // Default: the body font-family
+                    fontName: 'Roboto',
 
                     // Format a data column in a Table Chart
                     formatter: {
@@ -869,7 +888,7 @@
 
                     // Height of container element in pixels - Number
                     // Default: automatic (unspecified)
-                    height: 320,
+                    //height: 320,
 
                     // Enable paging - String
                     // Options: 'enable', 'event', 'disable'.
@@ -908,14 +927,14 @@
                         tableCell: 'tableCell',
                         rowNumberCell: 'rowNumberCell'
                     }
-                },
+                }
 
                 // Show table as well as chart - String
                 // Options: 'show', 'hide', 'remove'
-                showTable: 'show'
+                //showTable: 'show'
             });
 
-            //  Calendar example
+            // Calendar example
             var chart8 = $('#myDates').chartinator({
 
                 // Custom Options ------------------------------------------------------
@@ -957,13 +976,13 @@
 
                         color: '#000',
                         fontWeight: 'bold',
-                        fontName: 'Roboto',
+                        fontName: 'Roboto', // Default is body font-family
 
                         // The font size in pixels - Number
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
-                        // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        // Default: '' - Use Google Charts defaults
+                        fontSize: 'h4'
                     },
 
                     // Chart Title - String
@@ -985,8 +1004,8 @@
                             // Default: false - Use Google Charts defaults
                             //fontSize: 12,
 
-                            // Font-family name - String
-                            // Default: 'Arial'
+                            // The font family name. String
+                            // Default: body font family
                             fontName: 'Roboto'
 
                         },
@@ -998,8 +1017,8 @@
                             // Default: false - Use Google Charts defaults
                             //fontSize: 12,
 
-                            // Font-family name - String
-                            // Default: 'Arial'
+                            // The font family name. String
+                            // Default: body font family
                             fontName: 'Roboto'
                         },
                         monthOutlineColor: {
@@ -1018,8 +1037,8 @@
                         // Note: Support for this option has been added by Chartinator
                         // but is not supported by Google Charts for this chart type
                         textStyle: {
-                            fontName: 'Roboto',
-                            fontSize: 14
+                            fontName: 'Roboto', // Default: body font-family
+                            fontSize: 14 // Default: 16
                         }
                     }
                 }
@@ -1067,6 +1086,8 @@
 
                 // Google Bubble Chart Options
                 chartOptions: {
+                    // Note: This chart type does not have any Chartinator defined defaults
+                    // All Google Charts options use Google Charts defaults except where noted
 
                     // Width of chart in pixels - Number
                     // Default: automatic (unspecified)
@@ -1086,11 +1107,10 @@
                     // The font size in pixels - Number
                     // Or use css selectors as keywords to assign font sizes from the page
                     // For example: 'body'
-                    // Default: false - Use Google Charts defaults
+                    // Default: Use Google Charts defaults
                     //fontSize: 'body',
 
                     // Font-family name - String
-                    // Default: 'Arial'
                     fontName: 'Roboto',
 
                     // Chart Title - String
@@ -1112,14 +1132,13 @@
                         // The font size in pixels - Number
                         // Or use css selectors as keywords to assign font sizes from the page
                         // For example: 'body'
-                        // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
+                        // Default: Use Google Charts defaults
+                        fontSize: 'h4'
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
                         position: 'bottom'
                     },
 
@@ -1130,7 +1149,6 @@
 
                         // Shows tooltip with values on hover - String
                         // Options: focus, none.
-                        // Default: focus
                         trigger: 'focus'
                     }
                 }
@@ -1166,12 +1184,12 @@
         <nav class="rm-nav rm-nojs rm-lighten">
             <ul>
                 <li><a href="#barChart">Bar</a></li>
-                <li><a href="#geoChartTitle">Geo</a></li>
+                <li><a href="#geoChart">Geo</a></li>
                 <li><a href="#lineChart">Line</a></li>
                 <li><a href="#pieChart">Pie</a></li>
                 <li><a href="#areaChart">Area</a></li>
                 <li><a href="#bubbleChart">Bubble</a></li>
-                <li><a href="#tableChartTitle">Table</a></li>
+                <li><a href="#tableChart">Table</a></li>
                 <li><a href="#columnChart">Column</a></li>
                 <li><a href="#charts2">Calendar</a></li>
                 <li><a href="#about">About</a></li>
@@ -1265,7 +1283,6 @@
     </table>
 
     <div class="col">
-        <h3 id="geoChartTitle">Geo Chart</h3>
         <div id="geoChart" class="chart"></div>
     </div>
 
@@ -1302,7 +1319,6 @@
     </div>
 
     <div class="col">
-        <h3 id="tableChartTitle">Table Chart</h3>
         <div id="tableChart" class="chart"></div>
     </div>
 

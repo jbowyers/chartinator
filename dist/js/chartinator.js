@@ -42,17 +42,17 @@
 
     var chartinator = function (el, options) {
         
-        //  The chartinator object
+        // The chartinator object
         var o = this;
 
-        //  Define table and chart elements	
-        var $tableS = $(el);
-        var $chartS = $tableS;
+        // Define table and chart elements
+        o.chartS = $(el);
+        o.tableS = o.chartS;
 
-        //  Define fonts
+        // Define fonts
         o.fontFamily = $('body').css('font-family').replace(/["']{1}/gi, "") || 'Arial, Helvetica, sans-serif';
 
-        //  Initialize option defaults ------------------------------------------------------------
+        // Initialize option defaults ------------------------------------------------------------
         o.optionsInit = {
 
             // The path to the Google AJAX API
@@ -91,8 +91,9 @@
             // Used as a caption when generating an HTML table
             dataTitle: false,
 
-            // Create Table
-            // Create an HTML table from chart data
+            // Create Table - String
+            // Create a basic HTML table or a Google Table Chart from chart data
+            // Options: false, 'basic-table', 'table-chart'
             // Note: This table will replace an existing HTML table
             createTable: false,
 
@@ -179,7 +180,7 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                // the body font-family
+                // the chart font-family
                 fontName: o.fontFamily,
 
                 chartArea: { left: '20%', top: 40, width: '75%', height: '85%' },
@@ -196,7 +197,7 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                // the body font-family
+                // the chart font-family
                 fontName: o.fontFamily,
 
                 chartArea: { left: '6%', top: 40, width: '94%', height: '100%' }
@@ -211,7 +212,7 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                // the body font-family
+                // the chart font-family
                 fontName: o.fontFamily,
 
                 chartArea: { left: '15%', top: 40, width: '85%', height: '70%' },
@@ -228,7 +229,7 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                // the body font-family
+                // the chart font-family
                 fontName: o.fontFamily,
 
                 chartArea: { left: '15%', top: 40, width: '80%', height: '70%' },
@@ -245,12 +246,25 @@
                 // Default: false - Use Google Charts defaults
                 fontSize: false,
 
-                // the body font-family
+                // the chart font-family
                 fontName: o.fontFamily,
 
                 chartArea: { left: '15%', top: 40, width: '80%', height: '70%' },
 
                 legend: { position: 'bottom' }
+            },
+
+            // Google Geo Chart Default Options
+            geoChart: {
+
+                titleTextStyle: {
+                    // Note: Support for this option has been added by Chartinator
+                    // but is not supported by Google Charts for this chart type
+
+                    // The html tag that contains the title Chartinator adds to the top of the chart
+                    // This is supported by Chartinator only
+                    tag: 'h3'
+                }
             },
 
             // Google Calendar Chart Default Options
@@ -272,8 +286,8 @@
                     // The font size in pixels - Number
                     // Or use css selectors as keywords to assign font sizes from the page
                     // For example: 'body'
-                    // Default: false - Use Google Charts defaults
-                    fontSize: 'h3'
+                    // Default: '' - Use Google Charts defaults
+                    fontSize: ''
                 },
 
                 calendar: {
@@ -313,6 +327,11 @@
             // Google Table Chart Default Options
             table: {
 
+                // The table caption - not a Google Charts option for this chart type
+                // Chartinator option only
+                // Default: the body font-family
+                fontName: o.fontFamily,
+
                 // Format a data column in a Table Chart
                 formatter: {
 
@@ -343,7 +362,7 @@
 
             // The CSS to apply to show or hide the table and chart
             showTableCSS: { 'position': 'static', 'top': 0, 'width': '' },
-            hideTableCSS: { 'position': 'absolute', 'top': '-99999px', 'width': $tableS.width() },
+            hideTableCSS: { 'position': 'absolute', 'top': '-99999px', 'width': o.tableS.width() },
             showChartCSS: {  },
             hideChartCSS: { 'opacity': 0 }
 
@@ -397,19 +416,19 @@
             o.options = $.extend( true, {}, o.optionsInit, options );
 
             // Update chartId
-            o.chartId = options.chartId || $chartS.attr('id') || o.options.chartId ;
+            o.chartId = options.chartId || o.chartS.attr('id') || o.options.chartId ;
 
             // Define table and chart elements --------------------------------------------------
 
             // Set table element
             if (o.options.tableSel) {
-                $tableS = ($(o.options.tableSel + ' td').length) ? $(o.options.tableSel) : $tableS;
+                o.tableS = ($(o.options.tableSel + ' td').length) ? $(o.options.tableSel) : o.tableS;
             }
 
             // Check table for data
-            o.tableHasData = $tableS.find('td').length;
+            o.tableHasData = o.tableS.find('td').length;
 
-            if ($chartS[0] === $tableS[0]) { // table and chart are the same element
+            if (o.chartS[0] === o.tableS[0]) { // table and chart are the same element
 
                 if (o.tableHasData) { // chart element does not exist
 
@@ -417,17 +436,17 @@
                     o.chartId = o.options.chartId ;
 
                     // Insert a new chart element after the table
-                    $chartS = $( '<div id="' + o.chartId +
+                    o.chartS = $( '<div id="' + o.chartId +
                         '" class="' + o.chartId + ' ' + o.options.chartClass +
-                        '"></div>' ).insertAfter( $tableS );
+                        '"></div>' ).insertAfter( o.tableS );
 
                 } else { // table does not exist
-                    $tableS = false;
+                    o.tableS = false;
                 }
             }
 
             // Add chart class and id
-            $chartS
+            o.chartS
                 .addClass( o.chartId + ' ' + o.options.chartClass )
                 .attr( 'id', o.chartId );
 
@@ -435,14 +454,14 @@
             if (o.tableHasData) {
 
                 // Update tableId
-                o.tableId = options.tableId || $tableS.attr('id') || o.options.tableId ;
+                o.tableId = options.tableId || o.tableS.attr('id') || o.options.tableId ;
 
                 // Apply id and classes to table
-                $tableS
+                o.tableS
                     .addClass( o.tableId + ' ' + o.options.tableClass )
                     .attr( 'id', o.tableId );
 
-                o.tableCaption = $tableS.find( 'caption' );
+                o.tableCaption = o.tableS.find( 'caption' );
 
             } else {
 
@@ -451,7 +470,7 @@
             }
 
             // Get chart parent element
-            o.chartParent = $chartS.parent();
+            o.chartParent = o.chartS.parent();
 
             // Get data ----------------------------------------------------------
             if ( o.options.googleSheetKey ) {
@@ -523,12 +542,19 @@
 
                 // The caption text
                 var tableTitle = o.options.dataTitle || o.cchartOptions.title || 'The Chart Data';
+                var table = false;
+                if( o.options.createTable === 'basic-table' ) {
+                    table = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass );
+                } else if( o.options.createTable === 'table-chart' ) {
+                    table = $( '<div id="' + o.tableId + '" class="' + o.tableId + ' ' + o.options.tableClass + '"></div>');
+                }
 
                 if ( o.tableHasData ) {
-                    $tableS.replaceWith( o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass ) );
+                    o.tableS.replaceWith( table );
                 } else {
-                    $tableS = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass ).insertBefore( $chartS );
+                    o.tableS = table.insertBefore( o.chartS );
                 }
+
             } else if ( o.tableHasData && o.options.dataTitle ) {
                 o.tableCaption.text( o.options.dataTitle );
             }
@@ -588,7 +614,7 @@
             // Get HTML table data
             // Note: this overwrites any data extracted from A Google Sheet
             if ( o.tableHasData ) {
-                dataArray = o.getTableData( $tableS );
+                dataArray = o.getTableData( o.tableS );
             }
 
             // Add/overwrite with js data-array columns
@@ -658,21 +684,21 @@
 
             // Set the Calendar cell size if a calendar chart
             if ( o.options.chartType === 'Calendar' ) {
-                o.cchartOptions.calendar.cellSize = o.cchartOptions.calendar.cellSize || $chartS.width() * o.cchartOptions.cellScaleFactor;
+                o.cchartOptions.calendar.cellSize = o.cchartOptions.calendar.cellSize || o.chartS.width() * o.cchartOptions.cellScaleFactor;
             }
 
             // Set font sizes
-            if (o.cchartOptions.fontSize && isNaN(parseInt(o.cchartOptions.fontSize, 10))) {
+            if ( o.cchartOptions.fontSize ) {
                 o.cchartOptions.fontSize = o.getFontSize(o.cchartOptions.fontSize, 16);
             }
-            if (o.cchartOptions.titleTextStyle && o.cchartOptions.titleTextStyle.fontSize && isNaN(parseInt(o.cchartOptions.titleTextStyle.fontSize, 10))) {
-                o.cchartOptions.titleTextStyle.fontSize = o.getFontSize(o.cchartOptions.titleTextStyle.fontSize, 16);
+            if ( o.cchartOptions.titleTextStyle && o.cchartOptions.titleTextStyle.fontSize ) {
+                o.cchartOptions.titleTextStyle.fontSize = o.getFontSize(o.cchartOptions.titleTextStyle.fontSize, 20);
             }
-            if (o.cchartOptions.calendar) {
-                if ( o.cchartOptions.calendar.monthLabel && o.cchartOptions.calendar.monthLabel.fontSize && isNaN( parseInt( o.cchartOptions.calendar.monthLabel.fontSize, 10 ) ) ) {
+            if ( o.cchartOptions.calendar ) {
+                if ( o.cchartOptions.calendar.monthLabel && o.cchartOptions.calendar.monthLabel.fontSize ) {
                     o.cchartOptions.calendar.monthLabel.fontSize = o.getFontSize( o.cchartOptions.calendar.monthLabel.fontSize, 16 );
                 }
-                if (o.cchartOptions.calendar.dayOfWeekLabel && o.cchartOptions.calendar.dayOfWeekLabel.fontSize && isNaN(parseInt(o.cchartOptions.calendar.dayOfWeekLabel.fontSize, 10))) {
+                if ( o.cchartOptions.calendar.dayOfWeekLabel && o.cchartOptions.calendar.dayOfWeekLabel.fontSize ) {
                     o.cchartOptions.calendar.dayOfWeekLabel.fontSize = o.getFontSize(o.cchartOptions.calendar.dayOfWeekLabel.fontSize, 16);
                 }
             }
@@ -688,13 +714,47 @@
                 o.cchartOptions.height = fontSize * 2 * o.data.getNumberOfRows();
             }
 
+            // Create Table Chart
+            if ( o.options.createTable === 'table-chart') {
+                o.tableS = $( '#' + o.tableId ).chartinator( {
+                    columns: o.dataArray[0],
+                    rows: o.dataArray.slice(1),
+                    chartType: 'Table',
+                    chartId: o.options.tableId,
+                    chartClass: o.options.tableClass,
+                    table: {
+                        title: o.options.dataTitle
+                    }
+                } );
+            }
+
+            // Apply Chartinator tooltip styles
+            if ( o.options.chartType === 'Calendar') {
+
+                // Get any previously applied styles
+                var $styles = $( '.tooltip-calendar-styles' );
+
+                // Append styles
+                if ( !$styles.length ){
+                    $styles = $( '<style class="tooltip-calendar-styles"></style>' ).appendTo( 'head' );
+                }
+
+                // Add style to adjust tooltip
+                $styles.text( '.' + o.chartId +' .google-visualization-tooltip span { ' +
+                    'color: ' + o.cchartOptions.tooltip.textStyle.color  + ' !important; ' +
+                    'font-size: ' + o.cchartOptions.tooltip.textStyle.fontSize  + 'px !important; ' +
+                    'font-family: "' + o.cchartOptions.tooltip.textStyle.fontName  + '" !important; ' +
+                    '}' );
+            }
+
             // Draw chart ----------------------------------------------------------------------
 
             // Create and draw the visualization.
-            o.chart = new google.visualization[o.options.chartType]($chartS.get(0));
+            o.chart = new google.visualization[o.options.chartType](o.chartS.get(0));
 
             // Add ready and error event listeners
             google.visualization.events.addListener( o.chart, 'ready', function (e) {
+
                 // Show chart
                 o.showTableChart(o.options.showTable, 'show');
 
@@ -704,14 +764,43 @@
                 // Store the chart parent width
                 o.chartParentWidth = o.chartParent.width();
 
+                // Add title to table chart and set font-size & font-family
+                if ( o.options.chartType === 'Table' ) {
+                    var table = o.chartS.find( 'table' );
+                    table.css( {
+                        'fontSize': o.cchartOptions.fontSize,
+                        'fontFamily': o.cchartOptions.fontName });
+
+                    if ( o.cchartOptions.title ) {
+                        table.prepend( '<caption>' + o.cchartOptions.title + '</caption>' );
+                    }
+                }
+
+                // Add title to Geo Chart
+                if ( o.options.chartType === 'GeoChart' && o.cchartOptions.title && !o.chartS.children( '.chart-title' ).length ) {
+                    var title = $( '<' + o.options.geoChart.titleTextStyle.tag + ' class="chart-title">' +
+                    o.cchartOptions.title +
+                    '</' + o.options.geoChart.titleTextStyle.tag + '>' );
+                    title.css( {
+                        position: 'relative',
+                        zIndex: 1,
+                        backgroundColor: '#fff',
+                        padding: '0 .5em'
+                    });
+                    o.chartS.prepend( title );
+                }
+
                 // Zoom and offset chart
                 if ( o.options.chartZoom || o.options.chartOffset ) {
+
+                    // Get any previously applied styles
+                    var $styles = $('.tooltip-zoom-offset-styles');
 
                     // The CSS3 transform value
                     var transform = '';
 
                     // The chart canvas object
-                    var $chartCanvas = $chartS.children( ':last' );
+                    var $chartCanvas = o.chartS.children( ':last' );
 
                     // The top and left css values to be applied to the tooltip
                     var top = 0;
@@ -722,14 +811,14 @@
                     var tooltipZoom = 1/zoom || 1;
                     var offsetX = parseInt(o.options.chartOffset[0]) || 0;
                     var offsetY = parseInt(o.options.chartOffset[1]) || 0;
-                    offsetX = offsetX*$chartS.width()*zoom/100;
-                    offsetY = offsetY*$chartS.height()*zoom/100;
+                    offsetX = offsetX*o.chartS.width()*zoom/100;
+                    offsetY = offsetY*o.chartS.height()*zoom/100;
 
                     // Zoom
                     if ( zoom ) {
                         transform = 'scale(' + zoom + ')';
-                        top = ((($chartS.height()*zoom) - $chartS.height())/2)/zoom;
-                        left = ((($chartS.width()*zoom) - $chartS.width())/2)/zoom;
+                        top = (((o.chartS.height()*zoom) - o.chartS.height())/2)/zoom;
+                        left = (((o.chartS.width()*zoom) - o.chartS.width())/2)/zoom;
                     }
 
                     // Offset
@@ -741,30 +830,29 @@
 
                     // Transform chart and prevent overflow
                     $chartCanvas.css( 'transform', transform );
-                    $chartS.css( 'overflow', 'hidden' );
+                    o.chartS.css( 'overflow', 'hidden' );
 
-                    // Add style to head to Adjust tooltip
-                    $('<style> .' + o.chartId +' .google-visualization-tooltip { ' +
+                    // Append styles
+                    if ( !$styles.length ){
+                        $styles = $( '<style class="tooltip-zoom-offset-styles"></style>' ).appendTo( 'head' );
+                    }
+
+                    // Add style to Adjust tooltip
+                    $styles.text( '.' + o.chartId +' .google-visualization-tooltip { ' +
                         'top: ' + top  + 'px !important; ' +
                         'left: ' + left + 'px !important; ' +
-                        'transform: scale(' + tooltipZoom + ')} </style>').appendTo('head');
+                        'transform: scale(' + tooltipZoom + ')}');
                 }
 
                 //Style calendar chart
                 if ( o.options.chartType === 'Calendar') {
-                    $chartS.find( 'text:contains("' + o.cchartOptions.title + '")' ).css({
+
+                    o.chartS.find( 'text:contains("' + o.cchartOptions.title + '")' ).css({
                         fill: o.cchartOptions.titleTextStyle.color,
                         fontWeight: o.cchartOptions.titleTextStyle.fontWeight,
                         fontSize: o.cchartOptions.titleTextStyle.fontSize,
                         fontFamily: o.cchartOptions.titleTextStyle.fontName
                     });
-
-                    // Add style to head to style tooltip
-                    $('<style> .' + o.chartId +' .google-visualization-tooltip span { ' +
-                        'color: ' + o.cchartOptions.tooltip.textStyle.color  + ' !important; ' +
-                        'font-size: ' + o.cchartOptions.tooltip.textStyle.fontSize  + 'px !important; ' +
-                        'font-family: "' + o.cchartOptions.tooltip.textStyle.fontName  + '" !important; ' +
-                        '} </style>').appendTo('head');
                 }
             });
             google.visualization.events.addListener( o.chart, 'error', function (e) {
@@ -1149,10 +1237,10 @@
                         if ( $( window ).width() !== o.windowWidth ) {
 
                             // Save the chart style
-                            var elStyle = $chartS.attr( 'style' );
+                            var elStyle = o.chartS.attr( 'style' );
 
                             // Remove js styles from chart
-                            $chartS.removeAttr( 'style' );
+                            o.chartS.removeAttr( 'style' );
 
                             // Test if chart parent has changed width
                             if ( o.chartParent.width() !== o.chartParentWidth ) {
@@ -1161,7 +1249,7 @@
 
                                 // Recalculate calendar cellSize
                                 if ( o.cchartOptions.calendar && !o.options.calendar.calendar.cellSize ) {
-                                    o.cchartOptions.calendar.cellSize = $chartS.width() * 0.017;
+                                    o.cchartOptions.calendar.cellSize = o.chartS.width() * 0.017;
                                 }
 
                                 // Set Chart dimensions
@@ -1173,7 +1261,7 @@
                             } else { // parent has not changed width
 
                                 // Re-apply the chart style
-                                $chartS.attr( 'style', elStyle );
+                                o.chartS.attr( 'style', elStyle );
                             }
                         }
                     }, 500 );
@@ -1184,42 +1272,53 @@
         // Show, hide or remove chart and table
         o.showTableChart = function ( table, chart ) {    //  Values: 'show', 'hide', or 'remove'
 
-            var tableLen = $tableS ? $tableS.length : false;
-            var chartLen = $chartS ? $chartS.length : false;
+            var tableLen = o.tableS ? o.tableS.length : false;
+            var chartLen = o.chartS ? o.chartS.length : false;
 
             // Table
             if ( table === 'show' && tableLen ) {
-                $tableS.css( 'opacity', 0 );
-                $tableS.css( o.options.showTableCSS );
-                $tableS.fadeTo( 400, 1 );
+                o.tableS.css( 'opacity', 0 );
+                o.tableS.css( o.options.showTableCSS );
+                o.tableS.fadeTo( 400, 1 );
             } else if ( table === 'hide' && tableLen ) {
-                $tableS.css( o.options.hideTableCSS );
+                o.tableS.css( o.options.hideTableCSS );
             } else if ( table === 'remove' && tableLen ) {
-                $tableS.css( 'display', 'none' );
+                o.tableS.css( 'display', 'none' );
             }
 
             // Chart
             if ( chart === 'show' && chartLen ) {
-                $chartS.css( 'opacity', 0 );
-                $chartS.css( o.options.showChartCSS );
-                $chartS.fadeTo( 400, 1 );
+                o.chartS.css( 'opacity', 0 );
+                o.chartS.css( o.options.showChartCSS );
+                o.chartS.fadeTo( 400, 1 );
             } else if ( chart === 'hide' && chartLen ) {
-                $chartS.css( o.options.showChartCSS );
+                o.chartS.css( o.options.showChartCSS );
             } else if ( chart === 'remove' && chartLen ) {
-                $chartS.css( 'display', 'none' );
+                o.chartS.css( 'display', 'none' );
             }
         };
 
-        //  Get font size function
+        // Get font size function
+        // Accepts selector: must be a tag or a number, dSize: the fall-back font-size in pixels - number
         // Returns an integer
         o.getFontSize = function ( selector, dSize ) {
-            return parseInt( $( selector ).css( 'fontSize' ), 10 ) || dSize;
+            var fontSize = dSize || 16;
+            if ( parseInt( selector, 10 ) ) {
+                fontSize = parseInt( selector, 10 );
+            } else if ( $( selector ).length ) {
+                fontSize = parseInt( $( selector ).css( 'fontSize' ), 10 ) || fontSize;
+            } else {
+                var $element = $( '<' + selector + '></' + selector + '>' );
+                o.chartS.append( $element );
+                fontSize = parseInt( $element.css( 'fontSize' ), 10 ) || fontSize;
+                $element.remove();
+            }
+            return fontSize;
         };
 
         // Transpose data array function
         // Returns the transposed array of data
         o.transpose = function (arr) {
-
             var tArr = new Array( arr[0].length );
             for ( var i = 0; i < arr[0].length; i++ ) {
                 tArr[i] = new Array( arr.length );
@@ -1243,11 +1342,11 @@
                 } else if ( !o.chartOptions.width && o.chartOptions.height ){
                     o.cchartOptions.width = o.chartOptions.height * o.options.chartAspectRatio;
                 } else if (!o.chartOptions.width && !o.chartOptions.height) {
-                    o.cchartOptions.width = $chartS.width();
-                    o.cchartOptions.height = $chartS.width() / o.options.chartAspectRatio;
+                    o.cchartOptions.width = o.chartS.width();
+                    o.cchartOptions.height = o.chartS.width() / o.options.chartAspectRatio;
                 }
             } else if (!o.chartOptions.width && !o.chartOptions.height) {
-                o.cchartOptions.width = $chartS.width();
+                o.cchartOptions.width = o.chartS.width();
             }
         };
 
@@ -1264,11 +1363,11 @@
         o.init(el, options);
         return this;
 
-    };  //  chartinator close
+    };  // chartinator close
 
-    //  Create the plugin ======================================================================
+    // Create the plugin ======================================================================
     $.fn.chartinator = function (options) {
-        //  Enable multi-element support
+        // Enable multi-element support
         return this.each(function () {
             var $el = $( this );
             if (!$el.data('chartinator')) {
