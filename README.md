@@ -260,27 +260,30 @@ The Chart must be initialized using jQuery.
                     },
 
                     // The font size in pixels - Number
-                    // Default: body font size
+                    // Default: false - Use Google Charts defaults
                     fontSize: 14,
 
                     // Font-family name - String
-                    // Default: 'Arial'
+                    // Default: The body font-family
                     fontName: 'Roboto',
 
                     // Chart Title - String
                     // Default: Table caption.
                     title: 'Bar Chart Sample',
+                    
                     titleTextStyle: {
 
-                        // The chart title font size in pixels - Number
-                        // Default: h3 font size
+                        // The font size in pixels - Number
+                        // Or use css selectors as keywords to assign font sizes from the page
+                        // For example: 'body'
+                        // Default: false - Use Google Charts defaults
                         fontSize: 20
                     },
                     legend: {
 
                         // Legend position - String
                         // Options: bottom, top, left, right, in, none.
-                        // Default: right
+                        // Default: 'bottom'
                         position: 'bottom'
                     },
 
@@ -355,8 +358,9 @@ The following are options that are specific to Chartinator and apply to all char
     // Used as a caption when generating an HTML table
     dataTitle: false,
 
-    // Create Table
-    // Create an HTML table from chart data
+    // Create Table - String
+    // Create a basic HTML table or a Google Table Chart from chart data
+    // Options: false, 'basic-table', 'table-chart'
     // Note: This table will replace an existing HTML table
     createTable: false,
 
@@ -461,6 +465,10 @@ The following are options that are specific to Chartinator and apply to all char
     // Google Area Chart Options - Object Literal
     // This should be used instead of the chartOptions object when creating a area chart
     //areaChart: {},
+    
+    // Google Geo Chart Options - Object Literal
+    // This should be used instead of the chartOptions object when creating a area chart
+    //geoChart: {},
         
     // Google Calendar Chart Options - Object Literal
     // This should be used instead of the chartOptions object when creating a calendar chart
@@ -518,7 +526,7 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
         fontSize: 'body',
 
         // Font-family name - String
-        // Default: 'Arial'
+        // Default: The body font-family
         fontName: 'Arial',
 
         // Chart Title - String
@@ -530,14 +538,14 @@ The following are some of the Google Charts Bar Chart options, unless otherwise 
             // The font size in pixels - Number
             // Or use css selectors as keywords to assign font sizes from the page
             // For example: 'body'
-            // Default: false - Use Google Charts defaults
+            // Default: Google Charts defaults
             fontSize: 'h3',
         },
         legend: {
 
             // Legend position - String
             // Options: bottom, top, left, right, in, none.
-            // Default: right
+            // Default: 'bottom'
             position: 'right'
         },
 
@@ -611,7 +619,7 @@ The following are some of the Google Charts Pie Chart options, unless otherwise 
         legend: {
         
             // Legend position - Controls display of legend. String 
-            // Options: 'bottom', 'top', 'left', 'right', 'in', 'none'. Default: right
+            // Options: 'bottom', 'top', 'left', 'right', 'in', 'none'.
             position: 'right' 
         },
         
@@ -683,7 +691,8 @@ The following are some of the Google Charts Column Chart options, unless otherwi
         legend: {
                 
             // Legend position - Controls display of legend. String 
-            // Options: 'bottom', 'top', 'left', 'right', 'in', 'none'. Default: right
+            // Options: 'bottom', 'top', 'left', 'right', 'in', 'none'. 
+            Default: 'bottom'
             position: 'right' 
         },
         
@@ -721,6 +730,19 @@ The following are some of the Google Charts Geo Chart options, unless otherwise 
         // Height of chart in pixels - Number
         // Default: automatic (unspecified)
         height: 200,
+        
+        // The chart title - not a Google Geo Chart option
+        // This option is supported by Chartinator only
+        title: 'Geo Chart',
+        
+        titleTextStyle: {
+            // Note: Support for this option has been added by Chartinator
+            // but is not supported by Google Charts for this chart type
+
+            // The html tag that contains the title Chartinator adds to the top of the chart
+            // This is supported by Chartinator only
+            tag: 'h3'
+        }
     
         // Background Color - Default: 'white'
         backgroundColor: '#fff',
@@ -758,7 +780,8 @@ The following are some of the Google Charts Geo Chart options, unless otherwise 
     },
 ```
 
-Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.  
+Note: Google Charts does not apply a heading to this chart type.
+Chartinator adds a heading using either the caption from the HTMl data table or the chartTitle option.
 For a complete list of Geo Chart options visit 
 [Google Geo Charts](https://developers.google.com/chart/interactive/docs/gallery/geochart#Configuration_Options)
 
@@ -790,23 +813,25 @@ The following are some of the Google Charts Calendar Chart options, unless other
 
             color: '#000',
             fontWeight: 'bold',
-            fontName: 'Arial',
+            fontName: 'Arial', // Default is body font-family
 
             // The font size in pixels - Number
             // Or use css selectors as keywords to assign font sizes from the page
             // For example: 'body'
-            // Default: false - Use Google Charts defaults
+            // Default: '' - Use Google Charts defaults
             fontSize: 'h3'
         },
                 
         calendar: {
         
-            // Cell size in pixels. Number, Default: 16
+            // Cell size in pixels. Number, 
+            // Default: use cellScaleFactor
             cellSize: 16, 
             
             monthLabel: {
                 
-                // String - Default: 'Times-Roman'
+                // Font-family name - String
+                // Default: the body font-family
                 fontName: 'Times-Roman', 
                 
                 // The font size in pixels - Number
@@ -817,15 +842,15 @@ The following are some of the Google Charts Calendar Chart options, unless other
             },
             dayOfWeekLabel: {
             
+                // Font-family name - String
+                // Default: the body font-family
+                fontName: 'Arial'
+            
                 // The font size in pixels - Number
                 // Or use css selectors as keywords to assign font sizes from the page
                 // For example: 'body'
                 // Default: false - Use Google Charts defaults
                 fontSize: 12,
-
-                // Font-family name - String
-                // Default: 'Arial'
-                fontName: 'Arial'
             },
             monthOutlineColor: {
             
@@ -844,7 +869,7 @@ The following are some of the Google Charts Calendar Chart options, unless other
             // but is not supported by Google Charts for this chart type
             textStyle: {
                 color: '#000',
-                fontName: 'Arial',
+                fontName: 'Arial', // Default: body font-family
                 fontSize: 16
             }
         }
@@ -862,6 +887,21 @@ The following are some of the Google Charts Table Chart options, unless otherwis
 
     // Google Table Chart Options
     table: { 
+    
+        // The table caption - not a Google Charts option for this chart type
+        // Chartinator option only
+        title: 'Table Chart',
+
+        // The font size in pixels - Number
+        // Or use css selectors as keywords to assign font sizes from the page
+        // For example: 'body'
+        // Not a Google Charts option for this chart type
+        fontSize: 16,
+
+        // The table caption - not a Google Charts option for this chart type
+        // Chartinator option only
+        // Default: the body font-family
+        fontName: 'Roboto',
     
         // Format a data column in a Table Chart
         formatter: { 
@@ -945,10 +985,16 @@ The following are some of the Google Charts Table Chart options, unless otherwis
     },
 ```
 
-Note: this chart type does not display the table caption as a chart heading - add the chart heading manually.  
+Note: Google Charts does not apply a table caption to this chart.
+Chartinator adds a caption to the table taken from either the HTML data table or the chartTitle option.
 For a complete list of Table Chart options visit 
 [Google Table Charts](https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options)
     
+### Styling Tooltips ###
+Google Charts HTML enabled tooltips can be styled using the relevant CSS classes. 
+Chartinator adds a style element to the head of the document to apply custom styles to tooltips for for certain chart types.
+The default Google Charts tooltip CSS is located at: https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css
+
 ### Dependencies ###
 jQuery, Google Charts
 
