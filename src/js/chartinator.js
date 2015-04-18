@@ -543,10 +543,10 @@
                 // The caption text
                 var tableTitle = o.options.dataTitle || o.cchartOptions.title || 'The Chart Data';
                 var table = false;
-                if( o.options.createTable === 'basic-table' ) {
-                    table = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass );
-                } else if( o.options.createTable === 'table-chart' ) {
+                if( o.options.createTable === 'table-chart' ) {
                     table = $( '<div id="' + o.tableId + '" class="' + o.tableId + ' ' + o.options.tableClass + '"></div>');
+                } else {
+                    table = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass );
                 }
 
                 if ( o.tableHasData ) {
