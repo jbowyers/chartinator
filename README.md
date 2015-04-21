@@ -85,7 +85,7 @@ and columns and transpose data.
 
 #### Sample HTML ####
 
-```
+```html
 
     <div id="chart_canvas"></div>
     <table id="chart_data">
@@ -125,7 +125,7 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
 
 The JS data arrays must adhere to the following syntax:
 
-```
+```javascript
 
     // Columns - The columns data-array
     columns: [
@@ -149,7 +149,7 @@ See https://developers.google.com/chart/interactive/docs/datatables_dataviews#ar
 
 The Chart must be initialized using jQuery.
 
-```
+```javascript
 
     <script src="js/chartinator.js" ></script>
     <script>
@@ -319,7 +319,7 @@ https://developers.google.com/chart/
 
 The following are options that are specific to Chartinator and apply to all chart types unless otherwise specified.
 
-```
+```javascript
 
     // URL - The path to the Google AJAX API. Default: 'https://www.google.com/jsapi'
     urlJSAPI: 'https://www.google.com/jsapi',
@@ -499,7 +499,7 @@ The following are options that are specific to Chartinator and apply to all char
 
 The following are some of the Google Charts Bar Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Bar Chart Options - Object Literal
     barChart: {
@@ -573,7 +573,7 @@ For a complete list of Bar chart options visit
 
 The following are some of the Google Charts Pie Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Pie Chart Options
     pieChart: {
@@ -645,7 +645,7 @@ For a complete list of Pie Chart options visit
 
 The following are some of the Google Charts Column Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Column Chart Options
     columnChart: { 
@@ -718,7 +718,7 @@ For a complete list of Column Chart options visit
 
 The following are some of the Google Charts Geo Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Geo Chart Options
     geoChart: { 
@@ -789,7 +789,7 @@ For a complete list of Geo Chart options visit
 
 The following are some of the Google Charts Calendar Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Calendar Chart Options
     calendar: { 
@@ -883,7 +883,7 @@ For a complete list of Calendar Chart options visit
 
 The following are some of the Google Charts Table Chart options, unless otherwise specified.
 
-```
+```javascript
 
     // Google Table Chart Options
     table: { 
