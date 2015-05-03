@@ -36,7 +36,7 @@
  * See the readme file for more info
  */
 
-; (function ($, window, document, Math, undefined) {
+; (function ($, window, document, Math, undefined ) {
 
     'use strict';
 
@@ -633,9 +633,9 @@
             }
 
             // Add/overwrite with js data-array columns
-            if ( o.options.columns ) {
+            if ( o.options.columns && o.options.columns.length ) {
                 if (dataArray[0] && dataArray[0][0] && dataArray[0][0].label) { // header data exists
-                    if ( o.options.colIndexes ) { // insert columns
+                    if ( o.options.colIndexes && o.options.colIndexes.length ) { // insert columns
                         for (var i = 0; i < o.options.colIndexes.length; i++) {
                             dataArray[0].splice(o.options.colIndexes[i], 0, o.options.columns[i]);
                         }
@@ -650,8 +650,8 @@
             }
 
             // Add js data-array rows
-            if (  o.options.rows && dataArray.length ) { // js data array exists
-                if ( o.options.colIndexes ) { // colIndexes array exists
+            if (  o.options.rows && o.options.rows.length && dataArray.length ) { // js data array exists
+                if ( o.options.colIndexes && o.options.colIndexes.length ) { // colIndexes array exists
                     for (var i = 0; i < o.options.rows.length; i++) { // loop through each row in js data array
                         for (var j=0; j < o.options.colIndexes.length; j++) { // loop through colIndexes
 
@@ -808,7 +808,7 @@
                 }
 
                 // Zoom and offset chart
-                if ( o.options.chartZoom || o.options.chartOffset ) {
+                if ( o.options.chartZoom || ( o.options.chartOffset && o.options.chartOffset.length ) ) {
 
                     // Get any previously applied styles
                     var $styles = $('.tooltip-zoom-offset-styles');
@@ -907,8 +907,7 @@
 
                     // Create cells
                     for (var i=0; i<rows.length; i++) { // Each row
-                        var row = rows[i].split(',');
-                        rows[i] = row;
+                        rows[i] = rows[i].split(',');
                     }
 
                     if ( o.options.transpose ) {
@@ -1349,20 +1348,24 @@
         // Set chart width and height values
         o.setDimensions = function () {
 
+            var width = !isNaN( o.chartOptions.width ) ? parseFloat( o.chartOptions.width ) : false;
+            var height = !isNaN( o.chartOptions.height ) ? parseFloat( o.chartOptions.height ) : false;
+            var ratio = !isNaN( o.options.chartAspectRatio ) ? parseFloat( o.options.chartAspectRatio ) : false;
+
             // Store the chart parent width
             o.chartParentWidth = o.chartParent.width();
 
             // Set chart width and height
-            if ( o.options.chartAspectRatio ){
-                if ( o.chartOptions.width && !o.chartOptions.height ){
-                    o.cchartOptions.height = o.chartOptions.width / o.options.chartAspectRatio;
-                } else if ( !o.chartOptions.width && o.chartOptions.height ){
-                    o.cchartOptions.width = o.chartOptions.height * o.options.chartAspectRatio;
-                } else if (!o.chartOptions.width && !o.chartOptions.height) {
+            if ( ratio ){
+                if ( width && !height ){
+                    o.cchartOptions.height = width / ratio;
+                } else if ( !width && height ){
+                    o.cchartOptions.width = height * ratio;
+                } else if (!width && !height) {
                     o.cchartOptions.width = o.chartS.width();
-                    o.cchartOptions.height = o.chartS.width() / o.options.chartAspectRatio;
+                    o.cchartOptions.height = o.chartS.width() / ratio;
                 }
-            } else if (!o.chartOptions.width && !o.chartOptions.height) {
+            } else if (!width && !height) {
                 o.cchartOptions.width = o.chartS.width();
             }
         };
