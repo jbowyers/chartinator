@@ -23,63 +23,64 @@
     "navigation",
     "list"
   ],
-  
   "licenses": [
     {
       "type": "GPLv3",
       "url": "http://www.gnu.org/licenses/",
-	  "files": "licence.txt"
+      "files": "licence.txt"
     }
   ],
   "bugs": {
     "url": ""
   },
   "directories": {
-      "src": {
-		"root": "./src",
-		"js":"./src/js",
-		"css": "./src/css",
-        "lib": "./src/lib",
-        "images": "./src/images",
-        "html": "./src"
-      },
-      "dist": {
-        "root": "./dist",
-        "js":"./dist/js",
-        "css": "./dist/css",
-        "images": "./dist/images",
-        "lib": "./dist/lib",
-        "html": "./dist"
-      },
-      "deploy": {
-        "root": "./../",
-        "css": "./../lib/chartinator",
-        "js": "./../lib/chartinator",
-        "images": "./../lib/chartinator",
-        "lib": "./../lib",
-        "html": "./"
-      },
-      "demo": {
-        "root": "./demo",
-        "js":"./demo/js",
-        "css": "./demo/css",
-        "images": "./demo/images",
-        "lib": "./demo/lib",
-        "html": "./demo"
-      },
-      "doc": "./doc",
-      "lib": "./lib",
-      "templates": "./templates",
-      "test": "./test"
+    "src": {
+      "root": "./src",
+      "js": "./src/js",
+      "css": "./src/css",
+      "lib": "./src/lib",
+      "images": "./src/images",
+      "html": "./src"
+    },
+    "dist": {
+      "root": "./dist",
+      "js": "./dist/js",
+      "css": "./dist/css",
+      "images": "./dist/images",
+      "lib": "./dist/lib",
+      "html": "./dist"
+    },
+    "deploy": {
+      "root": "./../",
+      "css": "./../lib/chartinator",
+      "js": "./../lib/chartinator",
+      "images": "./../lib/chartinator",
+      "lib": "./../lib",
+      "html": "./"
+    },
+    "demo": {
+      "root": "./demo",
+      "js": "./demo/js",
+      "css": "./demo/css",
+      "images": "./demo/images",
+      "lib": "./demo/lib",
+      "html": "./demo"
+    },
+    "doc": "./doc",
+    "lib": "./lib",
+    "templates": "./templates",
+    "test": "./test"
   },
   "fileNames": {
     "js": "chartinator",
-    "css": "chartinator"
+    "css": "chartinator",
+    "demo": "demo"
   },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-bower-installer": "~0.3.6",
+    "grunt-browser-sync": "^2.1.2",
     "grunt-bump": "~0.0.14",
     "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-copy": "~0.5.0",

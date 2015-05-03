@@ -401,6 +401,25 @@ module.exports = function (grunt) {
                     'README.html'],
                 push: false
             }
+        },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src: [
+                        '<%= pkg.directories.src.root %>/*.html',
+                        '<%= pkg.directories.src.js %>/*.js',
+                        '<%= pkg.directories.src.css %>/*.css',
+                        '<%= pkg.directories.src.lib %>/**/*',
+                        '<%= pkg.directories.src.images %>/*'
+                    ]
+                },
+                options: {
+                    server: {
+                        baseDir: '<%= pkg.directories.src.root %>',
+                        index: '<%= pkg.fileNames.demo %>.html'
+                    }
+                }
+            }
         }
 	});
 	// set the grunt force option
