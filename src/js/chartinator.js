@@ -41,7 +41,7 @@
     'use strict';
 
     var chartinator = function (el, options) {
-        
+
         // The chartinator object
         var o = this;
 
@@ -327,7 +327,7 @@
             // Google Table Chart Default Options
             table: {
 
-                // The table caption - not a Google Charts option for this chart type
+                // The font-family - not a Google Charts option for this chart type
                 // Chartinator option only
                 // Default: the body font-family
                 fontName: o.fontFamily,
@@ -386,7 +386,11 @@
         // The table has data boolean
         o.tableHasData = false;
 
+        // The table caption jQuery objects
         o.tableCaption = false;
+
+        // The table caption text
+        o.tableTitle = false;
 
         // The Google Sheet data object - Data returned
         o.googleSheetData = false;
@@ -538,15 +542,21 @@
             o.cchartOptions = $.extend( true, {}, o.chartOptions );
 
             // Create table -------------------------------------------------------
+
+            // Set caption text
+            o.tableTitle = o.options.dataTitle;
+            if ( o.tableTitle === false ) {
+                o.tableTitle = o.cchartOptions.title || 'The Chart Data';
+            }
+
+            // Create table and or set caption
             if ( o.options.createTable ) {
 
-                // The caption text
-                var tableTitle = o.options.dataTitle || o.cchartOptions.title || 'The Chart Data';
                 var table = false;
                 if( o.options.createTable === 'table-chart' ) {
                     table = $( '<div id="' + o.tableId + '" class="' + o.tableId + ' ' + o.options.tableClass + '"></div>');
                 } else {
-                    table = o.generateTable( o.dataArray, tableTitle, o.tableId, o.options.tableClass );
+                    table = o.generateTable( o.dataArray, o.tableTitle, o.tableId, o.options.tableClass );
                 }
 
                 if ( o.tableHasData ) {
@@ -555,8 +565,13 @@
                     o.tableS = table.insertBefore( o.chartS );
                 }
 
-            } else if ( o.tableHasData && o.options.dataTitle ) {
-                o.tableCaption.text( o.options.dataTitle );
+            } else if ( o.tableHasData && o.tableTitle ) {
+                if ( o.tableCaption.length ) {
+                    o.tableCaption.text( o.tableTitle );
+                } else {
+                    o.tableS.prepend( '<caption>' + o.tableTitle + '</caption>' );
+                    o.tableCaption = o.tableS.find( 'caption' );
+                }
             }
 
             // Load Google Chart --------------------------------------------------
@@ -678,8 +693,10 @@
             // Adjust options -------------------------------------------------------------
 
             // Set chart Title
-            if ( o.tableHasData ) {
-                o.cchartOptions.title = o.cchartOptions.title || o.tableCaption.text() || '';
+            if ( o.tableHasData && typeof o.cchartOptions.title === 'undefined' ) { // table exists and title is undefined
+                o.cchartOptions.title = o.tableCaption.text() || '';
+            } else { // table does not exist or title is defined
+                o.cchartOptions.title = o.cchartOptions.title || '';
             }
 
             // Set the Calendar cell size if a calendar chart
@@ -845,7 +862,7 @@
                 }
 
                 //Style calendar chart
-                if ( o.options.chartType === 'Calendar') {
+                if ( o.options.chartType === 'Calendar' && o.cchartOptions.title ) {
 
                     o.chartS.find( 'text:contains("' + o.cchartOptions.title + '")' ).css({
                         fill: o.cchartOptions.titleTextStyle.color,
@@ -1373,6 +1390,6 @@
             if (!$el.data('chartinator')) {
                 $( this ).data( 'chartinator', new chartinator( this, options ) );
             }
-        }); 
+        });
     };
 })(jQuery, window, document, Math);
