@@ -218,6 +218,9 @@ tr:nth-child(even) {
 .main {
     padding-top: 1px;
 }
+.main .wrapper {
+    max-width: 1060px;
+}
 .dev-output {
     background-color: rgba(255,255,255,.85);
     color: #000;
