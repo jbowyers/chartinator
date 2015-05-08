@@ -1,6 +1,6 @@
 /**
  * Chartinator
- * Version: 0.3.8
+ * Version: 0.3.9
  * URL: http://chartinator.com
  * Description: Chartinator transforms data contained in HTML tables, Google Sheets and js arrays into charts using Google Charts
  * Requires: jQuery, Google Charts
