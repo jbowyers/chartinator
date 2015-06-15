@@ -1444,6 +1444,7 @@
 <li>Art direction - Zoom and offset of chart - Useful for refining the region displayed in geoCharts</li>
 <li>Customization of chart tooltips and annotations</li>
 <li>Customization of all Google Chart options - Fonts, colors, chart formatting, etc.</li>
+<li>Adding Google Chart event handlers - Event handlers can be defined in the options</li>
 </ul>
 <h3 id="how-do-i-get-set-up-">How do I get set up?</h3>
 <ul>
@@ -1816,6 +1817,13 @@ or to add to and replace data extracted from an HTML table or Google Sheet, incl
     // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
     // Default: false
     chartOffset: false,
+
+    // The chart event objects array
+    // An array of objects containing Google Chart event types and handlers
+    // Each object must contain an &#39;event&#39; and a &#39;handler&#39; name value pair
+    // Example: [{ &#39;event&#39;: &#39;select&#39;, &#39;handler&#39;: function (e) { ... }}]
+    // Default: false
+    chartEvents: false,
 
     // The Google Chart Options
     // This option can be used with any chart type

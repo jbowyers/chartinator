@@ -171,6 +171,13 @@
             // Default: false
             chartOffset: false,
 
+            // The chart event objects array
+            // An array of objects containing Google Chart event types and handlers
+            // Each object must contain an 'event' and a 'handler' name value pair
+            // Example: [{ 'event': 'select', 'handler': function (e) { ... }}]
+            // Default: false
+            chartEvents: false,
+
             // Google Bar Chart Default Options
             barChart: {
 
@@ -769,7 +776,7 @@
             // Create and draw the visualization.
             o.chart = new google.visualization[o.options.chartType](o.chartS.get(0));
 
-            // Add ready and error event listeners
+            // Add ready event listeners
             google.visualization.events.addListener( o.chart, 'ready', function (e) {
 
                 // Show chart
@@ -872,15 +879,22 @@
                     });
                 }
             });
+
+            // Add error event listener
             google.visualization.events.addListener( o.chart, 'error', function (e) {
                 // Show table remove chart
                 o.showTableChart('show', 'remove');
                 console.log(e);
             });
-            //google.visualization.events.addListener( o.chart, 'select', function () {
-            //    // Review tooltip object
-            //    console.log( $( '.google-visualization-tooltip' ) );
-            //});
+
+            // Add user defined chart events
+            if ( o.options.chartEvents && o.options.chartEvents.length ) {
+                for (var i=0; i<o.options.chartEvents.length; i++) {
+                    var chartEvent = o.options.chartEvents[i].event;
+                    var chartHandler = o.options.chartEvents[i].handler;
+                    google.visualization.events.addListener( o.chart, chartEvent, chartHandler );
+                }
+            }
 
             // Draw chart
             o.chart.draw( o.data, o.cchartOptions );

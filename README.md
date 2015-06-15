@@ -36,6 +36,7 @@ Chartinator currently supports the following:
 * Art direction - Zoom and offset of chart - Useful for refining the region displayed in geoCharts
 * Customization of chart tooltips and annotations
 * Customization of all Google Chart options - Fonts, colors, chart formatting, etc.
+* Adding Google Chart event handlers - Event handlers can be defined in the options
 
 ### How do I get set up? ###
 
@@ -437,6 +438,13 @@ The following are options that are specific to Chartinator and apply to all char
     // To prevent tooltips from displaying off canvas when offsetting, set tooltip.isHtml: true
     // Default: false
     chartOffset: false,
+    
+    // The chart event objects array
+    // An array of objects containing Google Chart event types and handlers
+    // Each object must contain an 'event' and a 'handler' name value pair
+    // Example: [{ 'event': 'select', 'handler': function (e) { ... }}]
+    // Default: false
+    chartEvents: false,
     
     // The Google Chart Options
     // This option can be used with any chart type
