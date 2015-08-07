@@ -129,13 +129,22 @@
             // Note: Only works when extracting data from HTML tables or Google Sheets.
             // Not supported on pie, geo, calendar charts
             annotationConcat: false,
-
+            
+			// The chart package - String
+            // Derived from the Google Charts visualization class name
+            // Default: 'corechart'
+            // Other options: 'controls'
+            // See Google Charts Gallery for a complete list of Chart types
+            // https://developers.google.com/chart/interactive/docs/library_loading_enhancements
+		    chartPackage : false,
+			
             // The chart type - String
             // Derived from the Google Charts visualization class name
             // Default: 'BarChart'
             // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
             // See Google Charts Gallery for a complete list of Chart types
             // https://developers.google.com/chart/interactive/docs/gallery
+			
             chartType: 'BarChart',
 
             // Chart Id - The id applied to the chart container element as an id and a class
@@ -151,7 +160,31 @@
 
             // The class to apply to the table element
             tableClass: 'chtr-table',
-
+			
+			// Dashboard Id - The id applied to the chart dashboard container element as an id
+            // This is used with chartPackage : 'controls'
+			dashboardId: 'c24_dashboard_' + Math.random().toString(36).substr(2, 9),
+            
+			// Control Wrapper { 'controlType' : } - The class name of the control. 
+			// The google.visualization package name can be omitted for Google controls. 
+			// Examples: CategoryFilter, NumberRangeFilter. 
+            // This is used with chartPackage : 'controls'
+			// https://developers.google.com/chart/interactive/docs/gallery/controls
+		    controlWrapperType : false,
+			
+			// Control Wrapper { 'containerId' : } - The ID of the DOM element on your page that will host the control.
+            // This is used with chartPackage : 'controls'
+			// https://developers.google.com/chart/interactive/docs/gallery/controls
+			controlWrapperContainerId : false,
+			
+			// Control Wrapper { 'options' : } - An object describing the options for the control. 
+			// You can use either JavaScript literal notation, or provide a handle to the object. 
+			// Example: { 'filterColumnLabel': 'Age', 'minValue' : 10, 'maxValue': 80} 
+            // This is used with chartPackage : 'controls'
+			// https://developers.google.com/chart/interactive/docs/gallery/controls
+			
+			controlWrapperOptions : false,
+			
             // The chart aspect ratio custom option - width/height
             // Used to calculate the chart dimensions relative to the width or height
             // this is overridden if the Google Chart's height and width options have values
@@ -428,7 +461,9 @@
 
             // Update chartId
             o.chartId = options.chartId || o.chartS.attr('id') || o.options.chartId ;
-
+            
+			o.dashboardId = o.options.dashboardId;
+			
             // Define table and chart elements --------------------------------------------------
 
             // Set table element
@@ -529,6 +564,13 @@
                 return;
             }
 
+            if ( o.options.chartPackage ) { 
+
+                // Get chart package from chart package option
+                o.chartPackage = o.options.chartPackage.toLowerCase();
+            }
+			
+			
             // Set chart package
             if ( o.coreCharts.indexOf(o.options.chartType) === -1 ) { // not a core chart
 
@@ -772,10 +814,32 @@
             }
 
             // Draw chart ----------------------------------------------------------------------
-
+            
             // Create and draw the visualization.
-            o.chart = new google.visualization[o.options.chartType](o.chartS.get(0));
+			if ( o.options.chartPackage === 'controls' ) { 
+			
+			  o.dashBoard = $( '#' + o.dashboardId ).get(0);
+			 
+			  o.chart = new google.visualization.Dashboard(o.dashBoard);
+			  
+			  o.ControlWrapper = new google.visualization.ControlWrapper({
+				  'controlType': o.options.controlWrapperType,
+				  'containerId': o.options.controlWrapperContainerId,
+				  'options': o.options.controlWrapperOptions
+			  });
+			  
+			 o.ChartWrapper  = new google.visualization.ChartWrapper({
+			  'chartType': o.options.chartType,
+			  'containerId': o.chartS.get(0).id,
+			  'options': o.cchartOptions
+			  });
+			  
+			  o.chart.bind(o.ControlWrapper, o.ChartWrapper);
+			  
+			} else {
+              o.chart = new google.visualization[o.options.chartType](o.chartS.get(0));
 
+            }
             // Add ready event listeners
             google.visualization.events.addListener( o.chart, 'ready', function (e) {
 
@@ -897,7 +961,11 @@
             }
 
             // Draw chart
-            o.chart.draw( o.data, o.cchartOptions );
+			if ( o.options.chartPackage === 'controls' ) { 
+			 o.chart.draw( o.data );
+			} else {
+             o.chart.draw( o.data, o.cchartOptions );
+			}
 
         }; // o.drawChart close
 
