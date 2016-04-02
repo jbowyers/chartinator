@@ -890,9 +890,10 @@
             // Add user defined chart events
             if ( o.options.chartEvents && o.options.chartEvents.length ) {
                 for (var i=0; i<o.options.chartEvents.length; i++) {
+                    var chart = o.chart;
                     var chartEvent = o.options.chartEvents[i].event;
                     var chartHandler = o.options.chartEvents[i].handler;
-                    google.visualization.events.addListener( o.chart, chartEvent, chartHandler );
+                    google.visualization.events.addListener( chart, chartEvent, chartHandler );
                 }
             }
 
