@@ -993,7 +993,13 @@
                         if ( $cell.attr( 'data-role' ) ) {
                             cellObj.role = $cell.attr( 'data-role' );
                         }
-                        cellObj.label = $cell.text();
+                        
+                        if (o.options.allowHtml) {
+                            cellObj.p = {'html': true};
+                            cellObj.label = $cell.html();
+                        } else {
+                            cellObj.label = $cell.text();
+                        }
 
                         // add cell object to rowsArr
                         rowsArr[row].push(cellObj);
