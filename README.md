@@ -4,17 +4,12 @@
 
 * **Description**: A jQuery plugin for transforming HTML tables, Google Sheets and js arrays into charts using Google Charts
 * **Repository**: https://github.com/jbowyers/chartinator
-* **Demo**: http://chartinator.com
 * **Bower**: chartinator
 * **Requires**: jQuery, Google Charts
 * **Author**: jbowyers
 * **Copyright**: 2015 jbowyers
 * **License**: GPLv3
 * **Version: 0.3.10**
-
-## Demo ##
-
-Visit http://chartinator.com to view a demo
 
 ### What is this repository for? ###
 
